@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>充电记录</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f5f7;
+            --card: #ffffff;
+            --primary: #007aff;
+            --primary-light: rgba(0, 122, 255, 0.1);
+            --success: #34c759;
+            --danger: #ff3b30;
+            --text: #1d1d1f;
+            --text-secondary: #86868b;
+            --text-tertiary: #aeaeb2;
+            --border: #e5e5ea;
+            --shadow: 0 2px 16px rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 顶部标题栏 */
+        .header {
+            background: var(--card);
+            padding: 16px 20px 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 统计卡片 */
+        .stats-row {
+            display: flex;
+            gap: 10px;
+            padding: 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .stats-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 16px;
+            min-width: 110px;
+            flex: 1;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* 本月统计 */
+        .month-summary {
+            margin: 0 16px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+        }
+
+        .month-title {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .month-amount {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .month-count {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        /* 快捷操作区 */
+        .quick-add {
+            margin: 0 16px 16px;
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .quick-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            font-size: 16px;
+            font-family: inherit;
+            background: var(--bg);
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .input-row .input-group {
+            flex: 1;
+        }
+
+        .quick-amounts {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quick-amount-btn {
+            padding: 10px 18px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-amount-btn:active {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        /* 记录列表 */
+        .records-section {
+            padding: 0 16px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-count {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .record-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .record-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+
+        .record-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .record-date {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .record-meta {
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 8px;
+        }
+
+        .record-amount {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .delete-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: var(--text-tertiary);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .delete-btn:active {
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--danger);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-tertiary);
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        /* 底部工具栏 */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 12px 16px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .bar-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .bar-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .bar-btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .bar-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: var(--text);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 月份分组 */
+        .month-group {
+            margin-bottom: 20px;
+        }
+
+        .month-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部 -->
+    <header class="header">
+        <h1>⚡ 充电记录</h1>
+    </header>
+
+    <!-- 本月统计 -->
+    <div class="month-summary">
+        <div class="month-title" id="monthTitle">本月充电</div>
+        <div class="month-amount" id="monthAmount">¥0</div>
+        <div class="month-count" id="monthCount">0 次充电</div>
+    </div>
+
+    <!-- 总览统计 -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-value" id="totalCount">0</div>
+            <div class="stat-label">总次数</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="totalAmount">¥0</div>
+            <div class="stat-label">总花费</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="avgAmount">¥0</div>
+            <div class="stat-label">平均每次</div>
+        </div>
+    </div>
+
+    <!-- 快捷添加 -->
+    <section class="quick-add">
+        <h2 class="quick-title">➕ 添加充电记录</h2>
+
+        <div class="input-row">
+            <div class="input-group">
+                <label>充电日期</label>
+                <input type="date" id="chargeDate">
+            </div>
+            <div class="input-group">
+                <label>金额（元）</label>
+                <input type="number" id="chargeAmount" placeholder="0.00" inputmode="decimal">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>快捷金额</label>
+            <div class="quick-amounts">
+                <button class="quick-amount-btn" onclick="setAmount(30)">30元</button>
+                <button class="quick-amount-btn" onclick="setAmount(50)">50元</button>
+                <button class="quick-amount-btn" onclick="setAmount(80)">80元</button>
+                <button class="quick-amount-btn" onclick="setAmount(100)">100元</button>
+                <button class="quick-amount-btn" onclick="setAmount(150)">150元</button>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>备注（选填）</label>
+            <input type="text" id="chargeNote" placeholder="例如：特来电、家充">
+        </div>
+
+        <button class="submit-btn" onclick="addRecord()">保存记录</button>
+    </section>
+
+    <!-- 记录列表 -->
+    <section class="records-section">
+        <div class="section-title">
+            <span>📋 历史记录</span>
+            <span class="section-count" id="recordsCount">0 条</span>
+        </div>
+        <div id="recordsList"></div>
+    </section>
+
+    <!-- 底部工具栏 -->
+    <div class="bottom-bar">
+        <button class="bar-btn bar-btn-secondary" onclick="exportData()">📥 备份</button>
+        <button class="bar-btn bar-btn-secondary" onclick="document.getElementById('importFile').click()">📤 恢复</button>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let records = JSON.parse(localStorage.getItem('evChargeRecords')) || [];
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('chargeDate').valueAsDate = new Date();
+            renderAll();
+        });
+
+        // 设置快捷金额
+        function setAmount(amount) {
+            document.getElementById('chargeAmount').value = amount;
+            // 触觉反馈
+            if (navigator.vibrate) navigator.vibrate(10);
+        }
+
+        // 添加记录
+        function addRecord() {
+            const date = document.getElementById('chargeDate').value;
+            const amount = parseFloat(document.getElementById('chargeAmount').value);
+            const note = document.getElementById('chargeNote').value.trim();
+
+            if (!date) {
+                showToast('请选择日期');
+                return;
+            }
+            if (isNaN(amount) || amount <= 0) {
+                showToast('请输入金额');
+                return;
+            }
+
+            records.unshift({
+                id: Date.now(),
+                date,
+                amount,
+                note,
+                time: new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'})
+            });
+
+            save();
+            renderAll();
+
+            // 重置
+            document.getElementById('chargeAmount').value = '';
+            document.getElementById('chargeNote').value = '';
+            document.getElementById('chargeDate').valueAsDate = new Date();
+
+            showToast('✅ 已保存');
+            if (navigator.vibrate) navigator.vibrate([10, 50, 10]);
+        }
+
+        // 删除记录
+        function deleteRecord(id) {
+            if (confirm('确定删除这条记录？')) {
+                records = records.filter(r => r.id !== id);
+                save();
+                renderAll();
+                showToast('已删除');
+            }
+        }
+
+        // 保存数据
+        function save() {
+            localStorage.setItem('evChargeRecords', JSON.stringify(records));
+        }
+
+        // 渲染所有内容
+        function renderAll() {
+            renderStats();
+            renderRecords();
+        }
+
+        // 渲染统计
+        function renderStats() {
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+
+            // 本月数据
+            const monthRecords = records.filter(r => {
+                const d = new Date(r.date);
+                return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+            });
+            const monthTotal = monthRecords.reduce((s, r) => s + r.amount, 0);
+
+            // 总数据
+            const totalCount = records.length;
+            const totalAmount = records.reduce((s, r) => s + r.amount, 0);
+            const avgAmount = totalCount > 0 ? totalAmount / totalCount : 0;
+
+            // 更新本月
+            document.getElementById('monthTitle').textContent = `${currentMonth + 1}月充电花费`;
+            document.getElementById('monthAmount').textContent = `¥${monthTotal.toFixed(2)}`;
+            document.getElementById('monthCount').textContent = `${monthRecords.length} 次充电`;
+
+            // 更新总览
+            document.getElementById('totalCount').textContent = totalCount;
+            document.getElementById('totalAmount').textContent = `¥${totalAmount.toFixed(0)}`;
+            document.getElementById('avgAmount').textContent = `¥${avgAmount.toFixed(1)}`;
+        }
+
+        // 渲染记录列表
+        function renderRecords() {
+            const container = document.getElementById('recordsList');
+            document.getElementById('recordsCount').textContent = `${records.length} 条`;
+
+            if (records.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔋</div>
+                        <p>还没有充电记录<br>添加第一条吧</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 按月分组
+            const sorted = [...records].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const groups = {};
+
+            sorted.forEach(r => {
+                const d = new Date(r.date);
+                const key = `${d.getFullYear()}年${d.getMonth() + 1}月`;
+                if (!groups[key]) groups[key] = [];
+                groups[key].push(r);
+            });
+
+            let html = '';
+            for (const [month, items] of Object.entries(groups)) {
+                const monthTotal = items.reduce((s, r) => s + r.amount, 0);
+                html += `
+                    <div class="month-group">
+                        <div class="month-header">${month} · ¥${monthTotal.toFixed(2)}</div>
+                        ${items.map(r => renderRecordItem(r)).join('')}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function renderRecordItem(r) {
+            const d = new Date(r.date);
+            const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+            const dateStr = `${d.getMonth() + 1}月${d.getDate()}日 周${weekDays[d.getDay()]}`;
+
+            return `
+                <div class="record-card">
+                    <div class="record-icon">⚡</div>
+                    <div class="record-content">
+                        <div class="record-date">${dateStr}</div>
+                        <div class="record-meta">
+                            ${r.note ? `<span>${r.note}</span>` : ''}
+                            ${r.time ? `<span>${r.time}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="record-amount">¥${r.amount.toFixed(2)}</div>
+                    <button class="delete-btn" onclick="deleteRecord(${r.id})">×</button>
+                </div>
+            `;
+        }
+
+        // 导出备份
+        function exportData() {
+            if (records.length === 0) {
+                showToast('没有数据');
+                return;
+            }
+            const blob = new Blob([JSON.stringify(records, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `充电记录_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('📥 备份成功');
+        }
+
+        // 导入数据
+        function handleImport(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                try {
+                    const data = JSON.parse(ev.target.result);
+                    if (Array.isArray(data)) {
+                        records = data;
+                        save();
+                        renderAll();
+                        showToast('📤 恢复成功');
+                    }
+                } catch {
+                    showToast('文件格式错误');
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
+        }
+
+        // Toast提示
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+    </script>
+</body>
+</html>
