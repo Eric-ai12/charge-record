@@ -39,7 +39,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 顶部标题栏 */
         .header {
             background: var(--card);
             padding: 16px 20px 12px;
@@ -57,7 +56,6 @@
             gap: 8px;
         }
 
-        /* 统计卡片 */
         .stats-row {
             display: flex;
             gap: 10px;
@@ -66,9 +64,7 @@
             scrollbar-width: none;
         }
 
-        .stats-row::-webkit-scrollbar {
-            display: none;
-        }
+        .stats-row::-webkit-scrollbar { display: none; }
 
         .stat-card {
             background: var(--card);
@@ -91,7 +87,6 @@
             color: var(--text-secondary);
         }
 
-        /* 本月统计 */
         .month-summary {
             margin: 0 16px 16px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -100,24 +95,10 @@
             color: white;
         }
 
-        .month-title {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 8px;
-        }
+        .month-title { font-size: 14px; opacity: 0.9; margin-bottom: 8px; }
+        .month-amount { font-size: 36px; font-weight: 700; margin-bottom: 4px; }
+        .month-count { font-size: 13px; opacity: 0.8; }
 
-        .month-amount {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .month-count {
-            font-size: 13px;
-            opacity: 0.8;
-        }
-
-        /* 快捷操作区 */
         .quick-add {
             margin: 0 16px 16px;
             background: var(--card);
@@ -135,9 +116,7 @@
             gap: 8px;
         }
 
-        .input-group {
-            margin-bottom: 14px;
-        }
+        .input-group { margin-bottom: 14px; }
 
         .input-group label {
             display: block;
@@ -163,14 +142,8 @@
             background: white;
         }
 
-        .input-row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .input-row .input-group {
-            flex: 1;
-        }
+        .input-row { display: flex; gap: 12px; }
+        .input-row .input-group { flex: 1; }
 
         .quick-amounts {
             display: flex;
@@ -211,15 +184,9 @@
             transition: all 0.2s;
         }
 
-        .submit-btn:active {
-            transform: scale(0.98);
-            opacity: 0.9;
-        }
+        .submit-btn:active { transform: scale(0.98); opacity: 0.9; }
 
-        /* 记录列表 */
-        .records-section {
-            padding: 0 16px;
-        }
+        .records-section { padding: 0 16px; }
 
         .section-title {
             font-size: 16px;
@@ -236,7 +203,6 @@
             font-weight: 400;
         }
 
-        /* 月份卡片 - 可折叠 */
         .month-card {
             background: var(--card);
             border-radius: 16px;
@@ -253,9 +219,7 @@
             transition: background 0.2s;
         }
 
-        .month-header:active {
-            background: var(--bg);
-        }
+        .month-header:active { background: var(--bg); }
 
         .month-icon {
             width: 44px;
@@ -272,9 +236,7 @@
             font-weight: 600;
         }
 
-        .month-info {
-            flex: 1;
-        }
+        .month-info { flex: 1; }
 
         .month-name {
             font-size: 16px;
@@ -300,20 +262,15 @@
             transition: transform 0.3s;
         }
 
-        .month-card.open .month-arrow {
-            transform: rotate(180deg);
-        }
+        .month-card.open .month-arrow { transform: rotate(180deg); }
 
-        /* 月份详情 */
         .month-detail {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
         }
 
-        .month-card.open .month-detail {
-            max-height: 2000px;
-        }
+        .month-card.open .month-detail { max-height: 2000px; }
 
         .month-detail-inner {
             padding: 0 16px 16px;
@@ -325,22 +282,18 @@
             display: flex;
             align-items: center;
             border-bottom: 1px solid var(--bg);
+            cursor: pointer;
+            transition: background 0.2s;
             animation: slideUp 0.3s ease;
         }
 
-        .record-card:last-child {
-            border-bottom: none;
-        }
+        .record-card:last-child { border-bottom: none; }
+
+        .record-card:active { background: var(--bg); }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .record-icon {
@@ -363,30 +316,35 @@
 
         .record-date {
             font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .record-meta {
+            font-weight: 60        .record-meta {
             font-size: 12px;
             color: var(--text-secondary);
         }
 
         .record-amount {
             font-size: 17px;
-            font-weight: 700;
+           0;
+            margin-bottom: 2px;
+        }
+
+ font-weight: 700;
             color: var(--primary);
             margin-right: 8px;
         }
 
-        .delete-btn {
+        .record-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .action-btn {
             width: 32px;
             height: 32px;
             border-radius: 8px;
             border: none;
             background: transparent;
             color: var(--text-tertiary);
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -394,10 +352,8 @@
             transition: all 0.2s;
         }
 
-        .delete-btn:active {
-            background: rgba(255, 59, 48, 0.1);
-            color: var(--danger);
-        }
+        .action-btn:active { background: var(--primary-light); color: var(--primary); }
+        .action-btn.delete:active { background: rgba(255, 59, 48, 0.1); color: var(--danger); }
 
         .empty-state {
             text-align: center;
@@ -405,12 +361,8 @@
             color: var(--text-tertiary);
         }
 
-        .empty-icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-        }
+        .empty-icon { font-size: 48px; margin-bottom: 12px; }
 
-        /* 底部工具栏 */
         .bottom-bar {
             position: fixed;
             bottom: 0;
@@ -439,21 +391,10 @@
             transition: all 0.2s;
         }
 
-        .bar-btn-primary {
-            background: var(--primary);
-            color: white;
-        }
+        .bar-btn-primary { background: var(--primary); color: white; }
+        .bar-btn-secondary { background: var(--bg); color: var(--text); }
+        .bar-btn:active { transform: scale(0.97); }
 
-        .bar-btn-secondary {
-            background: var(--bg);
-            color: var(--text);
-        }
-
-        .bar-btn:active {
-            transform: scale(0.97);
-        }
-
-        /* Toast */
         .toast {
             position: fixed;
             top: 80px;
@@ -474,22 +415,98 @@
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
+
+        /* 编辑弹窗 */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 200;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal-overlay.show { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: var(--card);
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            animation: slideUp2 0.3s ease;
+        }
+
+        @keyframes slideUp2 {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-handle {
+            width: 36px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin: 0 auto 16px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 14px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn:active { transform: scale(0.97); }
+
+        .modal-btn-cancel {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .modal-btn-save {
+            background: var(--primary);
+            color: white;
+        }
     </style>
 </head>
 <body>
-    <!-- 顶部 -->
     <header class="header">
         <h1>⚡ 充电记录</h1>
     </header>
 
-    <!-- 本月统计 -->
     <div class="month-summary">
         <div class="month-title" id="monthTitle">本月充电</div>
         <div class="month-amount" id="monthAmount">¥0</div>
         <div class="month-count" id="monthCount">0 次充电</div>
     </div>
 
-    <!-- 总览统计 -->
     <div class="stats-row">
         <div class="stat-card">
             <div class="stat-value" id="totalCount">0</div>
@@ -505,10 +522,8 @@
         </div>
     </div>
 
-    <!-- 快捷添加 -->
     <section class="quick-add">
         <h2 class="quick-title">➕ 添加充电记录</h2>
-
         <div class="input-row">
             <div class="input-group">
                 <label>充电日期</label>
@@ -519,7 +534,6 @@
                 <input type="number" id="chargeAmount" placeholder="0.00" inputmode="decimal">
             </div>
         </div>
-
         <div class="input-group">
             <label>快捷金额</label>
             <div class="quick-amounts">
@@ -530,16 +544,13 @@
                 <button class="quick-amount-btn" onclick="setAmount(150)">150元</button>
             </div>
         </div>
-
         <div class="input-group">
             <label>备注（选填）</label>
             <input type="text" id="chargeNote" placeholder="例如：特来电、家充">
         </div>
-
         <button class="submit-btn" onclick="addRecord()">保存记录</button>
     </section>
 
-    <!-- 记录列表 -->
     <section class="records-section">
         <div class="section-title">
             <span>📋 历史记录</span>
@@ -548,45 +559,61 @@
         <div id="recordsList"></div>
     </section>
 
-    <!-- 底部工具栏 -->
     <div class="bottom-bar">
         <button class="bar-btn bar-btn-secondary" onclick="exportData()">📥 备份</button>
         <button class="bar-btn bar-btn-secondary" onclick="document.getElementById('importFile').click()">📤 恢复</button>
         <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
+
+    <!-- 编辑弹窗 -->
+    <div class="modal-overlay" id="editModal" onclick="closeModalOutside(event)">
+        <div class="modal">
+            <div class="modal-handle"></div>
+            <div class="modal-title">✏️ 修改记录</div>
+
+            <div class="input-group">
+                <label>充电日期</label>
+                <input type="date" id="editDate">
+            </div>
+            <div class="input-group">
+                <label>金额（元）</label>
+                <input type="number" id="editAmount" placeholder="0.00" inputmode="decimal">
+            </div>
+            <div class="input-group">
+                <label>备注</label>
+                <input type="text" id="editNote" placeholder="例如：特来电、家充">
+            </div>
+
+            <div class="modal-btns">
+                <button class="modal-btn modal-btn-cancel" onclick="closeModal()">取消</button>
+                <button class="modal-btn modal-btn-save" onclick="saveEdit()">保存</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         let records = JSON.parse(localStorage.getItem('evChargeRecords')) || [];
+        let editingId = null;
 
-        // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('chargeDate').valueAsDate = new Date();
             renderAll();
         });
 
-        // 设置快捷金额
         function setAmount(amount) {
             document.getElementById('chargeAmount').value = amount;
             if (navigator.vibrate) navigator.vibrate(10);
         }
 
-        // 添加记录
         function addRecord() {
             const date = document.getElementById('chargeDate').value;
             const amount = parseFloat(document.getElementById('chargeAmount').value);
             const note = document.getElementById('chargeNote').value.trim();
 
-            if (!date) {
-                showToast('请选择日期');
-                return;
-            }
-            if (isNaN(amount) || amount <= 0) {
-                showToast('请输入金额');
-                return;
-            }
+            if (!date) { showToast('请选择日期'); return; }
+            if (isNaN(amount) || amount <= 0) { showToast('请输入金额'); return; }
 
             records.unshift({
                 id: Date.now(),
@@ -598,16 +625,13 @@
 
             save();
             renderAll();
-
             document.getElementById('chargeAmount').value = '';
             document.getElementById('chargeNote').value = '';
             document.getElementById('chargeDate').valueAsDate = new Date();
-
             showToast('✅ 已保存');
             if (navigator.vibrate) navigator.vibrate([10, 50, 10]);
         }
 
-        // 删除记录
         function deleteRecord(id) {
             if (confirm('确定删除这条记录？')) {
                 records = records.filter(r => r.id !== id);
@@ -617,18 +641,64 @@
             }
         }
 
-        // 保存数据
+        // 打开编辑弹窗
+        function openEdit(id) {
+            const record = records.find(r => r.id === id);
+            if (!record) return;
+
+            editingId = id;
+            document.getElementById('editDate').value = record.date;
+            document.getElementById('editAmount').value = record.amount;
+            document.getElementById('editNote').value = record.note || '';
+            document.getElementById('editModal').classList.add('show');
+        }
+
+        // 关闭弹窗
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('show');
+            editingId = null;
+        }
+
+        // 点击遮罩关闭
+        function closeModalOutside(e) {
+            if (e.target === document.getElementById('editModal')) {
+                closeModal();
+            }
+        }
+
+        // 保存修改
+        function saveEdit() {
+            if (!editingId) return;
+
+            const date = document.getElementById('editDate').value;
+            const amount = parseFloat(document.getElementById('editAmount').value);
+            const note = document.getElementById('editNote').value.trim();
+
+            if (!date) { showToast('请选择日期'); return; }
+            if (isNaN(amount) || amount <= 0) { showToast('请输入金额'); return; }
+
+            const index = records.findIndex(r => r.id === editingId);
+            if (index !== -1) {
+                records[index].date = date;
+                records[index].amount = amount;
+                records[index].note = note;
+                save();
+                renderAll();
+                showToast('✅ 已修改');
+            }
+
+            closeModal();
+        }
+
         function save() {
             localStorage.setItem('evChargeRecords', JSON.stringify(records));
         }
 
-        // 渲染所有内容
         function renderAll() {
             renderStats();
             renderRecords();
         }
 
-        // 渲染统计
         function renderStats() {
             const now = new Date();
             const currentMonth = now.getMonth();
@@ -647,13 +717,11 @@
             document.getElementById('monthTitle').textContent = `${currentMonth + 1}月充电花费`;
             document.getElementById('monthAmount').textContent = `¥${monthTotal.toFixed(2)}`;
             document.getElementById('monthCount').textContent = `${monthRecords.length} 次充电`;
-
             document.getElementById('totalCount').textContent = totalCount;
             document.getElementById('totalAmount').textContent = `¥${totalAmount.toFixed(0)}`;
             document.getElementById('avgAmount').textContent = `¥${avgAmount.toFixed(1)}`;
         }
 
-        // 渲染记录列表 - 按月折叠
         function renderRecords() {
             const container = document.getElementById('recordsList');
             document.getElementById('recordsCount').textContent = `${records.length} 条`;
@@ -668,7 +736,6 @@
                 return;
             }
 
-            // 按月分组
             const sorted = [...records].sort((a, b) => new Date(b.date) - new Date(a.date));
             const groups = {};
 
@@ -711,7 +778,6 @@
             container.innerHTML = html;
         }
 
-        // 切换月份展开/收起
         function toggleMonth(card) {
             card.classList.toggle('open');
         }
@@ -722,7 +788,7 @@
             const dateStr = `${d.getMonth() + 1}月${d.getDate()}日 周${weekDays[d.getDay()]}`;
 
             return `
-                <div class="record-card" onclick="event.stopPropagation()">
+                <div class="record-card" onclick="event.stopPropagation();openEdit(${r.id})">
                     <div class="record-icon">⚡</div>
                     <div class="record-content">
                         <div class="record-date">${dateStr}</div>
@@ -731,17 +797,16 @@
                         </div>
                     </div>
                     <div class="record-amount">¥${r.amount.toFixed(2)}</div>
-                    <button class="delete-btn" onclick="event.stopPropagation();deleteRecord(${r.id})">×</button>
+                    <div class="record-actions">
+                        <button class="action-btn" onclick="event.stopPropagation();openEdit(${r.id})" title="编辑">✏️</button>
+                        <button class="action-btn delete" onclick="event.stopPropagation();deleteRecord(${r.id})" title="删除">×</button>
+                    </div>
                 </div>
             `;
         }
 
-        // 导出备份
         function exportData() {
-            if (records.length === 0) {
-                showToast('没有数据');
-                return;
-            }
+            if (records.length === 0) { showToast('没有数据'); return; }
             const blob = new Blob([JSON.stringify(records, null, 2)], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -752,11 +817,9 @@
             showToast('📥 备份成功');
         }
 
-        // 导入数据
         function handleImport(e) {
             const file = e.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(ev) {
                 try {
@@ -767,15 +830,12 @@
                         renderAll();
                         showToast('📤 恢复成功');
                     }
-                } catch {
-                    showToast('文件格式错误');
-                }
+                } catch { showToast('文件格式错误'); }
             };
             reader.readAsText(file);
             e.target.value = '';
         }
 
-        // Toast提示
         function showToast(msg) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
