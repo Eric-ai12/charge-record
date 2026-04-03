@@ -754,8 +754,7 @@
             var el = document.getElementById('editCostPreview');
 
             if (!isNaN(amount) && amount > 0 && !isNaN(currentKm) && currentKm > 0) {
-                var beforeRecord = getRecordBefore(editingId);
-                var driven = calcDrivenKm(currentKm, beforeRecord);
+                var beforeRecord = getRecordBefore(editingm, beforeRecord);
                 if (driven > 0) {
                     el.textContent = '行驶 ' + driven + 'km，约每公里 ¥' + (amount / driven).toFixed(2);
                 } else if (beforeRecord && beforeRecord.currentKm) {
@@ -774,7 +773,8 @@
             var currentKm = parseFloat(document.getElementById('chargeKm').value);
             var note = document.getElementById('chargeNote').value.trim();
 
-            if (!date) {
+            if (!Id);
+                var driven = calcDrivenKm(currentKdate) {
                 showToast('请选择日期');
                 return;
             }
@@ -821,15 +821,15 @@
                 renderAll();
                 updateLastKmHint();
                 showToast('已删除');
+            }
+        }
+
+        function getRecordBefore(id) {
             var sorted = records.slice().sort(function(a, b) {
                 return new Date(b.date) - new Date(a.date);
             });
             var index = -1;
-            for (var i = 0; i < sorted.length }
-        }
-
-        function getRecordBefore(id) {
-           ; i++) {
+            for (var i = 0; i < sorted.length; i++) {
                 if (sorted[i].id === id) {
                     index = i;
                     break;
@@ -955,10 +955,8 @@
             });
 
             var monthTotal = monthRecs.reduce(function(s, r) { return s + r.amount; }, 0);
-
             var totalCount = records.length;
             var totalAmount = records.reduce(function(s, r) { return s + r.amount; }, 0);
-
             var latestKm = getLatestCurrentKm();
 
             document.getElementById('monthTitle').textContent = (cm + 1) + '月充电花费';
@@ -972,10 +970,10 @@
                 });
                 var mFirstKm = null;
                 var mLastKm = null;
-                for (var i = 0; i < mSorted.length; i++) {
-                    if (mSorted[i].currentKm) {
-                        if (mFirstKm === null) mFirstKm = mSorted[i].currentKm;
-                        mLastKm = mSorted[i].currentKm;
+                for (var mi = 0; mi < mSorted.length; mi++) {
+                    if (mSorted[mi].currentKm) {
+                        if (mFirstKm === null) mFirstKm = mSorted[mi].currentKm;
+                        mLastKm = mSorted[mi].currentKm;
                     }
                 }
                 if (mFirstKm !== null && mLastKm !== null && mLastKm > mFirstKm) {
@@ -1153,9 +1151,11 @@
                         renderAll();
                         updateLastKmHint();
                         showToast('恢复成功');
+                    } else {
+                        showToast('文件格式错误');
                     }
                 } catch(err) {
-                    showToast('文件格式错误');
+                    showToast('文件格式错误：' + err.message);
                 }
             };
             reader.readAsText(file);
