@@ -696,6 +696,16 @@
             return sorted[0];
         }
 
+        function getLatestCurrentKm() {
+            var sorted = records.slice().sort(function(a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
+            for (var i = 0; i < sorted.length; i++) {
+                if (sorted[i].currentKm) return sorted[i].currentKm;
+            }
+            return null;
+        }
+
         function updateLastKmHint() {
             var latest = getLatestRecord();
             var hint = document.getElementById('lastKmHint');
@@ -811,15 +821,15 @@
                 renderAll();
                 updateLastKmHint();
                 showToast('已删除');
-            }
-        }
-
-        function getRecordBefore(id) {
             var sorted = records.slice().sort(function(a, b) {
                 return new Date(b.date) - new Date(a.date);
             });
             var index = -1;
-            for (var i = 0; i < sorted.length; i++) {
+            for (var i = 0; i < sorted.length }
+        }
+
+        function getRecordBefore(id) {
+           ; i++) {
                 if (sorted[i].id === id) {
                     index = i;
                     break;
@@ -907,15 +917,15 @@
             });
             for (var i = 0; i < sorted.length; i++) {
                 var r = sorted[i];
-                if (r.currentKm) {
-                    if (i < sorted.length - 1) {
-                        var prev = sorted[i + 1];
-                        if (prev.currentKm) {
-                            var driven = r.currentKm - prev.currentKm;
-                            r.drivenKm = driven > 0 ? driven : null;
-                        } else {
-                            r.drivenKm = null;
-                        }
+                if (!r.currentKm) {
+                    r.drivenKm = null;
+                    continue;
+                }
+                if (i < sorted.length - 1) {
+                    var prev = sorted[i + 1];
+                    if (prev.currentKm) {
+                        var driven = r.currentKm - prev.currentKm;
+                        r.drivenKm = driven > 0 ? driven : null;
                     } else {
                         r.drivenKm = null;
                     }
@@ -945,19 +955,35 @@
             });
 
             var monthTotal = monthRecs.reduce(function(s, r) { return s + r.amount; }, 0);
-            var monthKm = monthRecs.reduce(function(s, r) { return s + (r.drivenKm || 0); }, 0);
 
             var totalCount = records.length;
             var totalAmount = records.reduce(function(s, r) { return s + r.amount; }, 0);
-            var totalKm = records.reduce(function(s, r) { return s + (r.drivenKm || 0); }, 0);
+
+            var latestKm = getLatestCurrentKm();
 
             document.getElementById('monthTitle').textContent = (cm + 1) + '月充电花费';
             document.getElementById('monthAmount').textContent = '¥' + monthTotal.toFixed(2);
             document.getElementById('monthCount').textContent = monthRecs.length + ' 次充电';
 
             var mcpkEl = document.getElementById('monthCost');
-            if (monthKm > 0) {
-                mcpkEl.textContent = '本月每公里 ¥' + (monthTotal / monthKm).toFixed(2);
+            if (monthRecs.length > 0) {
+                var mSorted = monthRecs.slice().sort(function(a, b) {
+                    return new Date(a.date) - new Date(b.date);
+                });
+                var mFirstKm = null;
+                var mLastKm = null;
+                for (var i = 0; i < mSorted.length; i++) {
+                    if (mSorted[i].currentKm) {
+                        if (mFirstKm === null) mFirstKm = mSorted[i].currentKm;
+                        mLastKm = mSorted[i].currentKm;
+                    }
+                }
+                if (mFirstKm !== null && mLastKm !== null && mLastKm > mFirstKm) {
+                    var monthDriven = mLastKm - mFirstKm;
+                    mcpkEl.textContent = '本月每公里 ¥' + (monthTotal / monthDriven).toFixed(2);
+                } else {
+                    mcpkEl.textContent = '';
+                }
             } else {
                 mcpkEl.textContent = '';
             }
@@ -966,8 +992,8 @@
             document.getElementById('totalAmount').textContent = '¥' + totalAmount.toFixed(0);
 
             var avgEl = document.getElementById('avgCost');
-            if (totalKm > 0) {
-                avgEl.textContent = '¥' + (totalAmount / totalKm).toFixed(2);
+            if (latestKm && latestKm > 0) {
+                avgEl.textContent = '¥' + (totalAmount / latestKm).toFixed(2);
             } else {
                 avgEl.textContent = '¥0';
             }
@@ -1005,9 +1031,23 @@
                 var key = keys[k];
                 var group = groups[key];
                 var mTotal = group.items.reduce(function(s, r) { return s + r.amount; }, 0);
-                var mKm = group.items.reduce(function(s, r) { return s + (r.drivenKm || 0); }, 0);
                 var mCount = group.items.length;
-                var costPerKm = mKm > 0 ? '每公里 ¥' + (mTotal / mKm).toFixed(2) : '';
+
+                var mSorted = group.items.slice().sort(function(a, b) {
+                    return new Date(a.date) - new Date(b.date);
+                });
+                var mFirstKm = null;
+                var mLastKm = null;
+                for (var mi = 0; mi < mSorted.length; mi++) {
+                    if (mSorted[mi].currentKm) {
+                        if (mFirstKm === null) mFirstKm = mSorted[mi].currentKm;
+                        mLastKm = mSorted[mi].currentKm;
+                    }
+                }
+                var costPerKm = '';
+                if (mFirstKm !== null && mLastKm !== null && mLastKm > mFirstKm) {
+                    costPerKm = '每公里 ¥' + (mTotal / (mLastKm - mFirstKm)).toFixed(2);
+                }
 
                 html += '<div class="month-card ' + (isFirst ? 'open' : '') + '" onclick="toggleMonth(this)">';
                 html += '<div class="month-header">';
