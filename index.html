@@ -23,12 +23,7 @@
             --shadow: 0 2px 16px rgba(0,0,0,0.08);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -39,542 +34,95 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .header {
-            background: var(--card);
-            padding: 16px 20px 12px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header h1 {
-            font-size: 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .stats-row {
-            display: flex;
-            gap: 10px;
-            padding: 16px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .stats-row::-webkit-scrollbar {
-            display: none;
-        }
-
-        .stat-card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 16px;
-            min-width: 100px;
-            flex: 1;
-            box-shadow: var(--shadow);
-        }
-
-        .stat-value {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .month-summary {
-            margin: 0 16px 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            padding: 20px;
-            color: white;
-        }
-
-        .month-title {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 8px;
-        }
-
-        .month-amount {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .month-count {
-            font-size: 13px;
-            opacity: 0.8;
-        }
-
-        .month-cost {
-            font-size: 13px;
-            opacity: 0.8;
-            margin-top: 4px;
-        }
-
-        .quick-add {
-            margin: 0 16px 16px;
-            background: var(--card);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .quick-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .input-group {
-            margin-bottom: 14px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1.5px solid var(--border);
-            border-radius: 14px;
-            font-size: 16px;
-            font-family: inherit;
-            background: var(--bg);
-            transition: border-color 0.2s;
-            outline: none;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary);
-            background: white;
-        }
-
-        .input-row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .input-row .input-group {
-            flex: 1;
-        }
-
-        .quick-amounts {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-        }
-
-        .quick-amount-btn {
-            padding: 10px 18px;
-            border-radius: 20px;
-            border: 1.5px solid var(--border);
-            background: white;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .quick-amount-btn:active {
-            background: var(--primary-light);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            border-radius: 14px;
-            border: none;
-            background: var(--primary);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .submit-btn:active {
-            transform: scale(0.98);
-            opacity: 0.9;
-        }
-
-        .hint-text {
-            font-size: 12px;
-            color: var(--text-tertiary);
-            margin-top: 6px;
-        }
-
-        .records-section {
-            padding: 0 16px;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .section-count {
-            font-size: 13px;
-            color: var(--text-tertiary);
-            font-weight: 400;
-        }
-
-        .month-card {
-            background: var(--card);
-            border-radius: 16px;
-            margin-bottom: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .month-header {
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .month-header:active {
-            background: var(--bg);
-        }
-
-        .month-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            margin-right: 14px;
-            flex-shrink: 0;
-            color: white;
-            font-weight: 600;
-        }
-
-        .month-info {
-            flex: 1;
-        }
-
-        .month-name {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .month-stats {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .month-total {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-right: 12px;
-        }
-
-        .month-arrow {
-            font-size: 14px;
-            color: var(--text-tertiary);
-            transition: transform 0.3s;
-        }
-
-        .month-card.open .month-arrow {
-            transform: rotate(180deg);
-        }
-
-        .month-detail {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .month-card.open .month-detail {
-            max-height: 2000px;
-        }
-
-        .month-detail-inner {
-            padding: 0 16px 16px;
-            border-top: 1px solid var(--border);
-        }
-
-        .record-card {
-            padding: 14px 0;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid var(--bg);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .record-card:last-child {
-            border-bottom: none;
-        }
-
-        .record-card:active {
-            background: var(--bg);
-        }
-
-        .record-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-light);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .record-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .record-date {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .record-meta {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .record-meta span {
-            margin-right: 8px;
-        }
-
-        .record-cost {
-            color: var(--primary);
-            font-weight: 500;
-        }
-
-        .record-amount {
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-right: 8px;
-        }
-
-        .record-actions {
-            display: flex;
-            gap: 4px;
-        }
-
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: none;
-            background: transparent;
-            color: var(--text-tertiary);
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .action-btn:active {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-
-        .action-btn.delete:active {
-            background: rgba(255, 59, 48, 0.1);
-            color: var(--danger);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-tertiary);
-        }
-
-        .empty-icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-        }
-
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border);
-            padding: 12px 16px;
-            padding-bottom: max(12px, env(safe-area-inset-bottom));
-            display: flex;
-            gap: 10px;
-            z-index: 100;
-        }
-
-        .bar-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            border: none;
-            font-size: 14px;
-            font-weight: 500;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .bar-btn-secondary {
-            background: var(--bg);
-            color: var(--text);
-        }
-
-        .bar-btn:active {
-            transform: scale(0.97);
-        }
-
-        .toast {
-            position: fixed;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-20px);
-            background: var(--text);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 14px;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 1000;
-            pointer-events: none;
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 200;
-            display: none;
-            align-items: flex-end;
-            justify-content: center;
-        }
-
-        .modal-overlay.show {
-            display: flex;
-        }
-
-        .modal {
-            background: var(--card);
-            border-radius: 20px 20px 0 0;
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            padding-bottom: max(20px, env(safe-area-inset-bottom));
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .modal-handle {
-            width: 36px;
-            height: 4px;
-            background: var(--border);
-            border-radius: 2px;
-            margin: 0 auto 16px;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .modal-btns {
-            display: flex;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .modal-btn {
-            flex: 1;
-            padding: 14px;
-            border-radius: 14px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .modal-btn:active {
-            transform: scale(0.97);
-        }
-
-        .modal-btn-cancel {
-            background: var(--bg);
-            color: var(--text);
-        }
-
-        .modal-btn-save {
-            background: var(--primary);
-            color: white;
-        }
-
-        .cost-preview {
-            font-size: 13px;
-            color: var(--primary);
-            margin-top: 6px;
-            font-weight: 500;
-            min-height: 20px;
-        }
+        .header { background: var(--card); padding: 16px 20px 12px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+        .header h1 { font-size: 20px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+        .stats-row { display: flex; gap: 10px; padding: 16px; overflow-x: auto; scrollbar-width: none; }
+        .stats-row::-webkit-scrollbar { display: none; }
+        .stat-card { background: var(--card); border-radius: 16px; padding: 16px; min-width: 100px; flex: 1; box-shadow: var(--shadow); }
+        .stat-value { font-size: 22px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .stat-label { font-size: 12px; color: var(--text-secondary); }
+
+        .month-summary { margin: 0 16px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 20px; color: white; }
+        .month-title { font-size: 14px; opacity: 0.9; margin-bottom: 8px; }
+        .month-amount { font-size: 36px; font-weight: 700; margin-bottom: 4px; }
+        .month-count { font-size: 13px; opacity: 0.8; }
+        .month-cost { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+
+        .quick-add { margin: 0 16px 16px; background: var(--card); border-radius: 20px; padding: 20px; box-shadow: var(--shadow); }
+        .quick-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .input-group { margin-bottom: 14px; }
+        .input-group label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+        .input-group input { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 14px; font-size: 16px; font-family: inherit; background: var(--bg); transition: border-color 0.2s; outline: none; }
+        .input-group input:focus { border-color: var(--primary); background: white; }
+        .input-row { display: flex; gap: 12px; }
+        .input-row .input-group { flex: 1; }
+        .quick-amounts { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+        .quick-amount-btn { padding: 10px 18px; border-radius: 20px; border: 1.5px solid var(--border); background: white; font-size: 14px; font-weight: 500; color: var(--text); cursor: pointer; transition: all 0.2s; }
+        .quick-amount-btn:active { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+        .submit-btn { width: 100%; padding: 16px; border-radius: 14px; border: none; background: var(--primary); color: white; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s; }
+        .submit-btn:active { transform: scale(0.98); opacity: 0.9; }
+        .hint-text { font-size: 12px; color: var(--text-tertiary); margin-top: 6px; }
+
+        .records-section { padding: 0 16px; }
+        .section-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .section-count { font-size: 13px; color: var(--text-tertiary); font-weight: 400; }
+
+        .month-card { background: var(--card); border-radius: 16px; margin-bottom: 10px; overflow: hidden; box-shadow: var(--shadow); }
+        .month-header { padding: 16px; display: flex; align-items: center; cursor: pointer; transition: background 0.2s; }
+        .month-header:active { background: var(--bg); }
+        .month-icon { width: 44px; height: 44px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-right: 14px; flex-shrink: 0; color: white; font-weight: 600; }
+        .month-info { flex: 1; }
+        .month-name { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+        .month-stats { font-size: 13px; color: var(--text-secondary); }
+        .month-total { font-size: 20px; font-weight: 700; color: var(--primary); margin-right: 12px; }
+        .month-arrow { font-size: 14px; color: var(--text-tertiary); transition: transform 0.3s; }
+        .month-card.open .month-arrow { transform: rotate(180deg); }
+        .month-detail { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .month-card.open .month-detail { max-height: 2000px; }
+        .month-detail-inner { padding: 0 16px 16px; border-top: 1px solid var(--border); }
+
+        .record-card { padding: 14px 0; display: flex; align-items: center; border-bottom: 1px solid var(--bg); cursor: pointer; transition: background 0.2s; }
+        .record-card:last-child { border-bottom: none; }
+        .record-card:active { background: var(--bg); }
+        .record-icon { width: 40px; height: 40px; background: var(--primary-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-right: 12px; flex-shrink: 0; }
+        .record-content { flex: 1; min-width: 0; }
+        .record-date { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+        .record-meta { font-size: 12px; color: var(--text-secondary); }
+        .record-meta span { margin-right: 8px; }
+        .record-cost { color: var(--primary); font-weight: 500; }
+        .record-amount { font-size: 17px; font-weight: 700; color: var(--primary); margin-right: 8px; }
+        .record-actions { display: flex; gap: 4px; }
+        .action-btn { width: 32px; height: 32px; border-radius: 8px; border: none; background: transparent; color: var(--text-tertiary); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .action-btn:active { background: var(--primary-light); color: var(--primary); }
+        .action-btn.delete:active { background: rgba(255, 59, 48, 0.1); color: var(--danger); }
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-tertiary); }
+        .empty-icon { font-size: 48px; margin-bottom: 12px; }
+
+        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--border); padding: 12px 16px; padding-bottom: max(12px, env(safe-area-inset-bottom)); display: flex; gap: 10px; z-index: 100; }
+        .bar-btn { flex: 1; padding: 12px; border-radius: 12px; border: none; font-size: 14px; font-weight: 500; font-family: inherit; cursor: pointer; transition: all 0.2s; }
+        .bar-btn-secondary { background: var(--bg); color: var(--text); }
+        .bar-btn:active { transform: scale(0.97); }
+
+        .toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-20px); background: var(--text); color: white; padding: 12px 24px; border-radius: 12px; font-size: 14px; opacity: 0; transition: all 0.3s; z-index: 1000; pointer-events: none; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; display: none; align-items: flex-end; justify-content: center; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: var(--card); border-radius: 20px 20px 0 0; width: 100%; max-width: 500px; padding: 20px; padding-bottom: max(20px, env(safe-area-inset-bottom)); animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 16px; }
+        .modal-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; text-align: center; }
+        .modal-btns { display: flex; gap: 10px; margin-top: 8px; }
+        .modal-btn { flex: 1; padding: 14px; border-radius: 14px; border: none; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s; }
+        .modal-btn:active { transform: scale(0.97); }
+        .modal-btn-cancel { background: var(--bg); color: var(--text); }
+        .modal-btn-save { background: var(--primary); color: white; }
+        .cost-preview { font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500; min-height: 20px; }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>充电记录</h1>
-    </header>
+    <header class="header"><h1>充电记录</h1></header>
 
     <div class="month-summary">
         <div class="month-title" id="monthTitle">本月充电</div>
@@ -584,34 +132,18 @@
     </div>
 
     <div class="stats-row">
-        <div class="stat-card">
-            <div class="stat-value" id="totalCount">0</div>
-            <div class="stat-label">总次数</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="totalAmount">¥0</div>
-            <div class="stat-label">总花费</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="avgCost">¥0</div>
-            <div class="stat-label">每公里</div>
-        </div>
+        <div class="stat-card"><div class="stat-value" id="totalCount">0</div><div class="stat-label">总次数</div></div>
+        <div class="stat-card"><div class="stat-value" id="totalAmount">¥0</div><div class="stat-label">总花费</div></div>
+        <div class="stat-card"><div class="stat-value" id="avgCost">¥0</div><div class="stat-label">每公里</div></div>
     </div>
 
     <section class="quick-add">
         <h2 class="quick-title">添加充电记录</h2>
         <div class="input-row">
-            <div class="input-group">
-                <label>充电日期</label>
-                <input type="date" id="chargeDate">
-            </div>
-            <div class="input-group">
-                <label>金额（元）</label>
-                <input type="number" id="chargeAmount" placeholder="0.00" inputmode="decimal" oninput="updatePreview()">
-            </div>
+            <div class="input-group"><label>充电日期</label><input type="date" id="chargeDate"></div>
+            <div class="input-group"><label>金额（元）</label><input type="number" id="chargeAmount" placeholder="0.00" inputmode="decimal" oninput="updatePreview()"></div>
         </div>
-        <div class="input-group">
-            <label>快捷金额</label>
+        <div class="input-group"><label>快捷金额</label>
             <div class="quick-amounts">
                 <button class="quick-amount-btn" onclick="setAmount(30)">30</button>
                 <button class="quick-amount-btn" onclick="setAmount(50)">50</button>
@@ -620,24 +152,17 @@
                 <button class="quick-amount-btn" onclick="setAmount(150)">150</button>
             </div>
         </div>
-        <div class="input-group">
-            <label>当前里程（km）</label>
+        <div class="input-group"><label>当前里程（km）</label>
             <input type="number" id="chargeKm" placeholder="例如：5911" inputmode="decimal" oninput="updatePreview()">
             <div class="hint-text" id="lastKmHint"></div>
             <div class="cost-preview" id="costPreview"></div>
         </div>
-        <div class="input-group">
-            <label>备注（选填）</label>
-            <input type="text" id="chargeNote" placeholder="例如：特来电、家充">
-        </div>
+        <div class="input-group"><label>备注（选填）</label><input type="text" id="chargeNote" placeholder="例如：特来电、家充"></div>
         <button class="submit-btn" onclick="addRecord()">保存记录</button>
     </section>
 
     <section class="records-section">
-        <div class="section-title">
-            <span>历史记录</span>
-            <span class="section-count" id="recordsCount">0 条</span>
-        </div>
+        <div class="section-title"><span>历史记录</span><span class="section-count" id="recordsCount">0 条</span></div>
         <div id="recordsList"></div>
     </section>
 
@@ -653,24 +178,14 @@
         <div class="modal">
             <div class="modal-handle"></div>
             <div class="modal-title">修改记录</div>
-            <div class="input-group">
-                <label>充电日期</label>
-                <input type="date" id="editDate">
-            </div>
-            <div class="input-group">
-                <label>金额（元）</label>
-                <input type="number" id="editAmount" placeholder="0.00" inputmode="decimal" oninput="updateEditPreview()">
-            </div>
-            <div class="input-group">
-                <label>当前里程（km）</label>
+            <div class="input-group"><label>充电日期</label><input type="date" id="editDate"></div>
+            <div class="input-group"><label>金额（元）</label><input type="number" id="editAmount" placeholder="0.00" inputmode="decimal" oninput="updateEditPreview()"></div>
+            <div class="input-group"><label>当前里程（km）</label>
                 <input type="number" id="editKm" placeholder="例如：5911" inputmode="decimal" oninput="updateEditPreview()">
                 <div class="hint-text" id="editLastKmHint"></div>
                 <div class="cost-preview" id="editCostPreview"></div>
             </div>
-            <div class="input-group">
-                <label>备注</label>
-                <input type="text" id="editNote" placeholder="例如：特来电、家充">
-            </div>
+            <div class="input-group"><label>备注</label><input type="text" id="editNote" placeholder="例如：特来电、家充"></div>
             <div class="modal-btns">
                 <button class="modal-btn modal-btn-cancel" onclick="closeModal()">取消</button>
                 <button class="modal-btn modal-btn-save" onclick="saveEdit()">保存</button>
@@ -682,7 +197,45 @@
         var records = JSON.parse(localStorage.getItem('evChargeRecords')) || [];
         var editingId = null;
 
+        var backupData = [
+            {"id":1775194843237,"date":"2026-04-03","amount":41.18,"currentKm":5911,"drivenKm":null,"note":"","time":"13:40"},
+            {"id":1774909844275,"date":"2026-03-31","amount":34.43,"currentKm":null,"drivenKm":null,"note":"","time":"06:30"},
+            {"id":1774706849417,"date":"2026-02-22","amount":34.56,"currentKm":null,"drivenKm":null,"note":"","time":"22:07"},
+            {"id":1774706813420,"date":"2026-02-21","amount":8.21,"currentKm":null,"drivenKm":null,"note":"","time":"22:06"},
+            {"id":1774706783026,"date":"2026-02-19","amount":26.88,"currentKm":null,"drivenKm":null,"note":"","time":"22:06"},
+            {"id":1774706754105,"date":"2026-02-12","amount":34.17,"currentKm":null,"drivenKm":null,"note":"","time":"22:05"},
+            {"id":1737302400001,"date":"2026-01-20","amount":2.78,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400002,"date":"2026-01-24","amount":0.85,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400003,"date":"2026-01-26","amount":4.25,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400004,"date":"2026-02-06","amount":37.17,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400005,"date":"2026-02-08","amount":24.21,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400006,"date":"2026-02-12","amount":41.72,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400007,"date":"2026-02-12","amount":59.35,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400008,"date":"2026-02-23","amount":14.85,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400009,"date":"2026-02-23","amount":12.41,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400010,"date":"2026-02-23","amount":83.83,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400011,"date":"2026-02-23","amount":17.49,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400012,"date":"2026-02-25","amount":37.86,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400013,"date":"2026-03-04","amount":38.04,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400014,"date":"2026-03-04","amount":7.37,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400015,"date":"2026-03-06","amount":7.48,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400016,"date":"2026-03-08","amount":17.79,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400017,"date":"2026-03-13","amount":7,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400018,"date":"2026-03-13","amount":30.42,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400019,"date":"2026-03-20","amount":11.89,"currentKm":null,"drivenKm":null,"note":"","time":""},
+            {"id":1737302400020,"date":"2026-03-24","amount":28.6,"currentKm":null,"drivenKm":null,"note":"","time":""}
+        ];
+
         document.addEventListener('DOMContentLoaded', function() {
+            if (records.length === 0) {
+                if (confirm('检测到没有数据，是否恢复之前的26条充电记录？')) {
+                    records = backupData;
+                    save();
+                    recalcAllDrivenKm();
+                    save();
+                    alert('恢复成功！共26条记录');
+                }
+            }
             document.getElementById('chargeDate').valueAsDate = new Date();
             renderAll();
             updateLastKmHint();
@@ -690,30 +243,21 @@
 
         function getLatestRecord() {
             if (records.length === 0) return null;
-            var sorted = records.slice().sort(function(a, b) {
-                return new Date(b.date) - new Date(a.date);
-            });
+            var sorted = records.slice().sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
             return sorted[0];
         }
 
         function getLatestCurrentKm() {
-            var sorted = records.slice().sort(function(a, b) {
-                return new Date(b.date) - new Date(a.date);
-            });
-            for (var i = 0; i < sorted.length; i++) {
-                if (sorted[i].currentKm) return sorted[i].currentKm;
-            }
+            var sorted = records.slice().sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+            for (var i = 0; i < sorted.length; i++) { if (sorted[i].currentKm) return sorted[i].currentKm; }
             return null;
         }
 
         function updateLastKmHint() {
             var latest = getLatestRecord();
             var hint = document.getElementById('lastKmHint');
-            if (latest && latest.currentKm) {
-                hint.textContent = '上次里程：' + latest.currentKm + 'km';
-            } else {
-                hint.textContent = '首次记录，自动设为0';
-            }
+            if (latest && latest.currentKm) { hint.textContent = '上次里程：' + latest.currentKm + 'km'; }
+            else { hint.textContent = '首次记录，自动设为0'; }
         }
 
         function calcDrivenKm(currentKm, beforeRecord) {
@@ -732,39 +276,26 @@
             var amount = parseFloat(document.getElementById('chargeAmount').value);
             var currentKm = parseFloat(document.getElementById('chargeKm').value);
             var el = document.getElementById('costPreview');
-
             if (!isNaN(amount) && amount > 0 && !isNaN(currentKm) && currentKm > 0) {
                 var latest = getLatestRecord();
                 var driven = calcDrivenKm(currentKm, latest);
-                if (driven > 0) {
-                    el.textContent = '行驶 ' + driven + 'km，约每公里 ¥' + (amount / driven).toFixed(2);
-                } else if (latest && latest.currentKm) {
-                    el.textContent = '里程数应大于上次里程';
-                } else {
-                    el.textContent = '首次记录，无法计算每公里';
-                }
-            } else {
-                el.textContent = '';
-            }
+                if (driven > 0) { el.textContent = '行驶 ' + driven + 'km，约每公里 ¥' + (amount / driven).toFixed(2); }
+                else if (latest && latest.currentKm) { el.textContent = '里程数应大于上次里程'; }
+                else { el.textContent = '首次记录，无法计算每公里'; }
+            } else { el.textContent = ''; }
         }
 
         function updateEditPreview() {
             var amount = parseFloat(document.getElementById('editAmount').value);
             var currentKm = parseFloat(document.getElementById('editKm').value);
             var el = document.getElementById('editCostPreview');
-
             if (!isNaN(amount) && amount > 0 && !isNaN(currentKm) && currentKm > 0) {
-                var beforeRecord = getRecordBefore(editingm, beforeRecord);
-                if (driven > 0) {
-                    el.textContent = '行驶 ' + driven + 'km，约每公里 ¥' + (amount / driven).toFixed(2);
-                } else if (beforeRecord && beforeRecord.currentKm) {
-                    el.textContent = '里程数应大于上一条里程';
-                } else {
-                    el.textContent = '首条记录，无法计算每公里';
-                }
-            } else {
-                el.textContent = '';
-            }
+                var beforeRecord = getRecordBefore(editingId);
+                var driven = calcDrivenKm(currentKm, beforeRecord);
+                if (driven > 0) { el.textContent = '行驶 ' + driven + 'km，约每公里 ¥' + (amount / driven).toFixed(2); }
+                else if (beforeRecord && beforeRecord.currentKm) { el.textContent = '里程数应大于上一条里程'; }
+                else { el.textContent = '首条记录，无法计算每公里'; }
+            } else { el.textContent = ''; }
         }
 
         function addRecord() {
@@ -772,43 +303,19 @@
             var amount = parseFloat(document.getElementById('chargeAmount').value);
             var currentKm = parseFloat(document.getElementById('chargeKm').value);
             var note = document.getElementById('chargeNote').value.trim();
-
-            if (!Id);
-                var driven = calcDrivenKm(currentKdate) {
-                showToast('请选择日期');
-                return;
-            }
-            if (isNaN(amount) || amount <= 0) {
-                showToast('请输入金额');
-                return;
-            }
-
+            if (!date) { showToast('请选择日期'); return; }
+            if (isNaN(amount) || amount <= 0) { showToast('请输入金额'); return; }
             var latest = getLatestRecord();
             var drivenKm = 0;
-            if (!isNaN(currentKm) && currentKm > 0) {
-                drivenKm = calcDrivenKm(currentKm, latest);
-            }
-
-            records.unshift({
-                id: Date.now(),
-                date: date,
-                amount: amount,
-                currentKm: (!isNaN(currentKm) && currentKm > 0) ? currentKm : null,
-                drivenKm: drivenKm > 0 ? drivenKm : null,
-                note: note,
-                time: new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'})
-            });
-
-            save();
-            renderAll();
-
+            if (!isNaN(currentKm) && currentKm > 0) { drivenKm = calcDrivenKm(currentKm, latest); }
+            records.unshift({ id: Date.now(), date: date, amount: amount, currentKm: (!isNaN(currentKm) && currentKm > 0) ? currentKm : null, drivenKm: drivenKm > 0 ? drivenKm : null, note: note, time: new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'}) });
+            save(); renderAll();
             document.getElementById('chargeAmount').value = '';
             document.getElementById('chargeKm').value = '';
             document.getElementById('chargeNote').value = '';
             document.getElementById('chargeDate').valueAsDate = new Date();
             document.getElementById('costPreview').textContent = '';
             updateLastKmHint();
-
             showToast('已保存');
             if (navigator.vibrate) navigator.vibrate([10, 50, 10]);
         }
@@ -816,28 +323,15 @@
         function deleteRecord(id) {
             if (confirm('确定删除这条记录？')) {
                 records = records.filter(function(r) { return r.id !== id; });
-                recalcAllDrivenKm();
-                save();
-                renderAll();
-                updateLastKmHint();
-                showToast('已删除');
+                recalcAllDrivenKm(); save(); renderAll(); updateLastKmHint(); showToast('已删除');
             }
         }
 
         function getRecordBefore(id) {
-            var sorted = records.slice().sort(function(a, b) {
-                return new Date(b.date) - new Date(a.date);
-            });
+            var sorted = records.slice().sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
             var index = -1;
-            for (var i = 0; i < sorted.length; i++) {
-                if (sorted[i].id === id) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index < sorted.length - 1) {
-                return sorted[index + 1];
-            }
+            for (var i = 0; i < sorted.length; i++) { if (sorted[i].id === id) { index = i; break; } }
+            if (index < sorted.length - 1) return sorted[index + 1];
             return null;
         }
 
@@ -849,29 +343,16 @@
             document.getElementById('editAmount').value = record.amount;
             document.getElementById('editKm').value = record.currentKm || '';
             document.getElementById('editNote').value = record.note || '';
-
             var beforeRecord = getRecordBefore(id);
             var hint = document.getElementById('editLastKmHint');
-            if (beforeRecord && beforeRecord.currentKm) {
-                hint.textContent = '上一条里程：' + beforeRecord.currentKm + 'km';
-            } else {
-                hint.textContent = '这是最早的一条记录';
-            }
-
+            if (beforeRecord && beforeRecord.currentKm) { hint.textContent = '上一条里程：' + beforeRecord.currentKm + 'km'; }
+            else { hint.textContent = '这是最早的一条记录'; }
             updateEditPreview();
             document.getElementById('editModal').classList.add('show');
         }
 
-        function closeModal() {
-            document.getElementById('editModal').classList.remove('show');
-            editingId = null;
-        }
-
-        function closeModalOutside(e) {
-            if (e.target === document.getElementById('editModal')) {
-                closeModal();
-            }
-        }
+        function closeModal() { document.getElementById('editModal').classList.remove('show'); editingId = null; }
+        function closeModalOutside(e) { if (e.target === document.getElementById('editModal')) closeModal(); }
 
         function saveEdit() {
             if (!editingId) return;
@@ -879,174 +360,89 @@
             var amount = parseFloat(document.getElementById('editAmount').value);
             var currentKm = parseFloat(document.getElementById('editKm').value);
             var note = document.getElementById('editNote').value.trim();
-
-            if (!date) {
-                showToast('请选择日期');
-                return;
-            }
-            if (isNaN(amount) || amount <= 0) {
-                showToast('请输入金额');
-                return;
-            }
-
+            if (!date) { showToast('请选择日期'); return; }
+            if (isNaN(amount) || amount <= 0) { showToast('请输入金额'); return; }
             var index = -1;
-            for (var i = 0; i < records.length; i++) {
-                if (records[i].id === editingId) {
-                    index = i;
-                    break;
-                }
-            }
-
+            for (var i = 0; i < records.length; i++) { if (records[i].id === editingId) { index = i; break; } }
             if (index !== -1) {
                 records[index].date = date;
                 records[index].amount = amount;
                 records[index].currentKm = (!isNaN(currentKm) && currentKm > 0) ? currentKm : null;
                 records[index].note = note;
-                recalcAllDrivenKm();
-                save();
-                renderAll();
-                updateLastKmHint();
-                showToast('已修改');
+                recalcAllDrivenKm(); save(); renderAll(); updateLastKmHint(); showToast('已修改');
             }
             closeModal();
         }
 
         function recalcAllDrivenKm() {
-            var sorted = records.slice().sort(function(a, b) {
-                return new Date(b.date) - new Date(a.date);
-            });
+            var sorted = records.slice().sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
             for (var i = 0; i < sorted.length; i++) {
                 var r = sorted[i];
-                if (!r.currentKm) {
-                    r.drivenKm = null;
-                    continue;
-                }
+                if (!r.currentKm) { r.drivenKm = null; continue; }
                 if (i < sorted.length - 1) {
                     var prev = sorted[i + 1];
-                    if (prev.currentKm) {
-                        var driven = r.currentKm - prev.currentKm;
-                        r.drivenKm = driven > 0 ? driven : null;
-                    } else {
-                        r.drivenKm = null;
-                    }
-                } else {
-                    r.drivenKm = null;
-                }
+                    if (prev.currentKm) { var driven = r.currentKm - prev.currentKm; r.drivenKm = driven > 0 ? driven : null; }
+                    else { r.drivenKm = null; }
+                } else { r.drivenKm = null; }
             }
         }
 
-        function save() {
-            localStorage.setItem('evChargeRecords', JSON.stringify(records));
-        }
+        function save() { localStorage.setItem('evChargeRecords', JSON.stringify(records)); }
 
-        function renderAll() {
-            renderStats();
-            renderRecords();
-        }
+        function renderAll() { renderStats(); renderRecords(); }
 
         function renderStats() {
-            var now = new Date();
-            var cm = now.getMonth();
-            var cy = now.getFullYear();
-
-            var monthRecs = records.filter(function(r) {
-                var d = new Date(r.date);
-                return d.getMonth() === cm && d.getFullYear() === cy;
-            });
-
+            var now = new Date(); var cm = now.getMonth(); var cy = now.getFullYear();
+            var monthRecs = records.filter(function(r) { var d = new Date(r.date); return d.getMonth() === cm && d.getFullYear() === cy; });
             var monthTotal = monthRecs.reduce(function(s, r) { return s + r.amount; }, 0);
             var totalCount = records.length;
             var totalAmount = records.reduce(function(s, r) { return s + r.amount; }, 0);
             var latestKm = getLatestCurrentKm();
-
             document.getElementById('monthTitle').textContent = (cm + 1) + '月充电花费';
             document.getElementById('monthAmount').textContent = '¥' + monthTotal.toFixed(2);
             document.getElementById('monthCount').textContent = monthRecs.length + ' 次充电';
-
             var mcpkEl = document.getElementById('monthCost');
             if (monthRecs.length > 0) {
-                var mSorted = monthRecs.slice().sort(function(a, b) {
-                    return new Date(a.date) - new Date(b.date);
-                });
-                var mFirstKm = null;
-                var mLastKm = null;
+                var mSorted = monthRecs.slice().sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+                var mFirstKm = null; var mLastKm = null;
                 for (var mi = 0; mi < mSorted.length; mi++) {
-                    if (mSorted[mi].currentKm) {
-                        if (mFirstKm === null) mFirstKm = mSorted[mi].currentKm;
-                        mLastKm = mSorted[mi].currentKm;
-                    }
+                    if (mSorted[mi].currentKm) { if (mFirstKm === null) mFirstKm = mSorted[mi].currentKm; mLastKm = mSorted[mi].currentKm; }
                 }
-                if (mFirstKm !== null && mLastKm !== null && mLastKm > mFirstKm) {
-                    var monthDriven = mLastKm - mFirstKm;
-                    mcpkEl.textContent = '本月每公里 ¥' + (monthTotal / monthDriven).toFixed(2);
-                } else {
-                    mcpkEl.textContent = '';
-                }
-            } else {
-                mcpkEl.textContent = '';
-            }
-
+                if (mFirstKm !== null && mLastKm !== null && mLastKm > mFirstKm) { mcpkEl.textContent = '本月每公里 ¥' + (monthTotal / (mLastKm - mFirstKm)).toFixed(2); }
+                else { mcpkEl.textContent = ''; }
+            } else { mcpkEl.textContent = ''; }
             document.getElementById('totalCount').textContent = totalCount;
             document.getElementById('totalAmount').textContent = '¥' + totalAmount.toFixed(0);
-
             var avgEl = document.getElementById('avgCost');
-            if (latestKm && latestKm > 0) {
-                avgEl.textContent = '¥' + (totalAmount / latestKm).toFixed(2);
-            } else {
-                avgEl.textContent = '¥0';
-            }
+            if (latestKm && latestKm > 0) { avgEl.textContent = '¥' + (totalAmount / latestKm).toFixed(2); }
+            else { avgEl.textContent = '¥0'; }
         }
 
         function renderRecords() {
             var container = document.getElementById('recordsList');
             document.getElementById('recordsCount').textContent = records.length + ' 条';
-
-            if (records.length === 0) {
-                container.innerHTML = '<div class="empty-state"><div class="empty-icon"></div><p>还没有充电记录<br>添加第一条吧</p></div>';
-                return;
-            }
-
-            var sorted = records.slice().sort(function(a, b) {
-                return new Date(b.date) - new Date(a.date);
-            });
-
+            if (records.length === 0) { container.innerHTML = '<div class="empty-state"><div class="empty-icon"></div><p>还没有充电记录<br>添加第一条吧</p></div>'; return; }
+            var sorted = records.slice().sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
             var groups = {};
             sorted.forEach(function(r) {
                 var d = new Date(r.date);
                 var key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
                 var label = d.getFullYear() + '年' + (d.getMonth() + 1) + '月';
-                if (!groups[key]) {
-                    groups[key] = { label: label, items: [] };
-                }
+                if (!groups[key]) groups[key] = { label: label, items: [] };
                 groups[key].items.push(r);
             });
-
-            var html = '';
-            var isFirst = true;
-            var keys = Object.keys(groups);
-
+            var html = ''; var isFirst = true; var keys = Object.keys(groups);
             for (var k = 0; k < keys.length; k++) {
-                var key = keys[k];
-                var group = groups[key];
+                var key = keys[k]; var group = groups[key];
                 var mTotal = group.items.reduce(function(s, r) { return s + r.amount; }, 0);
                 var mCount = group.items.length;
-
-                var mSorted = group.items.slice().sort(function(a, b) {
-                    return new Date(a.date) - new Date(b.date);
-                });
-                var mFirstKm = null;
-                var mLastKm = null;
+                var mSorted = group.items.slice().sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+                var mFirstKm = null; var mLastKm = null;
                 for (var mi = 0; mi < mSorted.length; mi++) {
-                    if (mSorted[mi].currentKm) {
-                        if (mFirstKm === null) mFirstKm = mSorted[mi].currentKm;
-                        mLastKm = mSorted[mi].currentKm;
-                    }
+                    if (mSorted[mi].currentKm) { if (mFirstKm === null) mFirstKm = mSorted[mi].currentKm; mLastKm = mSorted[mi].currentKm; }
                 }
                 var costPerKm = '';
-                if (mFirstKm !== null && mLastKm !== null && mLastKm > mFirstKm) {
-                    costPerKm = '每公里 ¥' + (mTotal / (mLastKm - mFirstKm)).toFixed(2);
-                }
-
+                if (mFirstKm !== null && mLastKm !== null && mLastKm > mFirstKm) { costPerKm = '每公里 ¥' + (mTotal / (mLastKm - mFirstKm)).toFixed(2); }
                 html += '<div class="month-card ' + (isFirst ? 'open' : '') + '" onclick="toggleMonth(this)">';
                 html += '<div class="month-header">';
                 html += '<div class="month-icon">' + key.split('-')[1] + '</div>';
@@ -1057,46 +453,26 @@
                 html += '<div class="month-total">¥' + mTotal.toFixed(2) + '</div>';
                 html += '<div class="month-arrow">▼</div>';
                 html += '</div>';
-                html += '<div class="month-detail">';
-                html += '<div class="month-detail-inner">';
-
-                for (var j = 0; j < group.items.length; j++) {
-                    html += renderRecordItem(group.items[j]);
-                }
-
+                html += '<div class="month-detail"><div class="month-detail-inner">';
+                for (var j = 0; j < group.items.length; j++) { html += renderRecordItem(group.items[j]); }
                 html += '</div></div></div>';
                 isFirst = false;
             }
-
             container.innerHTML = html;
         }
 
-        function toggleMonth(card) {
-            card.classList.toggle('open');
-        }
+        function toggleMonth(card) { card.classList.toggle('open'); }
 
         function renderRecordItem(r) {
             var d = new Date(r.date);
             var weekDays = ['日', '一', '二', '三', '四', '五', '六'];
             var dateStr = (d.getMonth() + 1) + '月' + d.getDate() + '日 周' + weekDays[d.getDay()];
-
-            var costPerKm = '';
-            var drivenStr = '';
-            var kmStr = '';
-
-            if (r.drivenKm && r.drivenKm > 0) {
-                drivenStr = r.drivenKm + 'km';
-                costPerKm = '每公里 ¥' + (r.amount / r.drivenKm).toFixed(2);
-            }
-
-            if (r.currentKm) {
-                kmStr = '里程' + r.currentKm;
-            }
-
+            var costPerKm = ''; var drivenStr = ''; var kmStr = '';
+            if (r.drivenKm && r.drivenKm > 0) { drivenStr = r.drivenKm + 'km'; costPerKm = '每公里 ¥' + (r.amount / r.drivenKm).toFixed(2); }
+            if (r.currentKm) { kmStr = '里程' + r.currentKm; }
             var html = '<div class="record-card" onclick="event.stopPropagation();openEdit(' + r.id + ')">';
             html += '<div class="record-icon"></div>';
-            html += '<div class="record-content">';
-            html += '<div class="record-date">' + dateStr + '</div>';
+            html += '<div class="record-content"><div class="record-date">' + dateStr + '</div>';
             html += '<div class="record-meta">';
             if (r.note) html += '<span>' + r.note + '</span>';
             if (kmStr) html += '<span>' + kmStr + '</span>';
@@ -1108,23 +484,16 @@
             html += '<button class="action-btn" onclick="event.stopPropagation();openEdit(' + r.id + ')" title="编辑">✏️</button>';
             html += '<button class="action-btn delete" onclick="event.stopPropagation();deleteRecord(' + r.id + ')" title="删除">×</button>';
             html += '</div></div>';
-
             return html;
         }
 
         function exportData() {
-            if (records.length === 0) {
-                showToast('没有数据');
-                return;
-            }
+            if (records.length === 0) { showToast('没有数据'); return; }
             var blob = new Blob([JSON.stringify(records, null, 2)], {type: 'application/json'});
             var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
+            var a = document.createElement('a'); a.href = url;
             a.download = '充电记录_' + new Date().toISOString().slice(0,10) + '.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast('备份成功');
+            a.click(); URL.revokeObjectURL(url); showToast('备份成功');
         }
 
         function handleImport(e) {
@@ -1136,39 +505,19 @@
                     var data = JSON.parse(ev.target.result);
                     if (Array.isArray(data)) {
                         records = data.map(function(r) {
-                            return {
-                                id: r.id || Date.now(),
-                                date: r.date,
-                                amount: r.amount,
-                                currentKm: r.currentKm || r.km || null,
-                                drivenKm: r.drivenKm || null,
-                                note: r.note || '',
-                                time: r.time || ''
-                            };
+                            return { id: r.id || Date.now(), date: r.date, amount: r.amount, currentKm: r.currentKm || r.km || null, drivenKm: r.drivenKm || null, note: r.note || '', time: r.time || '' };
                         });
-                        recalcAllDrivenKm();
-                        save();
-                        renderAll();
-                        updateLastKmHint();
-                        showToast('恢复成功');
-                    } else {
-                        showToast('文件格式错误');
-                    }
-                } catch(err) {
-                    showToast('文件格式错误：' + err.message);
-                }
+                        recalcAllDrivenKm(); save(); renderAll(); updateLastKmHint(); showToast('恢复成功');
+                    } else { showToast('文件格式错误'); }
+                } catch(err) { showToast('文件格式错误'); }
             };
-            reader.readAsText(file);
-            e.target.value = '';
+            reader.readAsText(file); e.target.value = '';
         }
 
         function showToast(msg) {
             var toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(function() {
-                toast.classList.remove('show');
-            }, 2000);
+            toast.textContent = msg; toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 2000);
         }
     </script>
 </body>
