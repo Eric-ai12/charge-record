@@ -15,7 +15,10 @@
             --primary: #007aff;
             --primary-light: rgba(0, 122, 255, 0.1);
             --success: #34c759;
+            --success-light: rgba(52, 199, 89, 0.1);
             --danger: #ff3b30;
+            --orange: #ff9500;
+            --orange-light: rgba(255, 149, 0, 0.1);
             --text: #1d1d1f;
             --text-secondary: #86868b;
             --text-tertiary: #aeaeb2;
@@ -56,24 +59,39 @@
             gap: 8px;
         }
 
-        .stats-row {
-            display: flex;
-            gap: 10px;
-            padding: 16px;
-            overflow-x: auto;
-            scrollbar-width: none;
+        .month-summary {
+            margin: 16px 16px 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
         }
 
-        .stats-row::-webkit-scrollbar { display: none; }
+        .month-title { font-size: 14px; opacity: 0.9; margin-bottom: 8px; }
+        .month-amount { font-size: 36px; font-weight: 700; margin-bottom: 4px; }
+        .month-count { font-size: 13px; opacity: 0.8; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 0 16px 16px;
+        }
 
         .stat-card {
             background: var(--card);
             border-radius: 16px;
             padding: 16px;
-            min-width: 110px;
-            flex: 1;
             box-shadow: var(--shadow);
         }
+
+        .stat-card.highlight {
+            background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+            color: white;
+        }
+
+        .stat-card.highlight .stat-value { color: white; }
+        .stat-card.highlight .stat-label { color: rgba(255,255,255,0.8); }
 
         .stat-value {
             font-size: 24px;
@@ -86,18 +104,6 @@
             font-size: 12px;
             color: var(--text-secondary);
         }
-
-        .month-summary {
-            margin: 0 16px 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            padding: 20px;
-            color: white;
-        }
-
-        .month-title { font-size: 14px; opacity: 0.9; margin-bottom: 8px; }
-        .month-amount { font-size: 36px; font-weight: 700; margin-bottom: 4px; }
-        .month-count { font-size: 13px; opacity: 0.8; }
 
         .quick-add {
             margin: 0 16px 16px;
@@ -145,6 +151,20 @@
         .input-row { display: flex; gap: 12px; }
         .input-row .input-group { flex: 1; }
 
+        .input-with-hint {
+            position: relative;
+        }
+
+        .input-hint {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--text-tertiary);
+            pointer-events: none;
+        }
+
         .quick-amounts {
             display: flex;
             gap: 8px;
@@ -168,6 +188,29 @@
             background: var(--primary-light);
             border-color: var(--primary);
             color: var(--primary);
+        }
+
+        .quick-mileage {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .quick-mileage-btn {
+            padding: 8px 14px;
+            border-radius: 16px;
+            border: 1.5px solid var(--border);
+            background: var(--success-light);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--success);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-mileage-btn:active {
+            background: var(--success);
+            color: white;
         }
 
         .submit-btn {
@@ -288,7 +331,6 @@
         }
 
         .record-card:last-child { border-bottom: none; }
-
         .record-card:active { background: var(--bg); }
 
         @keyframes slideUp {
@@ -316,20 +358,45 @@
 
         .record-date {
             font-size: 15px;
-            font-weight: 60        .record-meta {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .record-meta {
             font-size: 12px;
             color: var(--text-secondary);
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .record-meta .mileage-tag {
+            background: var(--success-light);
+            color: var(--success);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .record-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 8px;
+            flex-shrink: 0;
         }
 
         .record-amount {
             font-size: 17px;
-           0;
-            margin-bottom: 2px;
+            font-weight: 700;
+            color: var(--primary);
         }
 
- font-weight: 700;
-            color: var(--primary);
-            margin-right: 8px;
+        .record-cost-km {
+            font-size: 11px;
+            color: var(--success);
+            font-weight: 500;
+            margin-top: 2px;
         }
 
         .record-actions {
@@ -416,7 +483,6 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* 编辑弹窗 */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -484,16 +550,8 @@
         }
 
         .modal-btn:active { transform: scale(0.97); }
-
-        .modal-btn-cancel {
-            background: var(--bg);
-            color: var(--text);
-        }
-
-        .modal-btn-save {
-            background: var(--primary);
-            color: white;
-        }
+        .modal-btn-cancel { background: var(--bg); color: var(--text); }
+        .modal-btn-save { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
@@ -507,7 +565,7 @@
         <div class="month-count" id="monthCount">0 次充电</div>
     </div>
 
-    <div class="stats-row">
+    <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-value" id="totalCount">0</div>
             <div class="stat-label">总次数</div>
@@ -519,6 +577,10 @@
         <div class="stat-card">
             <div class="stat-value" id="avgAmount">¥0</div>
             <div class="stat-label">平均每次</div>
+        </div>
+        <div class="stat-card highlight">
+            <div class="stat-value" id="overallCostKm">—</div>
+            <div class="stat-label">每公里费用</div>
         </div>
     </div>
 
@@ -545,6 +607,15 @@
             </div>
         </div>
         <div class="input-group">
+            <label>当前里程（公里）</label>
+            <div class="input-with-hint">
+                <input type="number" id="chargeMileage" placeholder="看仪表盘填入" inputmode="numeric">
+            </div>
+            <div class="quick-mileage" id="quickMileage" style="margin-top:8px;display:none;">
+                <button class="quick-mileage-btn" id="quickMileageBtn" onclick="fillLastMileage()"></button>
+            </div>
+        </div>
+        <div class="input-group">
             <label>备注（选填）</label>
             <input type="text" id="chargeNote" placeholder="例如：特来电、家充">
         </div>
@@ -567,7 +638,6 @@
 
     <div class="toast" id="toast"></div>
 
-    <!-- 编辑弹窗 -->
     <div class="modal-overlay" id="editModal" onclick="closeModalOutside(event)">
         <div class="modal">
             <div class="modal-handle"></div>
@@ -580,6 +650,10 @@
             <div class="input-group">
                 <label>金额（元）</label>
                 <input type="number" id="editAmount" placeholder="0.00" inputmode="decimal">
+            </div>
+            <div class="input-group">
+                <label>当前里程（公里）</label>
+                <input type="number" id="editMileage" placeholder="选填" inputmode="numeric">
             </div>
             <div class="input-group">
                 <label>备注</label>
@@ -599,6 +673,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('chargeDate').valueAsDate = new Date();
+            updateQuickMileage();
             renderAll();
         });
 
@@ -607,9 +682,38 @@
             if (navigator.vibrate) navigator.vibrate(10);
         }
 
+        function fillLastMileage() {
+            const lastMileage = getLastMileage();
+            if (lastMileage) {
+                document.getElementById('chargeMileage').value = lastMileage;
+                if (navigator.vibrate) navigator.vibrate(10);
+            }
+        }
+
+        function getLastMileage() {
+            const withMileage = records.filter(r => r.mileage != null && r.mileage > 0);
+            if (withMileage.length === 0) return null;
+            withMileage.sort((a, b) => new Date(b.date) - new Date(a.date));
+            return withMileage[0].mileage;
+        }
+
+        function updateQuickMileage() {
+            const lastMileage = getLastMileage();
+            const container = document.getElementById('quickMileage');
+            const btn = document.getElementById('quickMileageBtn');
+            if (lastMileage) {
+                btn.textContent = `上次: ${lastMileage} km`;
+                container.style.display = 'flex';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
         function addRecord() {
             const date = document.getElementById('chargeDate').value;
             const amount = parseFloat(document.getElementById('chargeAmount').value);
+            const mileageVal = document.getElementById('chargeMileage').value;
+            const mileage = mileageVal ? parseInt(mileageVal) : null;
             const note = document.getElementById('chargeNote').value.trim();
 
             if (!date) { showToast('请选择日期'); return; }
@@ -619,15 +723,20 @@
                 id: Date.now(),
                 date,
                 amount,
+                mileage,
                 note,
                 time: new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'})
             });
 
             save();
             renderAll();
+            updateQuickMileage();
+
             document.getElementById('chargeAmount').value = '';
+            document.getElementById('chargeMileage').value = '';
             document.getElementById('chargeNote').value = '';
             document.getElementById('chargeDate').valueAsDate = new Date();
+
             showToast('✅ 已保存');
             if (navigator.vibrate) navigator.vibrate([10, 50, 10]);
         }
@@ -637,11 +746,11 @@
                 records = records.filter(r => r.id !== id);
                 save();
                 renderAll();
+                updateQuickMileage();
                 showToast('已删除');
             }
         }
 
-        // 打开编辑弹窗
         function openEdit(id) {
             const record = records.find(r => r.id === id);
             if (!record) return;
@@ -649,29 +758,27 @@
             editingId = id;
             document.getElementById('editDate').value = record.date;
             document.getElementById('editAmount').value = record.amount;
+            document.getElementById('editMileage').value = record.mileage || '';
             document.getElementById('editNote').value = record.note || '';
             document.getElementById('editModal').classList.add('show');
         }
 
-        // 关闭弹窗
         function closeModal() {
             document.getElementById('editModal').classList.remove('show');
             editingId = null;
         }
 
-        // 点击遮罩关闭
         function closeModalOutside(e) {
-            if (e.target === document.getElementById('editModal')) {
-                closeModal();
-            }
+            if (e.target === document.getElementById('editModal')) closeModal();
         }
 
-        // 保存修改
         function saveEdit() {
             if (!editingId) return;
 
             const date = document.getElementById('editDate').value;
             const amount = parseFloat(document.getElementById('editAmount').value);
+            const mileageVal = document.getElementById('editMileage').value;
+            const mileage = mileageVal ? parseInt(mileageVal) : null;
             const note = document.getElementById('editNote').value.trim();
 
             if (!date) { showToast('请选择日期'); return; }
@@ -681,9 +788,11 @@
             if (index !== -1) {
                 records[index].date = date;
                 records[index].amount = amount;
+                records[index].mileage = mileage;
                 records[index].note = note;
                 save();
                 renderAll();
+                updateQuickMileage();
                 showToast('✅ 已修改');
             }
 
@@ -693,6 +802,64 @@
         function save() {
             localStorage.setItem('evChargeRecords', JSON.stringify(records));
         }
+
+        // ========== 计算每公里费用 ==========
+
+        // 计算某条记录的每公里费用：
+        // 该记录的金额 ÷（该记录里程 - 前一条有里程记录的里程）
+        function getCostPerKm(recordId) {
+            const sorted = [...records]
+                .filter(r => r.date)
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const index = sorted.findIndex(r => r.id === recordId);
+            if (index === -1) return null;
+
+            const current = sorted[index];
+            if (!current.mileage || current.mileage <= 0) return null;
+
+            // 往前找最近一条有里程的记录
+            let prevMileage = null;
+            for (let i = index - 1; i >= 0; i--) {
+                if (sorted[i].mileage && sorted[i].mileage > 0) {
+                    prevMileage = sorted[i].mileage;
+                    break;
+                }
+            }
+
+            if (prevMileage === null) return null;
+
+            const distance = current.mileage - prevMileage;
+            if (distance <= 0) return null;
+
+            return current.amount / distance;
+        }
+
+        // 整体每公里费用：总花费 ÷（最新里程 - 最早里程）
+        function getOverallCostPerKm() {
+            const withMileage = records.filter(r => r.mileage && r.mileage > 0);
+            if (withMileage.length < 2) return null;
+
+            const sorted = [...withMileage].sort((a, b) => new Date(a.date) - new Date(b.date));
+            const earliest = sorted[0].mileage;
+            const latest = sorted[sorted.length - 1].mileage;
+            const totalDistance = latest - earliest;
+
+            if (totalDistance <= 0) return null;
+
+            const totalAmount = records.reduce((sum, r) => sum + r.amount, 0);
+            return totalAmount / totalDistance;
+        }
+
+        // 格式化每公里费用显示
+        function formatCostKm(cost) {
+            if (cost === null || cost === undefined) return '—';
+            if (cost >= 1) return '¥' + cost.toFixed(2);
+            if (cost >= 0.1) return '¥' + cost.toFixed(3);
+            return '¥' + cost.toFixed(4);
+        }
+
+        // ========== 渲染 ==========
 
         function renderAll() {
             renderStats();
@@ -713,6 +880,7 @@
             const totalCount = records.length;
             const totalAmount = records.reduce((s, r) => s + r.amount, 0);
             const avgAmount = totalCount > 0 ? totalAmount / totalCount : 0;
+            const overallCostKm = getOverallCostPerKm();
 
             document.getElementById('monthTitle').textContent = `${currentMonth + 1}月充电花费`;
             document.getElementById('monthAmount').textContent = `¥${monthTotal.toFixed(2)}`;
@@ -720,6 +888,7 @@
             document.getElementById('totalCount').textContent = totalCount;
             document.getElementById('totalAmount').textContent = `¥${totalAmount.toFixed(0)}`;
             document.getElementById('avgAmount').textContent = `¥${avgAmount.toFixed(1)}`;
+            document.getElementById('overallCostKm').textContent = formatCostKm(overallCostKm);
         }
 
         function renderRecords() {
@@ -787,16 +956,29 @@
             const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
             const dateStr = `${d.getMonth() + 1}月${d.getDate()}日 周${weekDays[d.getDay()]}`;
 
+            const costKm = getCostPerKm(r.id);
+            const costKmHtml = costKm !== null
+                ? `<div class="record-cost-km">${formatCostKm(costKm)}/km</div>`
+                : '';
+
+            const mileageHtml = r.mileage
+                ? `<span class="mileage-tag">${r.mileage.toLocaleString()} km</span>`
+                : '';
+
             return `
                 <div class="record-card" onclick="event.stopPropagation();openEdit(${r.id})">
                     <div class="record-icon">⚡</div>
                     <div class="record-content">
                         <div class="record-date">${dateStr}</div>
                         <div class="record-meta">
+                            ${mileageHtml}
                             ${r.note ? `<span>${r.note}</span>` : ''}
                         </div>
                     </div>
-                    <div class="record-amount">¥${r.amount.toFixed(2)}</div>
+                    <div class="record-right">
+                        <div class="record-amount">¥${r.amount.toFixed(2)}</div>
+                        ${costKmHtml}
+                    </div>
                     <div class="record-actions">
                         <button class="action-btn" onclick="event.stopPropagation();openEdit(${r.id})" title="编辑">✏️</button>
                         <button class="action-btn delete" onclick="event.stopPropagation();deleteRecord(${r.id})" title="删除">×</button>
@@ -828,6 +1010,7 @@
                         records = data;
                         save();
                         renderAll();
+                        updateQuickMileage();
                         showToast('📤 恢复成功');
                     }
                 } catch { showToast('文件格式错误'); }
