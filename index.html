@@ -214,8 +214,7 @@
         }
 
         .submit-btn {
-            width: 100%;
-            padding: 16px;
+            widthpx;
             border-radius: 14px;
             border: none;
             background: var(--primary);
@@ -240,7 +239,8 @@
             align-items: center;
         }
 
-        .section-count {
+: 100%;
+            padding: 16        .section-count {
             font-size: 13px;
             color: var(--text-tertiary);
             font-weight: 400;
@@ -559,32 +559,7 @@
         <h1>⚡ 充电记录</h1>
     </header>
 
-    <div class="month-summary">
-        <div class="month-title" id="monthTitle">本月充电</div>
-        <div class="month-amount" id="monthAmount">¥0</div>
-        <div class="month-count" id="monthCount">0 次充电</div>
-    </div>
-
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-value" id="totalCount">0</div>
-            <div class="stat-label">总次数</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="totalAmount">¥0</div>
-            <div class="stat-label">总花费</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="avgAmount">¥0</div>
-            <div class="stat-label">平均每次</div>
-        </div>
-        <div class="stat-card highlight">
-            <div class="stat-value" id="overallCostKm">—</div>
-            <div class="stat-label">每公里费用</div>
-        </div>
-    </div>
-
-    <section class="quick-add">
+    <div class="section class="quick-add">
         <h2 class="quick-title">➕ 添加充电记录</h2>
         <div class="input-row">
             <div class="input-group">
@@ -651,231 +626,33 @@
                 <label>金额（元）</label>
                 <input type="number" id="editAmount" placeholder="0.00" inputmode="decimal">
             </div>
-            <div class="input-group">
-                <label>当前里程（公里）</label>
-                <input type="number" id="editMileage" placeholder="选填" inputmode="numeric">
-            </div>
-            <div class="input-group">
-                <label>备注</label>
-                <input type="text" id="editNote" placeholder="例如：特来电、家充">
-            </div>
+            <div class class="stat-card">
+            <div class="stat-valuemonth-summary">
+        <div class="month-title" id="monthTitle">本月充电</div>
+        <div class="month-amount" id="monthAmount">¥0</div>
+        <div class="month-count" id="monthCount">0 次充电</div>
+    </div>
 
-            <div class="modal-btns">
-                <button class="modal-btn modal-btn-cancel" onclick="closeModal()">取消</button>
-                <button class="modal-btn modal-btn-save" onclick="saveEdit()">保存</button>
-            </div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="totalCount">0</div>
+            <div class="stat-label">总次数</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="totalAmount">¥0</div>
+            <div class="stat-label">总花费</div>
+        </div>
+        <div" id="avgAmount">¥0</div>
+            <div class="stat-label">平均每次</div>
+        </div>
+        <div class="stat-card highlight">
+            <div class="stat-value" id="overallCostKm">—</div>
+            <div class="stat-label">每公里费用</div>
         </div>
     </div>
 
-    <script>
-        let records = JSON.parse(localStorage.getItem('evChargeRecords')) || [];
-        let editingId = null;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('chargeDate').valueAsDate = new Date();
-            updateQuickMileage();
-            renderAll();
-        });
-
-        function setAmount(amount) {
-            document.getElementById('chargeAmount').value = amount;
-            if (navigator.vibrate) navigator.vibrate(10);
-        }
-
-        function fillLastMileage() {
-            const lastMileage = getLastMileage();
-            if (lastMileage) {
-                document.getElementById('chargeMileage').value = lastMileage;
-                if (navigator.vibrate) navigator.vibrate(10);
-            }
-        }
-
-        function getLastMileage() {
-            const withMileage = records.filter(r => r.mileage != null && r.mileage > 0);
-            if (withMileage.length === 0) return null;
-            withMileage.sort((a, b) => new Date(b.date) - new Date(a.date));
-            return withMileage[0].mileage;
-        }
-
-        function updateQuickMileage() {
-            const lastMileage = getLastMileage();
-            const container = document.getElementById('quickMileage');
-            const btn = document.getElementById('quickMileageBtn');
-            if (lastMileage) {
-                btn.textContent = `上次: ${lastMileage} km`;
-                container.style.display = 'flex';
-            } else {
-                container.style.display = 'none';
-            }
-        }
-
-        function addRecord() {
-            const date = document.getElementById('chargeDate').value;
-            const amount = parseFloat(document.getElementById('chargeAmount').value);
-            const mileageVal = document.getElementById('chargeMileage').value;
-            const mileage = mileageVal ? parseInt(mileageVal) : null;
-            const note = document.getElementById('chargeNote').value.trim();
-
-            if (!date) { showToast('请选择日期'); return; }
-            if (isNaN(amount) || amount <= 0) { showToast('请输入金额'); return; }
-
-            records.unshift({
-                id: Date.now(),
-                date,
-                amount,
-                mileage,
-                note,
-                time: new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'})
-            });
-
-            save();
-            renderAll();
-            updateQuickMileage();
-
-            document.getElementById('chargeAmount').value = '';
-            document.getElementById('chargeMileage').value = '';
-            document.getElementById('chargeNote').value = '';
-            document.getElementById('chargeDate').valueAsDate = new Date();
-
-            showToast('✅ 已保存');
-            if (navigator.vibrate) navigator.vibrate([10, 50, 10]);
-        }
-
-        function deleteRecord(id) {
-            if (confirm('确定删除这条记录？')) {
-                records = records.filter(r => r.id !== id);
-                save();
-                renderAll();
-                updateQuickMileage();
-                showToast('已删除');
-            }
-        }
-
-        function openEdit(id) {
-            const record = records.find(r => r.id === id);
-            if (!record) return;
-
-            editingId = id;
-            document.getElementById('editDate').value = record.date;
-            document.getElementById('editAmount').value = record.amount;
-            document.getElementById('editMileage').value = record.mileage || '';
-            document.getElementById('editNote').value = record.note || '';
-            document.getElementById('editModal').classList.add('show');
-        }
-
-        function closeModal() {
-            document.getElementById('editModal').classList.remove('show');
-            editingId = null;
-        }
-
-        function closeModalOutside(e) {
-            if (e.target === document.getElementById('editModal')) closeModal();
-        }
-
-        function saveEdit() {
-            if (!editingId) return;
-
-            const date = document.getElementById('editDate').value;
-            const amount = parseFloat(document.getElementById('editAmount').value);
-            const mileageVal = document.getElementById('editMileage').value;
-            const mileage = mileageVal ? parseInt(mileageVal) : null;
-            const note = document.getElementById('editNote').value.trim();
-
-            if (!date) { showToast('请选择日期'); return; }
-            if (isNaN(amount) || amount <= 0) { showToast('请输入金额'); return; }
-
-            const index = records.findIndex(r => r.id === editingId);
-            if (index !== -1) {
-                records[index].date = date;
-                records[index].amount = amount;
-                records[index].mileage = mileage;
-                records[index].note = note;
-                save();
-                renderAll();
-                updateQuickMileage();
-                showToast('✅ 已修改');
-            }
-
-            closeModal();
-        }
-
-        function save() {
-            localStorage.setItem('evChargeRecords', JSON.stringify(records));
-        }
-
-        // ========== 计算每公里费用 ==========
-
-        // 计算某条记录的每公里费用：
-        // 该记录的金额 ÷（该记录里程 - 前一条有里程记录的里程）
-        function getCostPerKm(recordId) {
-            const sorted = [...records]
-                .filter(r => r.date)
-                .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-            const index = sorted.findIndex(r => r.id === recordId);
-            if (index === -1) return null;
-
-            const current = sorted[index];
-            if (!current.mileage || current.mileage <= 0) return null;
-
-            // 往前找最近一条有里程的记录
-            let prevMileage = null;
-            for (let i = index - 1; i >= 0; i--) {
-                if (sorted[i].mileage && sorted[i].mileage > 0) {
-                    prevMileage = sorted[i].mileage;
-                    break;
-                }
-            }
-
-            if (prevMileage === null) return null;
-
-            const distance = current.mileage - prevMileage;
-            if (distance <= 0) return null;
-
-            return current.amount / distance;
-        }
-
-        // 整体每公里费用：总花费 ÷（最新里程 - 最早里程）
-        function getOverallCostPerKm() {
-            const withMileage = records.filter(r => r.mileage && r.mileage > 0);
-            if (withMileage.length < 2) return null;
-
-            const sorted = [...withMileage].sort((a, b) => new Date(a.date) - new Date(b.date));
-            const earliest = sorted[0].mileage;
-            const latest = sorted[sorted.length - 1].mileage;
-            const totalDistance = latest - earliest;
-
-            if (totalDistance <= 0) return null;
-
-            const totalAmount = records.reduce((sum, r) => sum + r.amount, 0);
-            return totalAmount / totalDistance;
-        }
-
-        // 格式化每公里费用显示
-        function formatCostKm(cost) {
-            if (cost === null || cost === undefined) return '—';
-            if (cost >= 1) return '¥' + cost.toFixed(2);
-            if (cost >= 0.1) return '¥' + cost.toFixed(3);
-            return '¥' + cost.toFixed(4);
-        }
-
-        // ========== 渲染 ==========
-
-        function renderAll() {
-            renderStats();
-            renderRecords();
-        }
-
-        function renderStats() {
-            const now = new Date();
-            const currentMonth = now.getMonth();
-            const currentYear = now.getFullYear();
-
-            const monthRecords = records.filter(r => {
-                const d = new Date(r.date);
-                return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-            });
-            const monthTotal = monthRecords.reduce((s, r) => s + r.amount, 0);
+    <="input-group">
+ r) => s + r.amount, 0);
 
             const totalCount = records.length;
             const totalAmount = records.reduce((s, r) => s + r.amount, 0);
