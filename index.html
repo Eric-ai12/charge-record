@@ -15,7 +15,6 @@
             --primary: #007aff;
             --primary-light: rgba(0, 122, 255, 0.1);
             --success: #34c759;
-            --success-light: rgba(52, 199, 89, 0.1);
             --danger: #ff3b30;
             --text: #1d1d1f;
             --text-secondary: #86868b;
@@ -57,42 +56,29 @@
             gap: 8px;
         }
 
-        .month-summary {
-            margin: 16px 16px 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            padding: 20px;
-            color: white;
+        .stats-row {
+            display: flex;
+            gap: 10px;
+            padding: 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
 
-        .month-title { font-size: 14px; opacity: 0.9; margin-bottom: 8px; }
-        .month-amount { font-size: 36px; font-weight: 700; margin-bottom: 4px; }
-        .month-count { font-size: 13px; opacity: 0.8; }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 0 16px 16px;
+        .stats-row::-webkit-scrollbar {
+            display: none;
         }
 
         .stat-card {
             background: var(--card);
             border-radius: 16px;
             padding: 16px;
+            min-width: 100px;
+            flex: 1;
             box-shadow: var(--shadow);
         }
 
-        .stat-card.highlight {
-            background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
-            color: white;
-        }
-
-        .stat-card.highlight .stat-value { color: white; }
-        .stat-card.highlight .stat-label { color: rgba(255,255,255,0.8); }
-
         .stat-value {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 4px;
@@ -101,6 +87,37 @@
         .stat-label {
             font-size: 12px;
             color: var(--text-secondary);
+        }
+
+        .month-summary {
+            margin: 0 16px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+        }
+
+        .month-title {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .month-amount {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .month-count {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .month-cost {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-top: 4px;
         }
 
         .quick-add {
@@ -120,7 +137,9 @@
             gap: 8px;
         }
 
-        .input-group { margin-bottom: 14px; }
+        .input-group {
+            margin-bottom: 14px;
+        }
 
         .input-group label {
             display: block;
@@ -146,8 +165,14 @@
             background: white;
         }
 
-        .input-row { display: flex; gap: 12px; }
-        .input-row .input-group { flex: 1; }
+        .input-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .input-row .input-group {
+            flex: 1;
+        }
 
         .quick-amounts {
             display: flex;
@@ -174,30 +199,6 @@
             color: var(--primary);
         }
 
-        .quick-mileage {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-
-        .quick-mileage-btn {
-            padding: 8px 14px;
-            border-radius: 16px;
-            border: 1.5px solid var(--border);
-            background: var(--success-light);
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--success);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .quick-mileage-btn:active {
-            background: var(--success);
-            color: white;
-        }
-
         .submit-btn {
             width: 100%;
             padding: 16px;
@@ -212,9 +213,14 @@
             transition: all 0.2s;
         }
 
-        .submit-btn:active { transform: scale(0.98); opacity: 0.9; }
+        .submit-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
 
-        .records-section { padding: 0 16px; }
+        .records-section {
+            padding: 0 16px;
+        }
 
         .section-title {
             font-size: 16px;
@@ -247,7 +253,9 @@
             transition: background 0.2s;
         }
 
-        .month-header:active { background: var(--bg); }
+        .month-header:active {
+            background: var(--bg);
+        }
 
         .month-icon {
             width: 44px;
@@ -264,7 +272,9 @@
             font-weight: 600;
         }
 
-        .month-info { flex: 1; }
+        .month-info {
+            flex: 1;
+        }
 
         .month-name {
             font-size: 16px;
@@ -290,7 +300,9 @@
             transition: transform 0.3s;
         }
 
-        .month-card.open .month-arrow { transform: rotate(180deg); }
+        .month-card.open .month-arrow {
+            transform: rotate(180deg);
+        }
 
         .month-detail {
             max-height: 0;
@@ -298,7 +310,9 @@
             transition: max-height 0.3s ease;
         }
 
-        .month-card.open .month-detail { max-height: 2000px; }
+        .month-card.open .month-detail {
+            max-height: 2000px;
+        }
 
         .month-detail-inner {
             padding: 0 16px 16px;
@@ -312,15 +326,14 @@
             border-bottom: 1px solid var(--bg);
             cursor: pointer;
             transition: background 0.2s;
-            animation: slideUp 0.3s ease;
         }
 
-        .record-card:last-child { border-bottom: none; }
-        .record-card:active { background: var(--bg); }
+        .record-card:last-child {
+            border-bottom: none;
+        }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
+        .record-card:active {
+            background: var(--bg);
         }
 
         .record-icon {
@@ -350,38 +363,22 @@
         .record-meta {
             font-size: 12px;
             color: var(--text-secondary);
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
         }
 
-        .record-meta .mileage-tag {
-            background: var(--success-light);
-            color: var(--success);
-            padding: 1px 6px;
-            border-radius: 4px;
-            font-weight: 500;
-        }
-
-        .record-right {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+        .record-meta span {
             margin-right: 8px;
-            flex-shrink: 0;
+        }
+
+        .record-cost {
+            color: var(--primary);
+            font-weight: 500;
         }
 
         .record-amount {
             font-size: 17px;
             font-weight: 700;
             color: var(--primary);
-        }
-
-        .record-cost-km {
-            font-size: 11px;
-            color: var(--success);
-            font-weight: 500;
-            margin-top: 2px;
+            margin-right: 8px;
         }
 
         .record-actions {
@@ -404,8 +401,15 @@
             transition: all 0.2s;
         }
 
-        .action-btn:active { background: var(--primary-light); color: var(--primary); }
-        .action-btn.delete:active { background: rgba(255, 59, 48, 0.1); color: var(--danger); }
+        .action-btn:active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .action-btn.delete:active {
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--danger);
+        }
 
         .empty-state {
             text-align: center;
@@ -413,7 +417,10 @@
             color: var(--text-tertiary);
         }
 
-        .empty-icon { font-size: 48px; margin-bottom: 12px; }
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
 
         .bottom-bar {
             position: fixed;
@@ -443,9 +450,14 @@
             transition: all 0.2s;
         }
 
-        .bar-btn-primary { background: var(--primary); color: white; }
-        .bar-btn-secondary { background: var(--bg); color: var(--text); }
-        .bar-btn:active { transform: scale(0.97); }
+        .bar-btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .bar-btn:active {
+            transform: scale(0.97);
+        }
 
         .toast {
             position: fixed;
@@ -476,14 +488,10 @@
             display: none;
             align-items: flex-end;
             justify-content: center;
-            animation: fadeIn 0.2s ease;
         }
 
-        .modal-overlay.show { display: flex; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .modal-overlay.show {
+            display: flex;
         }
 
         .modal {
@@ -493,10 +501,10 @@
             max-width: 500px;
             padding: 20px;
             padding-bottom: max(20px, env(safe-area-inset-bottom));
-            animation: slideUp2 0.3s ease;
+            animation: slideUp 0.3s ease;
         }
 
-        @keyframes slideUp2 {
+        @keyframes slideUp {
             from { transform: translateY(100%); }
             to { transform: translateY(0); }
         }
@@ -534,23 +542,42 @@
             transition: all 0.2s;
         }
 
-        .modal-btn:active { transform: scale(0.97); }
-        .modal-btn-cancel { background: var(--bg); color: var(--text); }
-        .modal-btn-save { background: var(--primary); color: white; }
+        .modal-btn:active {
+            transform: scale(0.97);
+        }
+
+        .modal-btn-cancel {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .modal-btn-save {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cost-preview {
+            font-size: 13px;
+            color: var(--primary);
+            margin-top: 6px;
+            font-weight: 500;
+            min-height: 20px;
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <h1>⚡ 充电记录</h1>
+        <h1>充电记录</h1>
     </header>
 
     <div class="month-summary">
         <div class="month-title" id="monthTitle">本月充电</div>
         <div class="month-amount" id="monthAmount">¥0</div>
         <div class="month-count" id="monthCount">0 次充电</div>
+        <div class="month-cost" id="monthCost"></div>
     </div>
 
-    <div class="stats-grid">
+    <div class="stats-row">
         <div class="stat-card">
             <div class="stat-value" id="totalCount">0</div>
             <div class="stat-label">总次数</div>
@@ -560,17 +587,13 @@
             <div class="stat-label">总花费</div>
         </div>
         <div class="stat-card">
-            <div class="stat-value" id="avgAmount">¥0</div>
-            <div class="stat-label">平均每次</div>
-        </div>
-        <div class="stat-card highlight">
-            <div class="stat-value" id="overallCostKm">—</div>
-            <div class="stat-label">每公里费用</div>
+            <div class="stat-value" id="avgCost">¥0</div>
+            <div class="stat-label">每公里</div>
         </div>
     </div>
 
     <section class="quick-add">
-        <h2 class="quick-title">➕ 添加充电记录</h2>
+        <h2 class="quick-title">添加充电记录</h2>
         <div class="input-row">
             <div class="input-group">
                 <label>充电日期</label>
@@ -578,25 +601,23 @@
             </div>
             <div class="input-group">
                 <label>金额（元）</label>
-                <input type="number" id="chargeAmount" placeholder="0.00" inputmode="decimal">
+                <input type="number" id="chargeAmount" placeholder="0.00" inputmode="decimal" oninput="updatePreview()">
             </div>
         </div>
         <div class="input-group">
             <label>快捷金额</label>
             <div class="quick-amounts">
-                <button class="quick-amount-btn" onclick="setAmount(30)">30元</button>
-                <button class="quick-amount-btn" onclick="setAmount(50)">50元</button>
-                <button class="quick-amount-btn" onclick="setAmount(80)">80元</button>
-                <button class="quick-amount-btn" onclick="setAmount(100)">100元</button>
-                <button class="quick-amount-btn" onclick="setAmount(150)">150元</button>
+                <button class="quick-amount-btn" onclick="setAmount(30)">30</button>
+                <button class="quick-amount-btn" onclick="setAmount(50)">50</button>
+                <button class="quick-amount-btn" onclick="setAmount(80)">80</button>
+                <button class="quick-amount-btn" onclick="setAmount(100)">100</button>
+                <button class="quick-amount-btn" onclick="setAmount(150)">150</button>
             </div>
         </div>
         <div class="input-group">
-            <label>当前里程（公里）</label>
-            <input type="number" id="chargeMileage" placeholder="看仪表盘填入" inputmode="numeric">
-            <div class="quick-mileage" id="quickMileage" style="display:none;">
-                <button class="quick-mileage-btn" id="quickMileageBtn" onclick="fillLastMileage()"></button>
-            </div>
+            <label>公里数（距上次行驶里程）</label>
+            <input type="number" id="chargeKm" placeholder="例如：200" inputmode="decimal" oninput="updatePreview()">
+            <div class="cost-preview" id="costPreview"></div>
         </div>
         <div class="input-group">
             <label>备注（选填）</label>
@@ -607,15 +628,15 @@
 
     <section class="records-section">
         <div class="section-title">
-            <span>📋 历史记录</span>
+            <span>历史记录</span>
             <span class="section-count" id="recordsCount">0 条</span>
         </div>
         <div id="recordsList"></div>
     </section>
 
     <div class="bottom-bar">
-        <button class="bar-btn bar-btn-secondary" onclick="exportData()">📥 备份</button>
-        <button class="bar-btn bar-btn-secondary" onclick="document.getElementById('importFile').click()">📤 恢复</button>
+        <button class="bar-btn bar-btn-secondary" onclick="exportData()">备份</button>
+        <button class="bar-btn bar-btn-secondary" onclick="document.getElementById('importFile').click()">恢复</button>
         <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
     </div>
 
@@ -624,18 +645,19 @@
     <div class="modal-overlay" id="editModal" onclick="closeModalOutside(event)">
         <div class="modal">
             <div class="modal-handle"></div>
-            <div class="modal-title">✏️ 修改记录</div>
+            <div class="modal-title">修改记录</div>
             <div class="input-group">
                 <label>充电日期</label>
                 <input type="date" id="editDate">
             </div>
             <div class="input-group">
                 <label>金额（元）</label>
-                <input type="number" id="editAmount" placeholder="0.00" inputmode="decimal">
+                <input type="number" id="editAmount" placeholder="0.00" inputmode="decimal" oninput="updateEditPreview()">
             </div>
             <div class="input-group">
-                <label>当前里程（公里）</label>
-                <input type="number" id="editMileage" placeholder="选填" inputmode="numeric">
+                <label>公里数</label>
+                <input type="number" id="editKm" placeholder="例如：200" inputmode="decimal" oninput="updateEditPreview()">
+                <div class="cost-preview" id="editCostPreview"></div>
             </div>
             <div class="input-group">
                 <label>备注</label>
@@ -652,73 +674,73 @@
         let records = JSON.parse(localStorage.getItem('evChargeRecords')) || [];
         let editingId = null;
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('chargeDate').valueAsDate = new Date();
-            updateQuickMileage();
             renderAll();
         });
 
         function setAmount(amount) {
             document.getElementById('chargeAmount').value = amount;
+            updatePreview();
             if (navigator.vibrate) navigator.vibrate(10);
         }
 
-        function fillLastMileage() {
-            var lastMileage = getLastMileage();
-            if (lastMileage) {
-                document.getElementById('chargeMileage').value = lastMileage;
-                if (navigator.vibrate) navigator.vibrate(10);
+        function updatePreview() {
+            var amount = parseFloat(document.getElementById('chargeAmount').value);
+            var km = parseFloat(document.getElementById('chargeKm').value);
+            var el = document.getElementById('costPreview');
+            if (!isNaN(amount) && amount > 0 && !isNaN(km) && km > 0) {
+                el.textContent = '约每公里 ¥' + (amount / km).toFixed(2);
+            } else {
+                el.textContent = '';
             }
         }
 
-        function getLastMileage() {
-            var withMileage = records.filter(function(r) { return r.mileage != null && r.mileage > 0; });
-            if (withMileage.length === 0) return null;
-            withMileage.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
-            return withMileage[0].mileage;
-        }
-
-        function updateQuickMileage() {
-            var lastMileage = getLastMileage();
-            var container = document.getElementById('quickMileage');
-            var btn = document.getElementById('quickMileageBtn');
-            if (lastMileage) {
-                btn.textContent = '上次: ' + lastMileage + ' km';
-                container.style.display = 'flex';
+        function updateEditPreview() {
+            var amount = parseFloat(document.getElementById('editAmount').value);
+            var km = parseFloat(document.getElementById('editKm').value);
+            var el = document.getElementById('editCostPreview');
+            if (!isNaN(amount) && amount > 0 && !isNaN(km) && km > 0) {
+                el.textContent = '约每公里 ¥' + (amount / km).toFixed(2);
             } else {
-                container.style.display = 'none';
+                el.textContent = '';
             }
         }
 
         function addRecord() {
             var date = document.getElementById('chargeDate').value;
             var amount = parseFloat(document.getElementById('chargeAmount').value);
-            var mileageVal = document.getElementById('chargeMileage').value;
-            var mileage = mileageVal ? parseInt(mileageVal) : null;
+            var km = parseFloat(document.getElementById('chargeKm').value);
             var note = document.getElementById('chargeNote').value.trim();
 
-            if (!date) { showToast('请选择日期'); return; }
-            if (isNaN(amount) || amount <= 0) { showToast('请输入金额'); return; }
+            if (!date) {
+                showToast('请选择日期');
+                return;
+            }
+            if (isNaN(amount) || amount <= 0) {
+                showToast('请输入金额');
+                return;
+            }
 
             records.unshift({
                 id: Date.now(),
                 date: date,
                 amount: amount,
-                mileage: mileage,
+                km: (!isNaN(km) && km > 0) ? km : null,
                 note: note,
                 time: new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'})
             });
 
             save();
             renderAll();
-            updateQuickMileage();
 
             document.getElementById('chargeAmount').value = '';
-            document.getElementById('chargeMileage').value = '';
+            document.getElementById('chargeKm').value = '';
             document.getElementById('chargeNote').value = '';
             document.getElementById('chargeDate').valueAsDate = new Date();
+            document.getElementById('costPreview').textContent = '';
 
-            showToast('✅ 已保存');
+            showToast('已保存');
             if (navigator.vibrate) navigator.vibrate([10, 50, 10]);
         }
 
@@ -727,7 +749,6 @@
                 records = records.filter(function(r) { return r.id !== id; });
                 save();
                 renderAll();
-                updateQuickMileage();
                 showToast('已删除');
             }
         }
@@ -735,12 +756,12 @@
         function openEdit(id) {
             var record = records.find(function(r) { return r.id === id; });
             if (!record) return;
-
             editingId = id;
             document.getElementById('editDate').value = record.date;
             document.getElementById('editAmount').value = record.amount;
-            document.getElementById('editMileage').value = record.mileage || '';
+            document.getElementById('editKm').value = record.km || '';
             document.getElementById('editNote').value = record.note || '';
+            updateEditPreview();
             document.getElementById('editModal').classList.add('show');
         }
 
@@ -750,94 +771,50 @@
         }
 
         function closeModalOutside(e) {
-            if (e.target === document.getElementById('editModal')) closeModal();
+            if (e.target === document.getElementById('editModal')) {
+                closeModal();
+            }
         }
 
         function saveEdit() {
             if (!editingId) return;
-
             var date = document.getElementById('editDate').value;
             var amount = parseFloat(document.getElementById('editAmount').value);
-            var mileageVal = document.getElementById('editMileage').value;
-            var mileage = mileageVal ? parseInt(mileageVal) : null;
+            var km = parseFloat(document.getElementById('editKm').value);
             var note = document.getElementById('editNote').value.trim();
 
-            if (!date) { showToast('请选择日期'); return; }
-            if (isNaN(amount) || amount <= 0) { showToast('请输入金额'); return; }
+            if (!date) {
+                showToast('请选择日期');
+                return;
+            }
+            if (isNaN(amount) || amount <= 0) {
+                showToast('请输入金额');
+                return;
+            }
 
-            var index = records.findIndex(function(r) { return r.id === editingId; });
+            var index = -1;
+            for (var i = 0; i < records.length; i++) {
+                if (records[i].id === editingId) {
+                    index = i;
+                    break;
+                }
+            }
+
             if (index !== -1) {
                 records[index].date = date;
                 records[index].amount = amount;
-                records[index].mileage = mileage;
+                records[index].km = (!isNaN(km) && km > 0) ? km : null;
                 records[index].note = note;
                 save();
                 renderAll();
-                updateQuickMileage();
-                showToast('✅ 已修改');
+                showToast('已修改');
             }
-
             closeModal();
         }
 
         function save() {
             localStorage.setItem('evChargeRecords', JSON.stringify(records));
         }
-
-        // ====== 每公里费用计算（已修复排序bug） ======
-
-        function getCostPerKm(recordId) {
-            var sorted = records.slice().filter(function(r) { return r.date; });
-            sorted.sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
-
-            var index = -1;
-            for (var i = 0; i < sorted.length; i++) {
-                if (sorted[i].id === recordId) { index = i; break; }
-            }
-            if (index === -1) return null;
-
-            var current = sorted[index];
-            if (!current.mileage || current.mileage <= 0) return null;
-
-            var prevMileage = null;
-            for (var j = index - 1; j >= 0; j--) {
-                if (sorted[j].mileage && sorted[j].mileage > 0) {
-                    prevMileage = sorted[j].mileage;
-                    break;
-                }
-            }
-
-            if (prevMileage === null) return null;
-            var distance = current.mileage - prevMileage;
-            if (distance <= 0) return null;
-            return current.amount / distance;
-        }
-
-        function getOverallCostPerKm() {
-            var withMileage = records.filter(function(r) { return r.mileage && r.mileage > 0; });
-            if (withMileage.length < 2) return null;
-
-            var sorted = withMileage.slice().sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
-            var earliest = sorted[0].mileage;
-            var latest = sorted[sorted.length - 1].mileage;
-            var totalDistance = latest - earliest;
-            if (totalDistance <= 0) return null;
-
-            var totalAmount = 0;
-            for (var i = 0; i < records.length; i++) {
-                totalAmount += records[i].amount;
-            }
-            return totalAmount / totalDistance;
-        }
-
-        function formatCostKm(cost) {
-            if (cost === null || cost === undefined) return '—';
-            if (cost >= 1) return '¥' + cost.toFixed(2);
-            if (cost >= 0.1) return '¥' + cost.toFixed(3);
-            return '¥' + cost.toFixed(4);
-        }
-
-        // ====== 渲染 ======
 
         function renderAll() {
             renderStats();
@@ -846,29 +823,41 @@
 
         function renderStats() {
             var now = new Date();
-            var currentMonth = now.getMonth();
-            var currentYear = now.getFullYear();
+            var cm = now.getMonth();
+            var cy = now.getFullYear();
 
-            var monthRecords = records.filter(function(r) {
+            var monthRecs = records.filter(function(r) {
                 var d = new Date(r.date);
-                return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+                return d.getMonth() === cm && d.getFullYear() === cy;
             });
-            var monthTotal = 0;
-            for (var i = 0; i < monthRecords.length; i++) { monthTotal += monthRecords[i].amount; }
+
+            var monthTotal = monthRecs.reduce(function(s, r) { return s + r.amount; }, 0);
+            var monthKm = monthRecs.reduce(function(s, r) { return s + (r.km || 0); }, 0);
 
             var totalCount = records.length;
-            var totalAmount = 0;
-            for (var j = 0; j < records.length; j++) { totalAmount += records[j].amount; }
-            var avgAmount = totalCount > 0 ? totalAmount / totalCount : 0;
-            var overallCostKm = getOverallCostPerKm();
+            var totalAmount = records.reduce(function(s, r) { return s + r.amount; }, 0);
+            var totalKm = records.reduce(function(s, r) { return s + (r.km || 0); }, 0);
 
-            document.getElementById('monthTitle').textContent = (currentMonth + 1) + '月充电花费';
+            document.getElementById('monthTitle').textContent = (cm + 1) + '月充电花费';
             document.getElementById('monthAmount').textContent = '¥' + monthTotal.toFixed(2);
-            document.getElementById('monthCount').textContent = monthRecords.length + ' 次充电';
+            document.getElementById('monthCount').textContent = monthRecs.length + ' 次充电';
+
+            var mcpkEl = document.getElementById('monthCost');
+            if (monthKm > 0) {
+                mcpkEl.textContent = '本月每公里 ¥' + (monthTotal / monthKm).toFixed(2);
+            } else {
+                mcpkEl.textContent = '';
+            }
+
             document.getElementById('totalCount').textContent = totalCount;
             document.getElementById('totalAmount').textContent = '¥' + totalAmount.toFixed(0);
-            document.getElementById('avgAmount').textContent = '¥' + avgAmount.toFixed(1);
-            document.getElementById('overallCostKm').textContent = formatCostKm(overallCostKm);
+
+            var avgEl = document.getElementById('avgCost');
+            if (totalKm > 0) {
+                avgEl.textContent = '¥' + (totalAmount / totalKm).toFixed(2);
+            } else {
+                avgEl.textContent = '¥0';
+            }
         }
 
         function renderRecords() {
@@ -876,50 +865,56 @@
             document.getElementById('recordsCount').textContent = records.length + ' 条';
 
             if (records.length === 0) {
-                container.innerHTML = '<div class="empty-state"><div class="empty-icon">🔋</div><p>还没有充电记录<br>添加第一条吧</p></div>';
+                container.innerHTML = '<div class="empty-state"><div class="empty-icon"></div><p>还没有充电记录<br>添加第一条吧</p></div>';
                 return;
             }
 
-            var sorted = records.slice().sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
-            var groups = {};
-            var groupOrder = [];
+            var sorted = records.slice().sort(function(a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
 
-            for (var i = 0; i < sorted.length; i++) {
-                var r = sorted[i];
+            var groups = {};
+            sorted.forEach(function(r) {
                 var d = new Date(r.date);
                 var key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
                 var label = d.getFullYear() + '年' + (d.getMonth() + 1) + '月';
                 if (!groups[key]) {
                     groups[key] = { label: label, items: [] };
-                    groupOrder.push(key);
                 }
                 groups[key].items.push(r);
-            }
+            });
 
             var html = '';
-            for (var g = 0; g < groupOrder.length; g++) {
-                var key = groupOrder[g];
+            var isFirst = true;
+            var keys = Object.keys(groups);
+
+            for (var k = 0; k < keys.length; k++) {
+                var key = keys[k];
                 var group = groups[key];
-                var monthTotal = 0;
-                for (var m = 0; m < group.items.length; m++) { monthTotal += group.items[m].amount; }
-                var monthCount = group.items.length;
-                var openClass = g === 0 ? 'open' : '';
-                var monthNum = key.split('-')[1];
+                var mTotal = group.items.reduce(function(s, r) { return s + r.amount; }, 0);
+                var mKm = group.items.reduce(function(s, r) { return s + (r.km || 0); }, 0);
+                var mCount = group.items.length;
+                var costPerKm = mKm > 0 ? '每公里 ¥' + (mTotal / mKm).toFixed(2) : '';
 
-                html += '<div class="month-card ' + openClass + '" onclick="toggleMonth(this)">';
+                html += '<div class="month-card ' + (isFirst ? 'open' : '') + '" onclick="toggleMonth(this)">';
                 html += '<div class="month-header">';
-                html += '<div class="month-icon">' + monthNum + '</div>';
-                html += '<div class="month-info"><div class="month-name">' + group.label + '</div>';
-                html += '<div class="month-stats">' + monthCount + ' 次充电</div></div>';
-                html += '<div class="month-total">¥' + monthTotal.toFixed(2) + '</div>';
-                html += '<div class="month-arrow">▼</div></div>';
-                html += '<div class="month-detail"><div class="month-detail-inner">';
+                html += '<div class="month-icon">' + key.split('-')[1] + '</div>';
+                html += '<div class="month-info">';
+                html += '<div class="month-name">' + group.label + '</div>';
+                html += '<div class="month-stats">' + mCount + ' 次充电' + (costPerKm ? ' · ' + costPerKm : '') + '</div>';
+                html += '</div>';
+                html += '<div class="month-total">¥' + mTotal.toFixed(2) + '</div>';
+                html += '<div class="month-arrow">▼</div>';
+                html += '</div>';
+                html += '<div class="month-detail">';
+                html += '<div class="month-detail-inner">';
 
-                for (var ri = 0; ri < group.items.length; ri++) {
-                    html += renderRecordItem(group.items[ri]);
+                for (var j = 0; j < group.items.length; j++) {
+                    html += renderRecordItem(group.items[j]);
                 }
 
                 html += '</div></div></div>';
+                isFirst = false;
             }
 
             container.innerHTML = html;
@@ -933,18 +928,19 @@
             var d = new Date(r.date);
             var weekDays = ['日', '一', '二', '三', '四', '五', '六'];
             var dateStr = (d.getMonth() + 1) + '月' + d.getDate() + '日 周' + weekDays[d.getDay()];
-
-            var costKm = getCostPerKm(r.id);
-            var costKmHtml = costKm !== null ? '<div class="record-cost-km">' + formatCostKm(costKm) + '/km</div>' : '';
-            var mileageHtml = r.mileage ? '<span class="mileage-tag">' + Number(r.mileage).toLocaleString() + ' km</span>' : '';
-            var noteHtml = r.note ? '<span>' + r.note + '</span>' : '';
+            var costPerKm = (r.km && r.km > 0) ? '每公里 ¥' + (r.amount / r.km).toFixed(2) : '';
+            var kmStr = r.km ? r.km + 'km' : '';
 
             var html = '<div class="record-card" onclick="event.stopPropagation();openEdit(' + r.id + ')">';
-            html += '<div class="record-icon">⚡</div>';
-            html += '<div class="record-content"><div class="record-date">' + dateStr + '</div>';
-            html += '<div class="record-meta">' + mileageHtml + noteHtml + '</div></div>';
-            html += '<div class="record-right"><div class="record-amount">¥' + r.amount.toFixed(2) + '</div>';
-            html += costKmHtml + '</div>';
+            html += '<div class="record-icon"></div>';
+            html += '<div class="record-content">';
+            html += '<div class="record-date">' + dateStr + '</div>';
+            html += '<div class="record-meta">';
+            if (r.note) html += '<span>' + r.note + '</span>';
+            if (kmStr) html += '<span>' + kmStr + '</span>';
+            if (costPerKm) html += '<span class="record-cost">' + costPerKm + '</span>';
+            html += '</div></div>';
+            html += '<div class="record-amount">¥' + r.amount.toFixed(2) + '</div>';
             html += '<div class="record-actions">';
             html += '<button class="action-btn" onclick="event.stopPropagation();openEdit(' + r.id + ')" title="编辑">✏️</button>';
             html += '<button class="action-btn delete" onclick="event.stopPropagation();deleteRecord(' + r.id + ')" title="删除">×</button>';
@@ -954,7 +950,10 @@
         }
 
         function exportData() {
-            if (records.length === 0) { showToast('没有数据'); return; }
+            if (records.length === 0) {
+                showToast('没有数据');
+                return;
+            }
             var blob = new Blob([JSON.stringify(records, null, 2)], {type: 'application/json'});
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
@@ -962,7 +961,7 @@
             a.download = '充电记录_' + new Date().toISOString().slice(0,10) + '.json';
             a.click();
             URL.revokeObjectURL(url);
-            showToast('📥 备份成功');
+            showToast('备份成功');
         }
 
         function handleImport(e) {
@@ -973,13 +972,23 @@
                 try {
                     var data = JSON.parse(ev.target.result);
                     if (Array.isArray(data)) {
-                        records = data;
+                        records = data.map(function(r) {
+                            return {
+                                id: r.id || Date.now(),
+                                date: r.date,
+                                amount: r.amount,
+                                km: r.km || null,
+                                note: r.note || '',
+                                time: r.time || ''
+                            };
+                        });
                         save();
                         renderAll();
-                        updateQuickMileage();
-                        showToast('📤 恢复成功');
+                        showToast('恢复成功');
                     }
-                } catch(err) { showToast('文件格式错误'); }
+                } catch(err) {
+                    showToast('文件格式错误');
+                }
             };
             reader.readAsText(file);
             e.target.value = '';
@@ -989,7 +998,9 @@
             var toast = document.getElementById('toast');
             toast.textContent = msg;
             toast.classList.add('show');
-            setTimeout(function() { toast.classList.remove('show'); }, 2000);
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 2000);
         }
     </script>
 </body>
