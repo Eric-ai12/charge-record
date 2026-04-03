@@ -218,6 +218,12 @@
             opacity: 0.9;
         }
 
+        .hint-text {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: 6px;
+        }
+
         .records-section {
             padding: 0 16px;
         }
@@ -615,8 +621,9 @@
             </div>
         </div>
         <div class="input-group">
-            <label>公里数（距上次行驶里程）</label>
-            <input type="number" id="chargeKm" placeholder="例如：200" inputmode="decimal" oninput="updatePreview()">
+            <label>当前里程（km）</label>
+            <input type="number" id="chargeKm" placeholder="例如：5911" inputmode="decimal" oninput="updatePreview()">
+            <div class="hint-text" id="lastKmHint"></div>
             <div class="cost-preview" id="costPreview"></div>
         </div>
         <div class="input-group">
@@ -655,8 +662,9 @@
                 <input type="number" id="editAmount" placeholder="0.00" inputmode="decimal" oninput="updateEditPreview()">
             </div>
             <div class="input-group">
-                <label>公里数</label>
-                <input type="number" id="editKm" placeholder="例如：200" inputmode="decimal" oninput="updateEditPreview()">
+                <label>当前里程（km）</label>
+                <input type="number" id="editKm" placeholder="例如：5911" inputmode="decimal" oninput="updateEditPreview()">
+                <div class="hint-text" id="editLastKmHint"></div>
                 <div class="cost-preview" id="editCostPreview"></div>
             </div>
             <div class="input-group">
@@ -671,13 +679,38 @@
     </div>
 
     <script>
-        let records = JSON.parse(localStorage.getItem('evChargeRecords')) || [];
-        let editingId = null;
+        var records = JSON.parse(localStorage.getItem('evChargeRecords')) || [];
+        var editingId = null;
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('chargeDate').valueAsDate = new Date();
             renderAll();
+            updateLastKmHint();
         });
+
+        function getLatestRecord() {
+            if (records.length === 0) return null;
+            var sorted = records.slice().sort(function(a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
+            return sorted[0];
+        }
+
+        function updateLastKmHint() {
+            var latest = getLatestRecord();
+            var hint = document.getElementById('lastKmHint');
+            if (latest && latest.currentKm) {
+                hint.textContent = '上次里程：' + latest.currentKm + 'km';
+            } else {
+                hint.textContent = '首次记录，自动设为0';
+            }
+        }
+
+        function calcDrivenKm(currentKm, beforeRecord) {
+            if (!beforeRecord || !beforeRecord.currentKm) return 0;
+            var driven = currentKm - beforeRecord.currentKm;
+            return driven > 0 ? driven : 0;
+        }
 
         function setAmount(amount) {
             document.getElementById('chargeAmount').value = amount;
@@ -687,10 +720,19 @@
 
         function updatePreview() {
             var amount = parseFloat(document.getElementById('chargeAmount').value);
-            var km = parseFloat(document.getElementById('chargeKm').value);
+            var currentKm = parseFloat(document.getElementById('chargeKm').value);
             var el = document.getElementById('costPreview');
-            if (!isNaN(amount) && amount > 0 && !isNaN(km) && km > 0) {
-                el.textContent = '约每公里 ¥' + (amount / km).toFixed(2);
+
+            if (!isNaN(amount) && amount > 0 && !isNaN(currentKm) && currentKm > 0) {
+                var latest = getLatestRecord();
+                var driven = calcDrivenKm(currentKm, latest);
+                if (driven > 0) {
+                    el.textContent = '行驶 ' + driven + 'km，约每公里 ¥' + (amount / driven).toFixed(2);
+                } else if (latest && latest.currentKm) {
+                    el.textContent = '里程数应大于上次里程';
+                } else {
+                    el.textContent = '首次记录，无法计算每公里';
+                }
             } else {
                 el.textContent = '';
             }
@@ -698,10 +740,19 @@
 
         function updateEditPreview() {
             var amount = parseFloat(document.getElementById('editAmount').value);
-            var km = parseFloat(document.getElementById('editKm').value);
+            var currentKm = parseFloat(document.getElementById('editKm').value);
             var el = document.getElementById('editCostPreview');
-            if (!isNaN(amount) && amount > 0 && !isNaN(km) && km > 0) {
-                el.textContent = '约每公里 ¥' + (amount / km).toFixed(2);
+
+            if (!isNaN(amount) && amount > 0 && !isNaN(currentKm) && currentKm > 0) {
+                var beforeRecord = getRecordBefore(editingId);
+                var driven = calcDrivenKm(currentKm, beforeRecord);
+                if (driven > 0) {
+                    el.textContent = '行驶 ' + driven + 'km，约每公里 ¥' + (amount / driven).toFixed(2);
+                } else if (beforeRecord && beforeRecord.currentKm) {
+                    el.textContent = '里程数应大于上一条里程';
+                } else {
+                    el.textContent = '首条记录，无法计算每公里';
+                }
             } else {
                 el.textContent = '';
             }
@@ -710,7 +761,7 @@
         function addRecord() {
             var date = document.getElementById('chargeDate').value;
             var amount = parseFloat(document.getElementById('chargeAmount').value);
-            var km = parseFloat(document.getElementById('chargeKm').value);
+            var currentKm = parseFloat(document.getElementById('chargeKm').value);
             var note = document.getElementById('chargeNote').value.trim();
 
             if (!date) {
@@ -722,11 +773,18 @@
                 return;
             }
 
+            var latest = getLatestRecord();
+            var drivenKm = 0;
+            if (!isNaN(currentKm) && currentKm > 0) {
+                drivenKm = calcDrivenKm(currentKm, latest);
+            }
+
             records.unshift({
                 id: Date.now(),
                 date: date,
                 amount: amount,
-                km: (!isNaN(km) && km > 0) ? km : null,
+                currentKm: (!isNaN(currentKm) && currentKm > 0) ? currentKm : null,
+                drivenKm: drivenKm > 0 ? drivenKm : null,
                 note: note,
                 time: new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'})
             });
@@ -739,6 +797,7 @@
             document.getElementById('chargeNote').value = '';
             document.getElementById('chargeDate').valueAsDate = new Date();
             document.getElementById('costPreview').textContent = '';
+            updateLastKmHint();
 
             showToast('已保存');
             if (navigator.vibrate) navigator.vibrate([10, 50, 10]);
@@ -747,10 +806,29 @@
         function deleteRecord(id) {
             if (confirm('确定删除这条记录？')) {
                 records = records.filter(function(r) { return r.id !== id; });
+                recalcAllDrivenKm();
                 save();
                 renderAll();
+                updateLastKmHint();
                 showToast('已删除');
             }
+        }
+
+        function getRecordBefore(id) {
+            var sorted = records.slice().sort(function(a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
+            var index = -1;
+            for (var i = 0; i < sorted.length; i++) {
+                if (sorted[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index < sorted.length - 1) {
+                return sorted[index + 1];
+            }
+            return null;
         }
 
         function openEdit(id) {
@@ -759,8 +837,17 @@
             editingId = id;
             document.getElementById('editDate').value = record.date;
             document.getElementById('editAmount').value = record.amount;
-            document.getElementById('editKm').value = record.km || '';
+            document.getElementById('editKm').value = record.currentKm || '';
             document.getElementById('editNote').value = record.note || '';
+
+            var beforeRecord = getRecordBefore(id);
+            var hint = document.getElementById('editLastKmHint');
+            if (beforeRecord && beforeRecord.currentKm) {
+                hint.textContent = '上一条里程：' + beforeRecord.currentKm + 'km';
+            } else {
+                hint.textContent = '这是最早的一条记录';
+            }
+
             updateEditPreview();
             document.getElementById('editModal').classList.add('show');
         }
@@ -780,7 +867,7 @@
             if (!editingId) return;
             var date = document.getElementById('editDate').value;
             var amount = parseFloat(document.getElementById('editAmount').value);
-            var km = parseFloat(document.getElementById('editKm').value);
+            var currentKm = parseFloat(document.getElementById('editKm').value);
             var note = document.getElementById('editNote').value.trim();
 
             if (!date) {
@@ -803,13 +890,39 @@
             if (index !== -1) {
                 records[index].date = date;
                 records[index].amount = amount;
-                records[index].km = (!isNaN(km) && km > 0) ? km : null;
+                records[index].currentKm = (!isNaN(currentKm) && currentKm > 0) ? currentKm : null;
                 records[index].note = note;
+                recalcAllDrivenKm();
                 save();
                 renderAll();
+                updateLastKmHint();
                 showToast('已修改');
             }
             closeModal();
+        }
+
+        function recalcAllDrivenKm() {
+            var sorted = records.slice().sort(function(a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
+            for (var i = 0; i < sorted.length; i++) {
+                var r = sorted[i];
+                if (r.currentKm) {
+                    if (i < sorted.length - 1) {
+                        var prev = sorted[i + 1];
+                        if (prev.currentKm) {
+                            var driven = r.currentKm - prev.currentKm;
+                            r.drivenKm = driven > 0 ? driven : null;
+                        } else {
+                            r.drivenKm = null;
+                        }
+                    } else {
+                        r.drivenKm = null;
+                    }
+                } else {
+                    r.drivenKm = null;
+                }
+            }
         }
 
         function save() {
@@ -832,11 +945,11 @@
             });
 
             var monthTotal = monthRecs.reduce(function(s, r) { return s + r.amount; }, 0);
-            var monthKm = monthRecs.reduce(function(s, r) { return s + (r.km || 0); }, 0);
+            var monthKm = monthRecs.reduce(function(s, r) { return s + (r.drivenKm || 0); }, 0);
 
             var totalCount = records.length;
             var totalAmount = records.reduce(function(s, r) { return s + r.amount; }, 0);
-            var totalKm = records.reduce(function(s, r) { return s + (r.km || 0); }, 0);
+            var totalKm = records.reduce(function(s, r) { return s + (r.drivenKm || 0); }, 0);
 
             document.getElementById('monthTitle').textContent = (cm + 1) + '月充电花费';
             document.getElementById('monthAmount').textContent = '¥' + monthTotal.toFixed(2);
@@ -892,7 +1005,7 @@
                 var key = keys[k];
                 var group = groups[key];
                 var mTotal = group.items.reduce(function(s, r) { return s + r.amount; }, 0);
-                var mKm = group.items.reduce(function(s, r) { return s + (r.km || 0); }, 0);
+                var mKm = group.items.reduce(function(s, r) { return s + (r.drivenKm || 0); }, 0);
                 var mCount = group.items.length;
                 var costPerKm = mKm > 0 ? '每公里 ¥' + (mTotal / mKm).toFixed(2) : '';
 
@@ -928,8 +1041,19 @@
             var d = new Date(r.date);
             var weekDays = ['日', '一', '二', '三', '四', '五', '六'];
             var dateStr = (d.getMonth() + 1) + '月' + d.getDate() + '日 周' + weekDays[d.getDay()];
-            var costPerKm = (r.km && r.km > 0) ? '每公里 ¥' + (r.amount / r.km).toFixed(2) : '';
-            var kmStr = r.km ? r.km + 'km' : '';
+
+            var costPerKm = '';
+            var drivenStr = '';
+            var kmStr = '';
+
+            if (r.drivenKm && r.drivenKm > 0) {
+                drivenStr = r.drivenKm + 'km';
+                costPerKm = '每公里 ¥' + (r.amount / r.drivenKm).toFixed(2);
+            }
+
+            if (r.currentKm) {
+                kmStr = '里程' + r.currentKm;
+            }
 
             var html = '<div class="record-card" onclick="event.stopPropagation();openEdit(' + r.id + ')">';
             html += '<div class="record-icon"></div>';
@@ -938,6 +1062,7 @@
             html += '<div class="record-meta">';
             if (r.note) html += '<span>' + r.note + '</span>';
             if (kmStr) html += '<span>' + kmStr + '</span>';
+            if (drivenStr) html += '<span>' + drivenStr + '</span>';
             if (costPerKm) html += '<span class="record-cost">' + costPerKm + '</span>';
             html += '</div></div>';
             html += '<div class="record-amount">¥' + r.amount.toFixed(2) + '</div>';
@@ -977,13 +1102,16 @@
                                 id: r.id || Date.now(),
                                 date: r.date,
                                 amount: r.amount,
-                                km: r.km || null,
+                                currentKm: r.currentKm || r.km || null,
+                                drivenKm: r.drivenKm || null,
                                 note: r.note || '',
                                 time: r.time || ''
                             };
                         });
+                        recalcAllDrivenKm();
                         save();
                         renderAll();
+                        updateLastKmHint();
                         showToast('恢复成功');
                     }
                 } catch(err) {
