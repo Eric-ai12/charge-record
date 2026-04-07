@@ -11,33 +11,29 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;padding-bottom:72px;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 .m{font-family:'DM Mono',monospace}
-
-.bar{background:var(--c1);padding:14;z-index:100;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd)}
+.bar{background:var(--c1);padding:14px 16px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd)}
 .bar h1{font-size:17px;font-weight:700}
 .bar button{width:32px;height:32px;border-radius:9px;border:none;background:var(--c2);font-size:15px;cursor:pointer;color:var(--t1)}
-
 .hero{margin:12px 14px;background:var(--c1);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px}
 .hero-l{flex:1}
 .hero-l small{font-size:11px;color:var(--t2)}
 .hero-l h2{font-size:28px;font-weight:700;letter-spacing:-.5px;margin:2px 0}
 .hero-l p{font-size:11px;color:var(--t2)}
 .ring{width:50px;height:50px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ring::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--ac) var(--p),var(--c2) 0);mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - px 20px;position:sticky;top:03px));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px))}
+.ring::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--ac) var(--p),var(--c2) 0);mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px))}
 .ring span{font-size:8px;font-weight:600;color:var(--t2);z-index:1}
-
 .row4{display:flex;gap:1px;margin:8px 14px;background:var(--c1);border-radius:12px;overflow:hidden}
 .row4 div{flex:1;padding:12px 6px;text-align:center}
 .row4 div+div{border-left:1px solid var(--bd)}
 .row4 b{display:block;font-size:16px;font-weight:700;color:var(--ac)}
 .row4 small{font-size:9px;color:var(--t2);margin-top:2px;display:block}
-
 .box{margin:8px 14px;background:var(--c1);border-radius:14px;overflow:hidden}
 .box-hd{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 14px 6px}
 .box-hd button{width:28px;height:28px;border-radius:7px;border:none;background:var(--c2);font-size:15px;cursor:pointer;color:var(--t2);font-weight:700}
 .box-hd span{font-size:14px;font-weight:700;min-width:50px;text-align:center}
 .charts{display:flex;align-items:flex-end;gap:3px;height:120px;padding:0 10px 18px;overflow-x:auto;scroll-snap-type:x mandatory}
 .charts::-webkit-scrollbar{display:none}
-.ch{display:flex;flex-direction:column;align-items:center;flex:0 0 32px;cursor:pointer;scroll-snap-align:center}
+.ch{display:flex;flex-direction:column;align-items:center;flex:0 0 32px;cursor:pointer;scroll-snap-align:center;position:relative}
 .ch:active .bar2{opacity:.6}
 .ch b{font-size:8px;color:var(--t2);margin-bottom:2px;min-height:10px;white-space:nowrap;font-weight:500}
 .bar2{width:22px;border-radius:3px 3px 0 0;transition:height .5s cubic-bezier(.34,1.56,.64,1);min-height:2px}
@@ -45,9 +41,7 @@ body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:
 .bar2.n{background:var(--bd)}
 .ch em{font-size:9px;color:var(--t3);font-style:normal;position:absolute;bottom:-15px;white-space:nowrap}
 .ch em.now{color:var(--ac);font-weight:700}
-.ch{position:relative}
 .hint{font-size:10px;color:var(--t3);text-align:center;padding-bottom:10px}
-
 .sec{margin:8px 14px}
 .sec h3{font-size:11px;color:var(--t2);font-weight:600;margin-bottom:6px;padding-left:2px}
 .frm{background:var(--c1);border-radius:14px;padding:14px}
@@ -60,26 +54,22 @@ body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:
 .fd .tip{font-size:9px;color:var(--ac);margin-top:3px;min-height:12px;font-weight:500}
 .btn{width:100%;padding:10px;border-radius:9px;border:none;background:var(--ac);color:#fff;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:8px}
 .btn:active{opacity:.7}
-
 .bot{position:fixed;bottom:0;left:0;right:0;background:rgba(var(--bb),.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--bd);padding:8px 14px;padding-bottom:max(8px,env(safe-area-inset-bottom));display:flex;gap:6px;z-index:100}
 :root{--bb:255,255,255}[data-t="d"]{--bb:0,0,0}
 .bot button{flex:1;padding:9px;border-radius:9px;border:none;background:var(--c2);font-size:12px;font-weight:500;font-family:inherit;cursor:pointer;color:var(--t1)}
 .bot button:active{background:var(--bd)}
-
 .tips{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-12px);background:var(--t1);color:var(--bg);padding:8px 16px;border-radius:9px;font-size:12px;font-weight:500;opacity:0;transition:all .3s;z-index:1000;pointer-events:none}
 .tips.s{opacity:1;transform:translateX(-50%) translateY(0)}
-
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;display:none;align-items:flex-end}
 .ov.s{display:flex}
 .pan{background:var(--c1);border-radius:16px 16px 0 0;width:100%;max-width:500px;max-height:75vh;display:flex;flex-direction:column;animation:up .3s ease}
 @keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.pan-grip{width:30px;height:4px;background:var(--bd);border-radius:2px;margin:10px auto 0}
+.pan-grip{(--bd);border-radius:2px;margin:10px auto 0}
 .pan-top{padding:12px 16px 10px;display:flex;align-items:center}
 .pan-top h4{flex:1;font-size:15px;font-weight:700}
 .pan-top span{font-size:12px;color:var(--t2)}
 .pan-top span b{color:var(--ac);font-weight:700}
 .pan-body{flex:1;overflow-y:auto;padding:0 16px 16px}
-
 .it{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}
 .it:last-child{border-bottom:none}
 .it-dot{width:5px;height:5px;border-radius:50%;background:var(--ac);margin-right:8px;opacity:.4;flex-shrink:0}
@@ -98,7 +88,7 @@ body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:
 </head>
 <body>
 <div class="bar"><h1>充电记录</h1><button onclick="th()" id="tb">🌙</button></div>
-<div class="hero"><div class="hero-l"><small>本月充电</small><h2 class="m" id="hA">¥0</h2><p><b id="hC">0</b> 次 · <span id="hK">--</span></p></div><div class="ring" style="--p:0%" id="ring"><span id="ringT">0%</span></div></div>
+<div class="hero"><div class="hero-l"><small>本月充电</small><h2 class="m" id="hA">¥0</h2><p><b id="hC">0</b> 次 · <span id="hK">--</span></p></div><div class="ring" style="--p:0%" id="ring"><span id="ringT">0width:30px;height:4px;background:var%</span></div></div>
 <div class="row4"><div><b class="m" id="s1">¥0</b><small>平均电价</small></div><div><b class="m" id="s2">¥0</b><small>每公里</small></div><div><b class="m" id="s3">0</b><small>总里程</small></div><div><b class="m" id="s4">¥0</b><small>总花费</small></div></div>
 <div class="box"><div class="box-hd"><button onclick="cy(-1)">‹</button><span class="m" id="yr">2026</span><button onclick="cy(1)">›</button></div><div class="charts" id="ch"></div><div class="hint">点击月份查看记录</div></div>
 <div class="sec"><h3>添加记录</h3><div class="frm"><div class="fr"><div class="fd"><label>日期</label><input type="date" id="aD"></div><div class="fd"><label>金额（元）</label><input type="number" id="aA" placeholder="0.00" inputmode="decimal" oninput="pv()"></div></div><div class="fr"><div class="fd"><label>度数（kWh）</label><input type="number" id="aG" placeholder="30" inputmode="decimal" oninput="pv()"></div><div class="fd"><label>当前里程（km）</label><input type="number" id="aK" placeholder="5911" inputmode="decimal" oninput="pv()"></div></div><div class="fd"><div class="tip" id="aTip"></div></div><button class="btn" onclick="add()">保存记录</button></div></div>
@@ -116,16 +106,16 @@ function sv(){localStorage.setItem('ev',JSON.stringify(D))}
 function al(){st();ch()}
 function th(){var b=document.getElementById('tb');if(document.documentElement.getAttribute('data-t')==='d'){document.documentElement.removeAttribute('data-t');b.textContent='🌙';localStorage.setItem('th','l')}else{document.documentElement.setAttribute('data-t','d');b.textContent='☀️';localStorage.setItem('th','d')}}
 function cy(d){SY+=d;al()}
-function pv(){var a=parseFloat(document.getElementById('aA').value),g=parseFloat(document.getElementById('aG').value),k=parseFloat(document.getElementById('aK').value),t=[];if(!isNaN(a)&&a>0&&!isNaN(g)&&g>0){t.push('¥'+(a/g).toFixed(2)+'/度');t.push('¥'+((a/g)*EC).toFixed(2)+'/km')}var e=document.getElementById('aTip');e.textContent=t.join(' · ')}
+function pv(){var a=parseFloat(document.getElementById('aA').value),g=parseFloat(document.getElementById('aG').value),t=[];if(!isNaN(a)&&a>0&&!isNaN(g)&&g>0){t.push('¥'+(a/g).toFixed(2)+'/度');t.push('¥'+((a/g)*EC).toFixed(2)+'/km')}document.getElementById('aTip').textContent=t.join(' · ')}
 function ep(){var a=parseFloat(document.getElementById('eA').value),g=parseFloat(document.getElementById('eG').value),t=[];if(!isNaN(a)&&a>0&&!isNaN(g)&&g>0){t.push('¥'+(a/g).toFixed(2)+'/度');t.push('¥'+((a/g)*EC).toFixed(2)+'/km')}document.getElementById('eTip').textContent=t.join(' · ')}
-function add(){var d=document.getElementById('aD').value,a=parseFloat(document.getElementById('aA').value),g=parseFloat(document.getElementById('aG').value),k=parseFloat(document.getElementById('aK').value);if(!d){toast('请选择日期');return}if(isNaN(a)||a<=0){toast('请输入金额');return}var l=lt(),dk=0;if(!isNaN(k)&&k>0)dk=dr(k,l);D.unshift({id:Date.now(),d:d,a:a,g:(!isNaN(g)&&g>0)?g:null,k:(!isNaN(k)&&k>0)?k:null,dk:dk>0?dk:null,t:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});sv();al();document.getElementById('aA').value='';document.getElementById('aG').value='';document.getElementById('aK').value='';document.getElementById('aD').valueAsDate=new Date();document.getElementById('aTip').textContent='';document.getElementById('dH').textContent=lt()&&lt().k?'上次：'+lt().k+'km':'首次';toast('已保存');if(navigator.vibrate)navigator.vibrate([10,50,10])}
+function add(){var d=document.getElementById('aD').value,a=parseFloat(document.getElementById('aA').value),g=parseFloat(document.getElementById('aG').value),k=parseFloat(document.getElementById('aK').value);if(!d){toast('请选择日期');return}if(isNaN(a)||a<=0){toast('请输入金额');return}var l=lt(),dk=0;if(!isNaN(k)&&k>0)dk=dr(k,l);D.unshift({id:Date.now(),d:d,a:a,g:(!isNaN(g)&&g>0)?g:null,k:(!isNaN(k)&&k>0)?k:null,dk:dk>0?dk:null,t:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});sv();al();document.getElementById('aA').value='';document.getElementById('aG').value='';document.getElementById('aK').value='';document.getElementById('aD').valueAsDate=new Date();document.getElementById('aTip').textContent='';toast('已保存');if(navigator.vibrate)navigator.vibrate([10,50,10])}
 function del(id){if(!confirm('确定删除？'))return;D=D.filter(function(r){return r.id!==id});rc();sv();al();if(CM!==null)om(CM);toast('已删除')}
 function oe(id){var r=D.find(function(x){return x.id===id});if(!r)return;EID=id;document.getElementById('eD').value=r.d;document.getElementById('eA').value=r.a;document.getElementById('eG').value=r.g||'';document.getElementById('eK').value=r.k||'';ep();document.getElementById('eo').classList.add('s')}
 function ce(){document.getElementById('eo').classList.remove('s');EID=null}
 function se(){if(!EID)return;var d=document.getElementById('eD').value,a=parseFloat(document.getElementById('eA').value),g=parseFloat(document.getElementById('eG').value),k=parseFloat(document.getElementById('eK').value);if(!d){toast('请选择日期');return}if(isNaN(a)||a<=0){toast('请输入金额');return}for(var i=0;i<D.length;i++){if(D[i].id===EID){D[i].d=d;D[i].a=a;D[i].g=(!isNaN(g)&&g>0)?g:null;D[i].k=(!isNaN(k)&&k>0)?k:null;break}}rc();sv();al();if(CM!==null)om(CM);toast('已修改');ce()}
 function rc(){var s=D.slice().sort(function(a,b){return new Date(b.d)-new Date(a.d)});for(var i=0;i<s.length;i++){var r=s[i];if(!r.k){r.dk=null;continue}if(i<s.length-1){var p=s[i+1];if(p.k){var d=r.k-p.k;r.dk=d>0?d:null}else r.dk=null}else r.dk=null}}
 function st(){var n=new Date(),cm=n.getMonth(),cy2=n.getFullYear(),mr=D.filter(function(r){var d=new Date(r.d);return d.getMonth()===cm&&d.getFullYear()===cy2}),mt=mr.reduce(function(s,r){return s+r.a},0),ta=D.reduce(function(s,r){return s+r.a},0),td=D.reduce(function(s,r){return s+(r.g||0)},0),lk2=lk();document.getElementById('hA').textContent='¥'+mt.toFixed(2);document.getElementById('hC').textContent=mr.length;var ms=mr.slice().sort(function(a,b){return new Date(a.d)-new Date(b.d)}),mf=null,ml=null;for(var i=0;i<ms.length;i++){if(ms[i].k){if(mf===null)mf=ms[i].k;ml=ms[i].k}}document.getElementById('hK').textContent=(mf!==null&&ml!==null&&ml>mf)?'¥'+(mt/(ml-mf)).toFixed(2)+'/km':'--';var pct=ta>0&&mt>0?Math.min(100,Math.round(mt/ta*100)):0;document.getElementById('ring').style.setProperty('--p',pct+'%');document.getElementById('ringT').textContent=pct+'%';var ap=td>0?ta/td:0;document.getElementById('s1').textContent=ap>0?'¥'+ap.toFixed(2):'¥0';document.getElementById('s2').textContent=ap>0?'¥'+(ap*EC).toFixed(2):'¥0';document.getElementById('s3').textContent=lk2&&lk2>0?lk2+'km':'0';document.getElementById('s4').textContent='¥'+ta.toFixed(0)}
-function ch(){document.getElementById('yr').textContent=SY;var c=document.getElementById('ch'),n=new Date(),cm=n.getMonth(),cy2=n.getFullYear(),ms=[];for(var m=0;m<12;m++){var t=0;D.forEach(function(r){var d=new Date(r.d);if(d.getFullYear()===SY&&d.getMonth()===m)t+=r.a});ms.push({m:m,l:(m+1)+'月',t:t,c:m===cm&&SY===cy2})}var mx=0;for(var i=0;i<12;i++)if(ms[i].t>mx)mx=ms[i].t;if(mx===0)mx=1;var h='';for(var i=0;i<12;i++){var m=ms[i],p=Math.max(m.t>0?18:2,m.t/mx*100);h+='<div class="ch" onclick="om('+m.m+')"><b>'+(m.t>0?'¥'+Math.round(m.t):'')+'</b><div class="bar2 '+(m.t>0?'e':'n')+'" style="height:'+p+'%"></div><em class="'+(m.c?'now':'')+'">'+m.l+'</em></div>'}c.innerHTML=h;setTimeout(function(){var e=c.querySelector('.now');if(e)e.parentElement.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})},100)}
+function ch(){document.getElementById('yr').textContent=SY;var c=document.getElementById('ch'),n=new Date(),cm=n.getMonth(),cy2=n.getFullYear(),ms=[];for(var m=0;m<12;m++){var t=0;D.forEach(function(r){var d=new Date(r.d);if(d.getFullYear()===SY&&d.getMonth()===m)t+=r.a});ms.push({m:m,l:(m+1)+'月',t:t,c:m===cm&&SY===cy2})}var mx=0;for(var i=0;i<12;i++)if(ms[i].t>mx)mx=ms[i].t;if(mx===0)mx=1;var h='';for(var i=0;i<12;i++){var m=ms[i],p=Math.max(m.t>0?50:2,m.t/mx*100);h+='<div class="ch" onclick="om('+m.m+')"><b>'+(m.t>0?'¥'+Math.round(m.t):'')+'</b><div class="bar2 '+(m.t>0?'e':'n')+'" style="height:'+p+'%"></div><em class="'+(m.c?'now':'')+'">'+m.l+'</em></div>'}c.innerHTML=h;setTimeout(function(){var e=c.querySelector('.now');if(e)e.parentElement.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})},100)}
 function om(month){CM=month;var rs=D.filter(function(r){var d=new Date(r.d);return d.getFullYear()===SY&&d.getMonth()===month});rs.sort(function(a,b){return new Date(b.d)-new Date(a.d)});var t=rs.reduce(function(s,r){return s+r.a},0);document.getElementById('mT').textContent=SY+'年'+(month+1)+'月';document.getElementById('mA').textContent='¥'+t.toFixed(2);document.getElementById('mN').textContent=rs.length;var b=document.getElementById('mB');if(!rs.length){b.innerHTML='<div class="empty">本月没有记录</div>'}else{var h='';for(var i=0;i<rs.length;i++){var r=rs[i],d=new Date(r.d),w=['日','一','二','三','四','五','六'],ds=(d.getMonth()+1)+'.'+d.getDate()+' 周'+w[d.getDay()],cp='',dk='',km='',pr='';if(r.k)km=r.k+'km';if(r.dk&&r.dk>0)dk=r.dk+'km';if(r.g&&r.g>0){var rp=r.a/r.g;pr='¥'+rp.toFixed(2)+'/度';cp='¥'+(rp*EC).toFixed(2)+'/km'}else if(r.dk&&r.dk>0){cp='¥'+(r.a/r.dk).toFixed(2)+'/km'}h+='<div class="it"><div class="it-dot"></div><div class="it-info"><div class="it-date">'+ds+'</div><div class="it-detail">';if(km)h+='<span>'+km+'</span>';if(dk)h+='<span>'+dk+'</span>';if(r.g)h+='<span>'+r.g+'度</span>';if(pr)h+='<span class="g">'+pr+'</span>';if(cp)h+='<span class="b">'+cp+'</span>';h+='</div></div><div class="it-price">¥'+r.a.toFixed(2)+'</div><div class="it-btns"><button class="it-btn" onclick="event.stopPropagation();oe('+r.id+')">✏️</button><button class="it-btn" onclick="event.stopPropagation();del('+r.id+')">✕</button></div></div>'}b.innerHTML=h}document.getElementById('mo').classList.add('s')}
 function cm(){document.getElementById('mo').classList.remove('s');CM=null}
 function bk(){if(!D.length){toast('没有数据');return}var b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='充电记录_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u);toast('备份成功')}
