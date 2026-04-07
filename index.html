@@ -2,378 +2,136 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>充电记录</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f2f2f7;--s1:#fff;--s2:#f2f2f7;--t1:#1c1c1e;--t2:#8e8e93;--t3:#c7c7cc;--br:#e5e5ea;--ac:#007aff;--ac2:rgba(0,122,255,.08);--sh:0 1px 3px rgba(0,0,0,.04);--bar:rgba(0,122,255,.18);--bar-a:#007aff;--bbg:255,255,255}
-[data-theme="dark"]{--bg:#000;--s1:#1c1c1e;--s2:#2c2c2e;--t1:#f2f2f7;--t2:#8e8e93;--t3:#48484a;--br:#38383a;--ac:#0a84ff;--ac2:rgba(10,132,255,.15);--sh:0 1px 3px rgba(0,0,0,.3);--bar:rgba(10,132,255,.25);--bar-a:#0a84ff;--bbg:28,28,30}
+:root{--bg:#f5f5f7;--c1:#fff;--c2:#f5f5f7;--t1:#1d1d1f;--t2:#86868b;--t3:#aeaeb2;--bd:#e5e5ea;--ac:#007aff;--ac2:rgba(0,122,255,.08);--gr:#34c759}
+[data-t="d"]{--bg:#000;--c1:#1c1c1e;--c2:#2c2c2e;--t1:#f5f5f7;--t2:#98989d;--t3:#48484a;--bd:#38383a;--ac:#0a84ff;--ac2:rgba(10,132,255,.15);--gr:#30d158}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;padding-bottom:76px;-webkit-font-smoothing:antialiased}
-.num{font-family:'DM Mono','SF Mono',Menlo,monospace}
-.top{background:var(--s1);padding:12px 20px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;border-bottom:.5px solid var(--br)}
-.top h1{font-size:18px;font-weight:700;letter-spacing:-.3px}
-.icon-btn{width:34px;height:34px;border-radius:10px;border:none;background:var(--s2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t1)}
-.icon-btn:active{background:var(--br);transform:scale(.92)}
-.hero{margin:14px 16px 0;padding:18px 20px;background:var(--s1);border-radius:16px;box-shadow:var(--sh);display:flex;align-items:center;gap:16px}
-.hero-info{flex:1}
-.hero-label{font-size:12px;color:var(--t2);font-weight:500}
-.hero-amount{font-size:32px;font-weight:700;letter-spacing:-1px;margin:2px 0 4px}
-.hero-sub{font-size:12px;color:var(--t2)}
-.hero-sub b{color:var(--t1);font-weight:600}
-.pct-ring{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
-.pct-ring::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--ac) var(--pct,0%),var(--s2) 0);mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px))}
-.pct-ring span{font-size:9px;font-weight:500;color:var(--t2);z-index:1}
-.stats{display:flex;gap:1px;margin:8px 16px 0;background:var(--s1);border-radius:14px;overflow:hidden;box-shadow:var(--sh)}
-.stat{flex:1;padding:14px 8px;text-align:center}
-.stat+.stat{border-left:.5px solid var(--br)}
-.stat-v{font-size:18px;font-weight:700;color:var(--ac);letter-spacing:-.5px}
-.stat-l{font-size:10px;color:var(--t2);margin-top:3px;font-weight:500}
-.chart-sec{margin:10px 16px 0;background:var(--s1);border-radius:14px;box-shadow:var(--sh);overflow:hidden}
-.year-bar{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 16px 8px}
-.year-btn{width:30px;height:30px;border-radius:8px;border:none;background:var(--s2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t2);font-weight:600}
-.year-btn:active{background:var(--br)}
-.year-label{font-size:15px;font-weight:700;min-width:60px;text-align:center}
-.chart-body{display:flex;align-items:flex-end;gap:4px;height:130px;padding:0 14px 20px;overflow-x:auto;scrollbar-width:none;scroll-s:none}
-.chart-col{display:flex;flex-direction:column;align-items:center;flex:0 0 36px;position:relative;cursor:pointer;scroll-snap-align:center}
-.chart-col:active .chart-bar{opacity:.7}
-.chart-bar{width:28px;border-radius:4px 4px 0 0;background:var(--bar);transition:height .5s cubic-bezier(.34,1.56,.64,1),background .3s;min-height:2px}
-.chart-bar.cur{background:var(--bar-a)}
-.chart-bar.has-data{background:var(--ac)}
-.chart-bar.cur.has-data{background:var(--ac);box-shadow:0 0 8px rgba(0,122,25nap-type:x mandatory}
-.chart-body::-webkit-scrollbar{display5,.3)}
-.chart-val{font-size:9px;color:var(--t2);white-space:nowrap;margin-bottom:3px;font-weight:500;min-height:12px}
-.chart-lab{font-size:10px;color:var(--t3);position:absolute;bottom:-16px;white-space:nowrap;font-weight:500}
-.chart-lab.cur{color:var(--ac);font-weight:700}
-.hint{text-align:center;font-size:11px;color:var(--t3);padding:6px 0 12px}
-.add-sec{margin:10px 16px 0}
-.sec-hd{font-size:12px;font-weight:600;color:var(--t2);margin-bottom:8px;padding:0 2px;letter-spacing:.3px}
-.add{background:var(--s1);border-radius:14px;padding:16px;box-shadow:var(--sh)}
-.row{display:flex;gap:10px}
-.row+.row{margin-top:10px}
-.fld{flex:1}
-.fld label{display:block;font-size:11px;color:var(--t2);margin-bottom:5px;font-weight:500}
-.fld input{width:100%;padding:9px 11px;border:1px solid var(--br);border-radius:10px;font-size:15px;font-family:inherit;background:var(--s2);outline:none;color:var(--t1);transition:all .2s}
-.fld input:focus{border-color:var(--ac);background:var(--s1)}
-.fld input::placeholder{color:var(--t3)}
-.fld .hint2{font-size:10px;color:var(--t3);margin-top:3px}
-.fld .pv{font-size:10px;color:var(--ac);margin-top:3px;font-weight:500;min-height:14px}
-.save{width:100%;padding:11px;border-radius:10px;border:none;background:var(--ac);color:#fff;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:10px}
-.save:active{opacity:.7}
-.bbar{position:fixed;bottom:0;left:0;right:0;background:rgba(var(--bbg),.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:.5px solid var(--br);padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom));display:flex;gap:8px;z-index:100}
-.bbar button{flex:1;padding:10px;border-radius:10px;border:none;background:var(--s2);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;color:var(--t1)}
-.bbar button:active{background:var(--br)}
-.toast{position:fixed;top:64px;left:50%;transform:translateX(-50%) translateY(-16px);background:var(--t1);color:var(--bg);padding:9px 18px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;z-index:1000;pointer-events:none}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:200;display:none;align-items:flex-end;justify-content:center}
-.overlay.show{display:flex}
-.panel{background:var(--s1);border-radius:18px 18px 0 0;width:100%;max-width:500px;max-height:80vh;display:flex;flex-direction:column;animation:mu .3s cubic-bezier(.32,.72,0,1)}
-@keyframes mu{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.panel-bar{width:32px;height:4px;background:var(--br);border-radius:2px;margin:12px auto 0;flex-shrink:0}
-.panel-head{padding:14px 20px 12px;display:flex;align-items:center;flex-shrink:0}
-.panel-title{flex:1;font-size:16px;font-weight:700}
-.panel-stat{font-size:13px;color:var(--t2)}
-.panel-stat b{color:var(--ac);font-weight:700}
-.panel-body{flex:1;overflow-y:auto;padding:0 20px 20px;-webkit-overflow-scrolling:touch}
-.rec{display:flex;align-items:center;padding:12px 0;border-bottom:.5px solid var(--br)}
-.rec:last-child{border-bottom:none}
-.rec:active{opacity:.5}
-.rd{width:6px;height:6px;border-radius:50%;background:var(--ac);margin-right:10px;flex-shrink:0;opacity:.35}
-.ri{flex:1;min-width:0}
-.ri-d{font-size:13px;font-weight:500}
-.ri-i{font-size:10px;color:var(--t2);margin-top:2px}
-.ri-i span{margin-right:5px}
-.ri-c{color:var(--ac);font-weight:500}
-.ri-g{color:#34c759;font-weight:500}
-.rp{font-size:15px;font-weight:700;color:var(--ac);margin-right:4px}
-.ra{display:flex;gap:2px}
-.rb{width:26px;height:26px;border-radius:6px;border:none;background:transparent;font-size:13px;color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center}
-.rb:active{background:var(--ac2);color:var(--ac)}
-.panel-empty{text-align:center;padding:40px 20px;color:var(--t3);font-size:13px}
-.edit-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;display:none;align-items:flex-end;justify-content:center}
-.edit-overlay.show{display:flex}
-.edit-box{background:var(--s1);border-radius:18px 18px 0 0;width:100%;max-width:500px;padding:20px;padding-bottom:max(20px,env(safe-area-inset-bottom));animation:mu .3s cubic-bezier(.32,.72,0,1)}
-.mbs{display:flex;gap:8px;margin-top:12px}
-.mbs button{flex:1;padding:11px;border-radius:10px;border:none;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer}
-.mbs .cc{background:var(--s2);color:var(--t1)}
-.mbs .ss{background:var(--ac);color:#fff}
-.mbs button:active{opacity:.7}
+body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;padding-bottom:72px;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+.m{font-family:'DM Mono',monospace}
+
+.bar{background:var(--c1);padding:14;z-index:100;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd)}
+.bar h1{font-size:17px;font-weight:700}
+.bar button{width:32px;height:32px;border-radius:9px;border:none;background:var(--c2);font-size:15px;cursor:pointer;color:var(--t1)}
+
+.hero{margin:12px 14px;background:var(--c1);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px}
+.hero-l{flex:1}
+.hero-l small{font-size:11px;color:var(--t2)}
+.hero-l h2{font-size:28px;font-weight:700;letter-spacing:-.5px;margin:2px 0}
+.hero-l p{font-size:11px;color:var(--t2)}
+.ring{width:50px;height:50px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ring::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--ac) var(--p),var(--c2) 0);mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - px 20px;position:sticky;top:03px));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px))}
+.ring span{font-size:8px;font-weight:600;color:var(--t2);z-index:1}
+
+.row4{display:flex;gap:1px;margin:8px 14px;background:var(--c1);border-radius:12px;overflow:hidden}
+.row4 div{flex:1;padding:12px 6px;text-align:center}
+.row4 div+div{border-left:1px solid var(--bd)}
+.row4 b{display:block;font-size:16px;font-weight:700;color:var(--ac)}
+.row4 small{font-size:9px;color:var(--t2);margin-top:2px;display:block}
+
+.box{margin:8px 14px;background:var(--c1);border-radius:14px;overflow:hidden}
+.box-hd{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 14px 6px}
+.box-hd button{width:28px;height:28px;border-radius:7px;border:none;background:var(--c2);font-size:15px;cursor:pointer;color:var(--t2);font-weight:700}
+.box-hd span{font-size:14px;font-weight:700;min-width:50px;text-align:center}
+.charts{display:flex;align-items:flex-end;gap:3px;height:120px;padding:0 10px 18px;overflow-x:auto;scroll-snap-type:x mandatory}
+.charts::-webkit-scrollbar{display:none}
+.ch{display:flex;flex-direction:column;align-items:center;flex:0 0 32px;cursor:pointer;scroll-snap-align:center}
+.ch:active .bar2{opacity:.6}
+.ch b{font-size:8px;color:var(--t2);margin-bottom:2px;min-height:10px;white-space:nowrap;font-weight:500}
+.bar2{width:22px;border-radius:3px 3px 0 0;transition:height .5s cubic-bezier(.34,1.56,.64,1);min-height:2px}
+.bar2.e{background:var(--ac)}
+.bar2.n{background:var(--bd)}
+.ch em{font-size:9px;color:var(--t3);font-style:normal;position:absolute;bottom:-15px;white-space:nowrap}
+.ch em.now{color:var(--ac);font-weight:700}
+.ch{position:relative}
+.hint{font-size:10px;color:var(--t3);text-align:center;padding-bottom:10px}
+
+.sec{margin:8px 14px}
+.sec h3{font-size:11px;color:var(--t2);font-weight:600;margin-bottom:6px;padding-left:2px}
+.frm{background:var(--c1);border-radius:14px;padding:14px}
+.fr{display:flex;gap:8px}
+.fr+.fr{margin-top:8px}
+.fd{flex:1}
+.fd label{display:block;font-size:10px;color:var(--t2);margin-bottom:4px;font-weight:500}
+.fd input{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:9px;font-size:14px;font-family:inherit;background:var(--c2);outline:none;color:var(--t1);transition:border .2s}
+.fd input:focus{border-color:var(--ac)}
+.fd .tip{font-size:9px;color:var(--ac);margin-top:3px;min-height:12px;font-weight:500}
+.btn{width:100%;padding:10px;border-radius:9px;border:none;background:var(--ac);color:#fff;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:8px}
+.btn:active{opacity:.7}
+
+.bot{position:fixed;bottom:0;left:0;right:0;background:rgba(var(--bb),.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--bd);padding:8px 14px;padding-bottom:max(8px,env(safe-area-inset-bottom));display:flex;gap:6px;z-index:100}
+:root{--bb:255,255,255}[data-t="d"]{--bb:0,0,0}
+.bot button{flex:1;padding:9px;border-radius:9px;border:none;background:var(--c2);font-size:12px;font-weight:500;font-family:inherit;cursor:pointer;color:var(--t1)}
+.bot button:active{background:var(--bd)}
+
+.tips{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-12px);background:var(--t1);color:var(--bg);padding:8px 16px;border-radius:9px;font-size:12px;font-weight:500;opacity:0;transition:all .3s;z-index:1000;pointer-events:none}
+.tips.s{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;display:none;align-items:flex-end}
+.ov.s{display:flex}
+.pan{background:var(--c1);border-radius:16px 16px 0 0;width:100%;max-width:500px;max-height:75vh;display:flex;flex-direction:column;animation:up .3s ease}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.pan-grip{width:30px;height:4px;background:var(--bd);border-radius:2px;margin:10px auto 0}
+.pan-top{padding:12px 16px 10px;display:flex;align-items:center}
+.pan-top h4{flex:1;font-size:15px;font-weight:700}
+.pan-top span{font-size:12px;color:var(--t2)}
+.pan-top span b{color:var(--ac);font-weight:700}
+.pan-body{flex:1;overflow-y:auto;padding:0 16px 16px}
+
+.it{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}
+.it:last-child{border-bottom:none}
+.it-dot{width:5px;height:5px;border-radius:50%;background:var(--ac);margin-right:8px;opacity:.4;flex-shrink:0}
+.it-info{flex:1;min-width:0}
+.it-date{font-size:12px;font-weight:500}
+.it-detail{font-size:9px;color:var(--t2);margin-top:1px}
+.it-detail span{margin-right:4px}
+.it-detail .g{color:var(--gr)}
+.it-detail .b{color:var(--ac)}
+.it-price{font-size:14px;font-weight:700;color:var(--ac);margin-right:2px}
+.it-btns{display:flex}
+.it-btn{width:24px;height:24px;border-radius:5px;border:none;background:transparent;font-size:12px;color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.it-btn:active{background:var(--ac2);color:var(--ac)}
+.empty{text-align:center;padding:36px;color:var(--t3);font-size:12px}
 </style>
 </head>
 <body>
-<div class="top">
-<h1>充电记录</h1>
-<button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
-</div>
-<div class="hero">
-<div class="hero-info">
-<div class="hero-label">本月充电</div>
-<div class="hero-amount num" id="mAmt">¥0</div>
-<div class="hero-sub"><b id="mCnt">0</b> 次 · <span id="mCpk">--</span></div>
-</div>
-<div class="pct-ring" id="pctRing"><span id="pctTxt">0%</span></div>
-</div>
-<div class="stats">
-<div class="stat"><div class="stat-v num" id="s1">¥0</div><div class="stat-l">平均电价</div></div>
-<div class="stat"><div class="stat-v num" id="s2">¥0</div><div class="stat-l">每公里</div></div>
-<div class="stat"><div class="stat-v num" id="s3">0</div><div class="stat-l">总里程</div></div>
-<div class="stat"><div class="stat-v num" id="s4">¥0</div><div class="stat-l">总花费</div></div>
-</div>
-<div class="chart-sec">
-<div class="year-bar">
-<button class="year-btn" onclick="chgYear(-1)">‹</button>
-<div class="year-label num" id="yearLabel">2026</div>
-<button class="year-btn" onclick="chgYear(1)">›</button>
-</div>
-<div class="chart-body" id="chart"></div>
-<div class="hint">点击月份查看详细记录</div>
-</div>
-<div class="add-sec">
-<div class="sec-hd">添加记录</div>
-<div class="add">
-<div class="row">
-<div class="fld"><label>日期</label><input type="date" id="dD"></div>
-<div class="fld"><label>金额（元）</label><input type="number" id="dA" placeholder="0.00" inputmode="decimal" oninput="pv()"></div>
-</div>
-<div class="row">
-<div class="fld"><label>度数（kWh）</label><input type="number" id="dG" placeholder="30" inputmode="decimal" oninput="pv()"></div>
-<div class="fld"><label>当前里程（km）</label><input type="number" id="dK" placeholder="5911" inputmode="decimal" oninput="pv()"></div>
-</div>
-<div class="fld" style="margin-top:2px">
-<div class="hint2" id="dH"></div>
-<div class="pv" id="dP"></div>
-</div>
-<button class="save" onclick="add()">保存记录</button>
-</div>
-</div>
-<div class="bbar">
-<button onclick="bk()">📥 备份</button>
-<button onclick="document.getElementById('imp').click()">📤 恢复</button>
-<input type="file" id="imp" accept=".json" style="display:none" onchange="rs(event)">
-</div>
-<div class="toast" id="toast"></div>
-<div class="overlay" id="monthPanel" onclick="if(event.target===this)cP()">
-<div class="panel">
-<div class="panel-bar"></div>
-<div class="panel-head">
-<div class="panel-title" id="pTitle">1月</div>
-<div class="panel-stat"><b id="pTotal">¥0</b> · <span id="pCount">0</span>次</div>
-</div>
-<div class="panel-body" id="pBody"></div>
-</div>
-</div>
-<div class="edit-overlay" id="editOvl" onclick="if(event.target===this)cE()">
-<div class="edit-box">
-<div class="panel-bar"></div>
-<div style="font-size:16px;font-weight:600;text-align:center;margin-bottom:14px">修改记录</div>
-<div class="fld" style="margin-bottom:10px"><label>日期</label><input type="date" id="eD"></div>
-<div class="fld" style="margin-bottom:10px"><label>金额（元）</label><input type="number" id="eA" placeholder="0.00" inputmode="decimal" oninput="epv()"></div>
-<div class="row" style="margin-bottom:10px">
-<div class="fld"><label>度数（kWh）</label><input type="number" id="eG" placeholder="30" inputmode="decimal" oninput="epv()"></div>
-<div class="fld"><label>当前里程（km）</label><input type="number" id="eK" placeholder="5911" inputmode="decimal" oninput="epv()"></div>
-</div>
-<div class="fld">
-<div class="hint2" id="eH"></div>
-<div class="pv" id="eP"></div>
-</div>
-<div class="mbs">
-<button class="cc" onclick="cE()">取消</button>
-<button class="ss" onclick="sE()">保存</button>
-</div>
-</div>
-</div>
+<div class="bar"><h1>充电记录</h1><button onclick="th()" id="tb">🌙</button></div>
+<div class="hero"><div class="hero-l"><small>本月充电</small><h2 class="m" id="hA">¥0</h2><p><b id="hC">0</b> 次 · <span id="hK">--</span></p></div><div class="ring" style="--p:0%" id="ring"><span id="ringT">0%</span></div></div>
+<div class="row4"><div><b class="m" id="s1">¥0</b><small>平均电价</small></div><div><b class="m" id="s2">¥0</b><small>每公里</small></div><div><b class="m" id="s3">0</b><small>总里程</small></div><div><b class="m" id="s4">¥0</b><small>总花费</small></div></div>
+<div class="box"><div class="box-hd"><button onclick="cy(-1)">‹</button><span class="m" id="yr">2026</span><button onclick="cy(1)">›</button></div><div class="charts" id="ch"></div><div class="hint">点击月份查看记录</div></div>
+<div class="sec"><h3>添加记录</h3><div class="frm"><div class="fr"><div class="fd"><label>日期</label><input type="date" id="aD"></div><div class="fd"><label>金额（元）</label><input type="number" id="aA" placeholder="0.00" inputmode="decimal" oninput="pv()"></div></div><div class="fr"><div class="fd"><label>度数（kWh）</label><input type="number" id="aG" placeholder="30" inputmode="decimal" oninput="pv()"></div><div class="fd"><label>当前里程（km）</label><input type="number" id="aK" placeholder="5911" inputmode="decimal" oninput="pv()"></div></div><div class="fd"><div class="tip" id="aTip"></div></div><button class="btn" onclick="add()">保存记录</button></div></div>
+<div class="bot"><button onclick="bk()">📥 备份</button><button onclick="document.getElementById('fi').click()">📤 恢复</button><input type="file" id="fi" accept=".json" style="display:none" onchange="imp(event)"></div>
+<div class="tips" id="tips"></div>
+<div class="ov" id="mo" onclick="if(event.target===this)cm()"><div class="pan"><div class="pan-grip"></div><div class="pan-top"><h4 id="mT">1月</h4><span><b id="mA">¥0</b> · <span id="mN">0</span>次</span></div><div class="pan-body" id="mB"></div></div></div>
+<div class="ov" id="eo" onclick="if(event.target===this)ce()"><div class="pan"><div class="pan-grip"></div><div style="font-size:15px;font-weight:700;text-align:center;padding:12px 0 14px">修改记录</div><div style="padding:0 16px 16px"><div class="fd" style="margin-bottom:8px"><label>日期</label><input type="date" id="eD"></div><div class="fr" style="margin-bottom:8px"><div class="fd"><label>金额（元）</label><input type="number" id="eA" placeholder="0.00" inputmode="decimal" oninput="ep()"></div><div class="fd"><label>度数（kWh）</label><input type="number" id="eG" placeholder="30" inputmode="decimal" oninput="ep()"></div></div><div class="fr" style="margin-bottom:8px"><div class="fd"><label>当前里程（km）</label><input type="number" id="eK" placeholder="5911" inputmode="decimal" oninput="ep()"></div></div><div class="fd"><div class="tip" id="eTip"></div></div><div class="fr" style="margin-top:10px"><button class="btn" style="background:var(--c2);color:var(--t1)" onclick="ce()">取消</button><button class="btn" onclick="se()">保存</button></div></div></div></div>
 <script>
-var R=JSON.parse(localStorage.getItem('evChargeRecords'))||[];
-var selYear=new Date().getFullYear();
-var eid=null;
-var curMonth=null;
-var CONSUME=0.19;
-
-function lt(){if(!R.length)return null;return R.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)})[0]}
-function lk(){var s=R.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)});for(var i=0;i<s.length公里 ¥'+((a/g)*CONSUME).toFixed(2));
-}
-if(!isNaN(a)&&a>0&&!isNaN(k)&&k>0){
-var d=dr(k,lt());
-if(d>0)parts.push('行驶'+d+'km');
-}
-e.textContent=parts.join(' · ');
-}
-
-function epv(){
-var a=parseFloat(document.getElementById('eA').value);
-var g=parseFloat(document.getElementById('eG').value);
-var k=parseFloat(document.getElementById=parseFloat(document.getElementById('dA').value);
-var g;i++)if(s[i].currentKm)return s[i].currentKm;return null}
-function dr(k,b){if(!b||!b.currentKm)return 0;var d=k-b.currentKm;return d>0?d:0}
-function ht(){var l=lt();document.getElementById('dH').textContent=l&&l.currentKm?'上次里程：'+l.currentKm+'km':'首次记录'}
-function toggleTheme(){var b=document.getElementById('themeBtn');if(document.documentElement.getAttribute('data-theme')==='dark'){document.documentElement.removeAttribute('data-theme');b.textContent='🌙';localStorage.setItem('theme','light')}else{document.documentElement.setAttribute('data-theme','dark');b.textContent='☀️';localStorage.setItem('theme','dark')}}
-
-function pv(){
-var a=parseFloat(document.getElementById('dG').value);
-var k=parseFloat(document.getElementById('dK').value);
-var e=document.getElementById('dP');
-var parts=[];
-if(!isNaN(a)&&a>0&&!isNaN(g)&&g>0){
-parts.push('电价 ¥'+(a/g).toFixed(2)+'/度');
-parts.push('每('eK').value);
-var e=document.getElementById('eP');
-var parts=[];
-if(!isNaN(a)&&a>0&&!isNaN(g)&&g>0){
-parts.push('电价 ¥'+(a/g).toFixed(2)+'/度');
-parts.push('每公里 ¥'+((a/g)*CONSUME).toFixed(2));
-}
-if(!isNaN(a)&&a>0&&!isNaN(k)&&k>0){
-var b=bf(eid);var d=dr(k,b);
-if(d>0)parts.push('行驶'+d+'km');
-}
-e.textContent=parts.join(' · ');
-}
-
-function add(){
-var date=document.getElementById('dD').value;
-var amt=parseFloat(document.getElementById('dA').value);
-var deg=parseFloat(document.getElementById('dG').value);
-var km=parseFloat(document.getElementById('dK').value);
-if(!date){toast('请选择日期');return}
-if(isNaN(amt)||amt<=0){toast('请输入金额');return}
-var l=lt();var dk=0;
-if(!isNaN(km)&&km>0)dk=dr(km,l);
-R.unshift({id:Date.now(),date:date,amount:amt,degrees:(!isNaN(deg)&&deg>0)?deg:null,currentKm:(!isNaN(km)&&km>0)?km:null,drivenKm:dk>0?dk:null,note:'',time:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});
-sv();all();
-document.getElementById('dA').value='';
-document.getElementById('dG').value='';
-document.getElementById('dK').value='';
-document.getElementById('dD').valueAsDate=new Date();
-document.getElementById('dP').textContent='';
-ht();toast('已保存');
-if(navigator.vibrate)navigator.vibrate([10,50,10])}
-
-function del(id){if(!confirm('确定删除？'))return;R=R.filter(function(r){return r.id!==id});rc();sv();all();ht();if(curMonth!==null)oM(curMonth);toast('已删除')}
-
-function bf(id){var s=R.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)});var idx=-1;for(var i=0;i<s.length;i++){if(s[i].id===id){idx=i;break}}if(idx<s.length-1)return s[idx+1];return null}
-
-function oE(id){var r.getElementById('eA').value);
-var deg=parseFloat(document.getElementById('eG').value);
-var km=parseFloat(document.getElementById('eK').value);
-if(!date){toast('请选择日期');return}
-if(isNaN(amt)||amt<=0){toast('请输入金额');return}
-for(var i=0;i<R.length;i++){if(R[i].id===eid){R[i].date=date;R[i].amount=amt;R[i].degrees=(!isNaN(deg)&&=R.find(function(x){return x.id===id});if(!r)return;eid=id;document.getElementById('eD').value=r.date;document.getElementById('eA').value=r.amount;document.getElementById('eG').value=r.degrees||'';document.getElementById('eK').value=r.currentKm||'';var b=bf(id);document.getElementById('eH').textContent=b&&b.currentKm?'上一条里程：'+b.currentKm+'km':'最早记录';epv();document.getElementById('editOvl').classList.add('show')}
-
-function cE(){document.getElementById('editOvl').classList.remove('show');eid=null}
-
-function sE(){
-if(!eid)return;
-var date=document.getElementById('eD').value;
-var amt=parseFloat(documentdeg>0)?deg:null;R[i].currentKm=(!isNaN(km)&&km>0)?km:null;break}}
-rc();sv();all();ht();if(curMonth!==null)oM(curMonth);toast('已修改');cE()}
-
-function rc(){var s=R.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)});for(var i=0;i<s.length;i++){var r=s[i];if(!r.currentKm){r.drivenKm=null;continue}if(i<s.length-1){var p=s[i+1];if(p.currentKm){var d=r.currentKm-p.currentKm;r.drivenKm=d>0?d:null}else r.drivenKm=null}else r.drivenKm=null}}
-
-function sv(){localStorage.setItem('evChargeRecords',JSON.stringify(R))}
-function all(){stats();chart()}
-function chgYear(d){selYear+=d;all()}
-
-function stats(){
-var now=new Date(),cm=now.getMonth(),cy=now.getFullYear();
-var mr=R.filter(function(r){var d=new Date(r.date);return d.getMonth()===cm&&d.getFullYear()===cy});
-var mt=mr.reduce(function(s,r){return s+r.amount},0);
-var ta=R.reduce(function(s,r){return s+r.amount},0);
-var td=R.reduce(function(s,r){return s+(r.degrees||0)},0);
-var lk2=lk();
-document.getElementById('mAmt').textContent='¥'+mt.toFixed(2);
-document.getElementById('mCnt').textContent=mr.length;
-var mSorted=mr.slice().sort(function(a,b){return new Date(a.date)-new Date(b.date)});
-var mf=null,ml2=null;
-for(var i=0;i<mSorted.length;i++){if(mSorted[i].currentKm){if(mf===null)mf=mSorted[i].currentKm;ml2=mSorted[i].currentKm}}
-document.getElementById('mCpk').textContent=(mf!==null&&ml2!==null&&ml2>mf)?'¥'+(mt/(ml2-mf)).toFixed(2)+'/km':'--';
-var pct=0;if(ta>0&&mt>0)pct=Math.min(100,Math.round(mt/ta*100));
-document.getElementById('pctRing').style.setProperty('--pct',pct+'%');
-document.getElementById('pctTxt').textContent=pct+'%';
-
-var avgPrice=(td>0)?(ta/td):0;
-document.getElementById('s1').textContent=(avgPrice>0)?'¥'+avgPrice.toFixed(2):'¥0';
-document.getElementById('s2').textContent=(avgPrice>0)?'¥'+(avgPrice*CONSUME).toFixed(2):'¥0';
-document.getElementById('s3').textContent=(lk2&&lk2>0)?lk2+'km':'0';
-document.getElementById('s4').textContent='¥'+ta.toFixed(0)}
-
-function chart(){
-document.getElementById('yearLabel').textContent=selYear;
-var c=document.getElementById('chart');
-var now=new Date(),cm=now.getMonth(),cy=now.getFullYear();
-var months=[];
-for(var m=0;m<12;m++){
-var total=0;
-R.forEach(function(r){var d=new Date(r.date);if(d.getFullYear()===selYear&&d.getMonth()===m)total+=r.amount});
-months.push({m:m,label:(m+1)+'月',total:total,isCur:m===cm&&selYear===cy})}
-var mx=0;for(var i=0;i<12;i++)if(months[i].total>mx)mx=months[i].total;
-if(mx===0)mx=1;
-var h='';
-for(var i=0;i<12;i++){
-var m=months[i];
-var pct=Math.max(m.total>0?18:2,m.total/mx*100);
-h+='<div class="chart-col" onclick="oM('+m.m+')">';
-h+='<div class="chart-val">'+(m.total>0?'¥'+Math.round(m.total):'')+'</div>';
-h+='<div class="chart-bar '+(m.isCur?'cur':'')+' '+(m.total>0?'has-data':'')+'" style="height:'+pct+'%"></div>';
-h+='<div class="chart-lab '+(m.isCur?'cur':'')+'">'+m.label+'</div></div>'}
-c.innerHTML=h;
-setTimeout(function(){var cur=c.querySelector('.chart-col .cur');if(cur)cur.closest('.chart-col').scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})},100)}
-
-function oM(month){
-curMonth=month;
-var recs=R.filter(function(r){var d=new Date(r.date);return d.getFullYear()===selYear&&d.getMonth()===month});
-recs.sort(function(a,b){return new Date(b.date)-new Date(a.date)});
-var total=recs.reduce(function(s,r){return s+r.amount},0);
-document.getElementById('pTitle').textContent=selYear+'年'+(month+1)+'月';
-document.getElementById('pTotal').textContent='¥'+total.toFixed(2);
-document.getElementById('pCount').textContent=recs.length;
-var body=document.getElementById('pBody');
-if(!recs.length){body.innerHTML='<div class="panel-empty">本月没有记录</div>'}
-else{
-var h='';
-for(var i=0;i<recs.length;i++){
-var r=recs[i];
-var d=new Date(r.date);
-var w=['日','一','二','三','四','五','六'];
-var ds=(d.getMonth()+1)+'.'+d.getDate()+' 周'+w[d.getDay()];
-var cpk='',dk='',km='',price='',cpk2='';
-if(r.currentKm)km=r.currentKm+'km';
-if(r.drivenKm&&r.drivenKm>0){dk=r.drivenKm+'km'}
-if(r.degrees&&r.degrees>0){
-var rp=r.amount/r.degrees;
-price='¥'+rp.toFixed(2)+'/度';
-cpk2='¥'+(rp*CONSUME).toFixed(2)+'/km';
-}else if(r.drivenKm&&r.drivenKm>0){
-cpk2='¥'+(r.amount/r.drivenKm).toFixed(2)+'/km';
-}
-h+='<div class="rec">';
-h+='<div class="rd"></div>';
-h+='<div class="ri"><div class="ri-d">'+ds+'</div><div class="ri-i">';
-if(km)h+='<span>'+km+'</span>';
-if(dk)h+='<span>'+dk+'</span>';
-if(r.degrees)h+='<span>'+r.degrees+'度</span>';
-if(price)h+='<span class="ri-g">'+price+'</span>';
-if(cpk2)h+='<span class="ri-c">'+cpk2+'</span>';
-h+='</div></div>';
-h+='<div class="rp">¥'+r.amount.toFixed(2)+'</div>';
-h+='<div class="ra">';
-h+='<button class="rb" onclick="event.stopPropagation();oE('+r.id+')">✏️</button>';
-h+='<button class="rb" onclick="event.stopPropagation();del('+r.id+')">✕</button>';
-h+='</div></div>'}
-body.innerHTML=h}
-document.getElementById('monthPanel').classList.add('show')}
-
-function cP(){document.getElementById('monthPanel').classList.remove('show');curMonth=null}
-
-function bk(){if(!R.length){toast('没有数据');return}var b=new Blob([JSON.stringify(R,null,2)],{type:'application/json'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='充电记录_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u);toast('备份成功')}
-
-function rs(e){var f=e.target.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(ev){try{var d=JSON.parse(ev.target.result);if(Array.isArray(d)){R=d.map(function(r){return{id:r.id||Date.now(),date:r.date,amount:r.amount,degrees:r.degrees||null,currentKm:r.currentKm||r.km||null,drivenKm:r.drivenKm||null,note:r.note||'',time:r.time||''}});rc();sv();all();ht();toast('恢复成功')}else toast('格式错误')}catch(x){toast('格式错误')}};rd.readAsText(f);e.target.value=''}
-
-function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
-
-document.addEventListener('DOMContentLoaded',function(){if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='☀️'}document.getElementById('dD').valueAsDate=new Date();all();ht()});
+var D=JSON.parse(localStorage.getItem('ev'))||[],SY=new Date().getFullYear(),EID=null,CM=null,EC=0.19;
+function lt(){if(!D.length)return null;return D.slice().sort(function(a,b){return new Date(b.d)-new Date(a.d)})[0]}
+function lk(){var s=D.slice().sort(function(a,b){return new Date(b.d)-new Date(a.d)});for(var i=0;i<s.length;i++)if(s[i].k)return s[i].k;return null}
+function dr(a,b){if(!b||!b.k)return 0;var d=a-b.k;return d>0?d:0}
+function bf(id){var s=D.slice().sort(function(a,b){return new Date(b.d)-new Date(a.d)});var i=-1;for(var j=0;j<s.length;j++){if(s[j].id===id){i=j;break}}return i<s.length-1?s[i+1]:null}
+function sv(){localStorage.setItem('ev',JSON.stringify(D))}
+function al(){st();ch()}
+function th(){var b=document.getElementById('tb');if(document.documentElement.getAttribute('data-t')==='d'){document.documentElement.removeAttribute('data-t');b.textContent='🌙';localStorage.setItem('th','l')}else{document.documentElement.setAttribute('data-t','d');b.textContent='☀️';localStorage.setItem('th','d')}}
+function cy(d){SY+=d;al()}
+function pv(){var a=parseFloat(document.getElementById('aA').value),g=parseFloat(document.getElementById('aG').value),k=parseFloat(document.getElementById('aK').value),t=[];if(!isNaN(a)&&a>0&&!isNaN(g)&&g>0){t.push('¥'+(a/g).toFixed(2)+'/度');t.push('¥'+((a/g)*EC).toFixed(2)+'/km')}var e=document.getElementById('aTip');e.textContent=t.join(' · ')}
+function ep(){var a=parseFloat(document.getElementById('eA').value),g=parseFloat(document.getElementById('eG').value),t=[];if(!isNaN(a)&&a>0&&!isNaN(g)&&g>0){t.push('¥'+(a/g).toFixed(2)+'/度');t.push('¥'+((a/g)*EC).toFixed(2)+'/km')}document.getElementById('eTip').textContent=t.join(' · ')}
+function add(){var d=document.getElementById('aD').value,a=parseFloat(document.getElementById('aA').value),g=parseFloat(document.getElementById('aG').value),k=parseFloat(document.getElementById('aK').value);if(!d){toast('请选择日期');return}if(isNaN(a)||a<=0){toast('请输入金额');return}var l=lt(),dk=0;if(!isNaN(k)&&k>0)dk=dr(k,l);D.unshift({id:Date.now(),d:d,a:a,g:(!isNaN(g)&&g>0)?g:null,k:(!isNaN(k)&&k>0)?k:null,dk:dk>0?dk:null,t:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});sv();al();document.getElementById('aA').value='';document.getElementById('aG').value='';document.getElementById('aK').value='';document.getElementById('aD').valueAsDate=new Date();document.getElementById('aTip').textContent='';document.getElementById('dH').textContent=lt()&&lt().k?'上次：'+lt().k+'km':'首次';toast('已保存');if(navigator.vibrate)navigator.vibrate([10,50,10])}
+function del(id){if(!confirm('确定删除？'))return;D=D.filter(function(r){return r.id!==id});rc();sv();al();if(CM!==null)om(CM);toast('已删除')}
+function oe(id){var r=D.find(function(x){return x.id===id});if(!r)return;EID=id;document.getElementById('eD').value=r.d;document.getElementById('eA').value=r.a;document.getElementById('eG').value=r.g||'';document.getElementById('eK').value=r.k||'';ep();document.getElementById('eo').classList.add('s')}
+function ce(){document.getElementById('eo').classList.remove('s');EID=null}
+function se(){if(!EID)return;var d=document.getElementById('eD').value,a=parseFloat(document.getElementById('eA').value),g=parseFloat(document.getElementById('eG').value),k=parseFloat(document.getElementById('eK').value);if(!d){toast('请选择日期');return}if(isNaN(a)||a<=0){toast('请输入金额');return}for(var i=0;i<D.length;i++){if(D[i].id===EID){D[i].d=d;D[i].a=a;D[i].g=(!isNaN(g)&&g>0)?g:null;D[i].k=(!isNaN(k)&&k>0)?k:null;break}}rc();sv();al();if(CM!==null)om(CM);toast('已修改');ce()}
+function rc(){var s=D.slice().sort(function(a,b){return new Date(b.d)-new Date(a.d)});for(var i=0;i<s.length;i++){var r=s[i];if(!r.k){r.dk=null;continue}if(i<s.length-1){var p=s[i+1];if(p.k){var d=r.k-p.k;r.dk=d>0?d:null}else r.dk=null}else r.dk=null}}
+function st(){var n=new Date(),cm=n.getMonth(),cy2=n.getFullYear(),mr=D.filter(function(r){var d=new Date(r.d);return d.getMonth()===cm&&d.getFullYear()===cy2}),mt=mr.reduce(function(s,r){return s+r.a},0),ta=D.reduce(function(s,r){return s+r.a},0),td=D.reduce(function(s,r){return s+(r.g||0)},0),lk2=lk();document.getElementById('hA').textContent='¥'+mt.toFixed(2);document.getElementById('hC').textContent=mr.length;var ms=mr.slice().sort(function(a,b){return new Date(a.d)-new Date(b.d)}),mf=null,ml=null;for(var i=0;i<ms.length;i++){if(ms[i].k){if(mf===null)mf=ms[i].k;ml=ms[i].k}}document.getElementById('hK').textContent=(mf!==null&&ml!==null&&ml>mf)?'¥'+(mt/(ml-mf)).toFixed(2)+'/km':'--';var pct=ta>0&&mt>0?Math.min(100,Math.round(mt/ta*100)):0;document.getElementById('ring').style.setProperty('--p',pct+'%');document.getElementById('ringT').textContent=pct+'%';var ap=td>0?ta/td:0;document.getElementById('s1').textContent=ap>0?'¥'+ap.toFixed(2):'¥0';document.getElementById('s2').textContent=ap>0?'¥'+(ap*EC).toFixed(2):'¥0';document.getElementById('s3').textContent=lk2&&lk2>0?lk2+'km':'0';document.getElementById('s4').textContent='¥'+ta.toFixed(0)}
+function ch(){document.getElementById('yr').textContent=SY;var c=document.getElementById('ch'),n=new Date(),cm=n.getMonth(),cy2=n.getFullYear(),ms=[];for(var m=0;m<12;m++){var t=0;D.forEach(function(r){var d=new Date(r.d);if(d.getFullYear()===SY&&d.getMonth()===m)t+=r.a});ms.push({m:m,l:(m+1)+'月',t:t,c:m===cm&&SY===cy2})}var mx=0;for(var i=0;i<12;i++)if(ms[i].t>mx)mx=ms[i].t;if(mx===0)mx=1;var h='';for(var i=0;i<12;i++){var m=ms[i],p=Math.max(m.t>0?18:2,m.t/mx*100);h+='<div class="ch" onclick="om('+m.m+')"><b>'+(m.t>0?'¥'+Math.round(m.t):'')+'</b><div class="bar2 '+(m.t>0?'e':'n')+'" style="height:'+p+'%"></div><em class="'+(m.c?'now':'')+'">'+m.l+'</em></div>'}c.innerHTML=h;setTimeout(function(){var e=c.querySelector('.now');if(e)e.parentElement.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})},100)}
+function om(month){CM=month;var rs=D.filter(function(r){var d=new Date(r.d);return d.getFullYear()===SY&&d.getMonth()===month});rs.sort(function(a,b){return new Date(b.d)-new Date(a.d)});var t=rs.reduce(function(s,r){return s+r.a},0);document.getElementById('mT').textContent=SY+'年'+(month+1)+'月';document.getElementById('mA').textContent='¥'+t.toFixed(2);document.getElementById('mN').textContent=rs.length;var b=document.getElementById('mB');if(!rs.length){b.innerHTML='<div class="empty">本月没有记录</div>'}else{var h='';for(var i=0;i<rs.length;i++){var r=rs[i],d=new Date(r.d),w=['日','一','二','三','四','五','六'],ds=(d.getMonth()+1)+'.'+d.getDate()+' 周'+w[d.getDay()],cp='',dk='',km='',pr='';if(r.k)km=r.k+'km';if(r.dk&&r.dk>0)dk=r.dk+'km';if(r.g&&r.g>0){var rp=r.a/r.g;pr='¥'+rp.toFixed(2)+'/度';cp='¥'+(rp*EC).toFixed(2)+'/km'}else if(r.dk&&r.dk>0){cp='¥'+(r.a/r.dk).toFixed(2)+'/km'}h+='<div class="it"><div class="it-dot"></div><div class="it-info"><div class="it-date">'+ds+'</div><div class="it-detail">';if(km)h+='<span>'+km+'</span>';if(dk)h+='<span>'+dk+'</span>';if(r.g)h+='<span>'+r.g+'度</span>';if(pr)h+='<span class="g">'+pr+'</span>';if(cp)h+='<span class="b">'+cp+'</span>';h+='</div></div><div class="it-price">¥'+r.a.toFixed(2)+'</div><div class="it-btns"><button class="it-btn" onclick="event.stopPropagation();oe('+r.id+')">✏️</button><button class="it-btn" onclick="event.stopPropagation();del('+r.id+')">✕</button></div></div>'}b.innerHTML=h}document.getElementById('mo').classList.add('s')}
+function cm(){document.getElementById('mo').classList.remove('s');CM=null}
+function bk(){if(!D.length){toast('没有数据');return}var b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='充电记录_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u);toast('备份成功')}
+function imp(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){try{var d=JSON.parse(ev.target.result);if(Array.isArray(d)){D=d.map(function(r){return{id:r.id||Date.now(),d:r.d||r.date,a:r.a||r.amount,g:r.g||r.degrees||null,k:r.k||r.currentKm||null,dk:r.dk||r.drivenKm||null,t:r.t||r.time||''}});rc();sv();al();toast('恢复成功')}else toast('格式错误')}catch(x){toast('格式错误')}};r.readAsText(f);e.target.value=''}
+function toast(m){var t=document.getElementById('tips');t.textContent=m;t.classList.add('s');setTimeout(function(){t.classList.remove('s')},2000)}
+document.addEventListener('DOMContentLoaded',function(){if(localStorage.getItem('th')==='d'){document.documentElement.setAttribute('data-t','d');document.getElementById('tb').textContent='☀️'}document.getElementById('aD').valueAsDate=new Date();al()});
 </script>
 </body>
 </html>
