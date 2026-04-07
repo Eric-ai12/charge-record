@@ -14,12 +14,10 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;padding-bottom:76px;-webkit-font-smoothing:antialiased}
 .num{font-family:'DM Mono','SF Mono',Menlo,monospace}
-
 .top{background:var(--s1);padding:12px 20px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;border-bottom:.5px solid var(--br)}
 .top h1{font-size:18px;font-weight:700;letter-spacing:-.3px}
 .icon-btn{width:34px;height:34px;border-radius:10px;border:none;background:var(--s2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t1)}
 .icon-btn:active{background:var(--br);transform:scale(.92)}
-
 .hero{margin:14px 16px 0;padding:18px 20px;background:var(--s1);border-radius:16px;box-shadow:var(--sh);display:flex;align-items:center;gap:16px}
 .hero-info{flex:1}
 .hero-label{font-size:12px;color:var(--t2);font-weight:500}
@@ -29,32 +27,28 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 .pct-ring{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
 .pct-ring::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--ac) var(--pct,0%),var(--s2) 0);mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px))}
 .pct-ring span{font-size:9px;font-weight:500;color:var(--t2);z-index:1}
-
 .stats{display:flex;gap:1px;margin:8px 16px 0;background:var(--s1);border-radius:14px;overflow:hidden;box-shadow:var(--sh)}
 .stat{flex:1;padding:14px 8px;text-align:center}
 .stat+.stat{border-left:.5px solid var(--br)}
-.stat-v{font-size:19px;font-weight:700;color:var(--ac);letter-spacing:-.5px}
+.stat-v{font-size:18px;font-weight:700;color:var(--ac);letter-spacing:-.5px}
 .stat-l{font-size:10px;color:var(--t2);margin-top:3px;font-weight:500}
-
 .chart-sec{margin:10px 16px 0;background:var(--s1);border-radius:14px;box-shadow:var(--sh);overflow:hidden}
 .year-bar{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 16px 8px}
 .year-btn{width:30px;height:30px;border-radius:8px;border:none;background:var(--s2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t2);font-weight:600}
 .year-btn:active{background:var(--br)}
 .year-label{font-size:15px;font-weight:700;min-width:60px;text-align:center}
-.chart-body{display:flex;align-items:flex-end;gap:4px;height:90px;padding:0 14px 20px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory}
-.chart-body::-webkit-scrollbar{display:none}
+.chart-body{display:flex;align-items:flex-end;gap:4px;height:130px;padding:0 14px 20px;overflow-x:auto;scrollbar-width:none;scroll-s:none}
 .chart-col{display:flex;flex-direction:column;align-items:center;flex:0 0 36px;position:relative;cursor:pointer;scroll-snap-align:center}
 .chart-col:active .chart-bar{opacity:.7}
-.chart-bar{width:24px;border-radius:4px 4px 0 0;background:var(--bar);transition:height .5s cubic-bezier(.34,1.56,.64,1),background .3s;min-height:2px}
+.chart-bar{width:28px;border-radius:4px 4px 0 0;background:var(--bar);transition:height .5s cubic-bezier(.34,1.56,.64,1),background .3s;min-height:2px}
 .chart-bar.cur{background:var(--bar-a)}
 .chart-bar.has-data{background:var(--ac)}
-.chart-bar.cur.has-data{background:var(--ac);box-shadow:0 0 8px rgba(0,122,255,.3)}
+.chart-bar.cur.has-data{background:var(--ac);box-shadow:0 0 8px rgba(0,122,25nap-type:x mandatory}
+.chart-body::-webkit-scrollbar{display5,.3)}
 .chart-val{font-size:9px;color:var(--t2);white-space:nowrap;margin-bottom:3px;font-weight:500;min-height:12px}
 .chart-lab{font-size:10px;color:var(--t3);position:absolute;bottom:-16px;white-space:nowrap;font-weight:500}
 .chart-lab.cur{color:var(--ac);font-weight:700}
-
 .hint{text-align:center;font-size:11px;color:var(--t3);padding:6px 0 12px}
-
 .add-sec{margin:10px 16px 0}
 .sec-hd{font-size:12px;font-weight:600;color:var(--t2);margin-bottom:8px;padding:0 2px;letter-spacing:.3px}
 .add{background:var(--s1);border-radius:14px;padding:16px;box-shadow:var(--sh)}
@@ -69,14 +63,11 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 .fld .pv{font-size:10px;color:var(--ac);margin-top:3px;font-weight:500;min-height:14px}
 .save{width:100%;padding:11px;border-radius:10px;border:none;background:var(--ac);color:#fff;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:10px}
 .save:active{opacity:.7}
-
 .bbar{position:fixed;bottom:0;left:0;right:0;background:rgba(var(--bbg),.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:.5px solid var(--br);padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom));display:flex;gap:8px;z-index:100}
 .bbar button{flex:1;padding:10px;border-radius:10px;border:none;background:var(--s2);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;color:var(--t1)}
 .bbar button:active{background:var(--br)}
-
 .toast{position:fixed;top:64px;left:50%;transform:translateX(-50%) translateY(-16px);background:var(--t1);color:var(--bg);padding:9px 18px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;z-index:1000;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .overlay.show{display:flex}
 .panel{background:var(--s1);border-radius:18px 18px 0 0;width:100%;max-width:500px;max-height:80vh;display:flex;flex-direction:column;animation:mu .3s cubic-bezier(.32,.72,0,1)}
@@ -87,7 +78,6 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 .panel-stat{font-size:13px;color:var(--t2)}
 .panel-stat b{color:var(--ac);font-weight:700}
 .panel-body{flex:1;overflow-y:auto;padding:0 20px 20px;-webkit-overflow-scrolling:touch}
-
 .rec{display:flex;align-items:center;padding:12px 0;border-bottom:.5px solid var(--br)}
 .rec:last-child{border-bottom:none}
 .rec:active{opacity:.5}
@@ -97,12 +87,12 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 .ri-i{font-size:10px;color:var(--t2);margin-top:2px}
 .ri-i span{margin-right:5px}
 .ri-c{color:var(--ac);font-weight:500}
+.ri-g{color:#34c759;font-weight:500}
 .rp{font-size:15px;font-weight:700;color:var(--ac);margin-right:4px}
 .ra{display:flex;gap:2px}
 .rb{width:26px;height:26px;border-radius:6px;border:none;background:transparent;font-size:13px;color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center}
 .rb:active{background:var(--ac2);color:var(--ac)}
 .panel-empty{text-align:center;padding:40px 20px;color:var(--t3);font-size:13px}
-
 .edit-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;display:none;align-items:flex-end;justify-content:center}
 .edit-overlay.show{display:flex}
 .edit-box{background:var(--s1);border-radius:18px 18px 0 0;width:100%;max-width:500px;padding:20px;padding-bottom:max(20px,env(safe-area-inset-bottom));animation:mu .3s cubic-bezier(.32,.72,0,1)}
@@ -114,12 +104,10 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 </style>
 </head>
 <body>
-
 <div class="top">
 <h1>充电记录</h1>
 <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
 </div>
-
 <div class="hero">
 <div class="hero-info">
 <div class="hero-label">本月充电</div>
@@ -128,13 +116,12 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 </div>
 <div class="pct-ring" id="pctRing"><span id="pctTxt">0%</span></div>
 </div>
-
 <div class="stats">
-<div class="stat"><div class="stat-v num" id="tKm">0</div><div class="stat-l">总里程</div></div>
-<div class="stat"><div class="stat-v num" id="tCost">¥0</div><div class="stat-l">总花费</div></div>
-<div class="stat"><div class="stat-v num" id="avg">¥0</div><div class="stat-l">每公里</div></div>
+<div class="stat"><div class="stat-v num" id="s1">¥0</div><div class="stat-l">平均电价</div></div>
+<div class="stat"><div class="stat-v num" id="s2">¥0</div><div class="stat-l">每公里</div></div>
+<div class="stat"><div class="stat-v num" id="s3">0</div><div class="stat-l">总里程</div></div>
+<div class="stat"><div class="stat-v num" id="s4">¥0</div><div class="stat-l">总花费</div></div>
 </div>
-
 <div class="chart-sec">
 <div class="year-bar">
 <button class="year-btn" onclick="chgYear(-1)">‹</button>
@@ -144,7 +131,6 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 <div class="chart-body" id="chart"></div>
 <div class="hint">点击月份查看详细记录</div>
 </div>
-
 <div class="add-sec">
 <div class="sec-hd">添加记录</div>
 <div class="add">
@@ -153,25 +139,22 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 <div class="fld"><label>金额（元）</label><input type="number" id="dA" placeholder="0.00" inputmode="decimal" oninput="pv()"></div>
 </div>
 <div class="row">
-<div class="fld">
-<label>当前里程（km）</label>
-<input type="number" id="dK" placeholder="5911" inputmode="decimal" oninput="pv()">
+<div class="fld"><label>度数（kWh）</label><input type="number" id="dG" placeholder="30" inputmode="decimal" oninput="pv()"></div>
+<div class="fld"><label>当前里程（km）</label><input type="number" id="dK" placeholder="5911" inputmode="decimal" oninput="pv()"></div>
+</div>
+<div class="fld" style="margin-top:2px">
 <div class="hint2" id="dH"></div>
 <div class="pv" id="dP"></div>
-</div>
 </div>
 <button class="save" onclick="add()">保存记录</button>
 </div>
 </div>
-
 <div class="bbar">
 <button onclick="bk()">📥 备份</button>
 <button onclick="document.getElementById('imp').click()">📤 恢复</button>
 <input type="file" id="imp" accept=".json" style="display:none" onchange="rs(event)">
 </div>
-
 <div class="toast" id="toast"></div>
-
 <div class="overlay" id="monthPanel" onclick="if(event.target===this)cP()">
 <div class="panel">
 <div class="panel-bar"></div>
@@ -182,16 +165,17 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 <div class="panel-body" id="pBody"></div>
 </div>
 </div>
-
 <div class="edit-overlay" id="editOvl" onclick="if(event.target===this)cE()">
 <div class="edit-box">
 <div class="panel-bar"></div>
 <div style="font-size:16px;font-weight:600;text-align:center;margin-bottom:14px">修改记录</div>
 <div class="fld" style="margin-bottom:10px"><label>日期</label><input type="date" id="eD"></div>
 <div class="fld" style="margin-bottom:10px"><label>金额（元）</label><input type="number" id="eA" placeholder="0.00" inputmode="decimal" oninput="epv()"></div>
+<div class="row" style="margin-bottom:10px">
+<div class="fld"><label>度数（kWh）</label><input type="number" id="eG" placeholder="30" inputmode="decimal" oninput="epv()"></div>
+<div class="fld"><label>当前里程（km）</label><input type="number" id="eK" placeholder="5911" inputmode="decimal" oninput="epv()"></div>
+</div>
 <div class="fld">
-<label>当前里程（km）</label>
-<input type="number" id="eK" placeholder="5911" inputmode="decimal" oninput="epv()">
 <div class="hint2" id="eH"></div>
 <div class="pv" id="eP"></div>
 </div>
@@ -201,87 +185,95 @@ body{font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;back
 </div>
 </div>
 </div>
-
 <script>
 var R=JSON.parse(localStorage.getItem('evChargeRecords'))||[];
 var selYear=new Date().getFullYear();
 var eid=null;
 var curMonth=null;
+var CONSUME=0.19;
 
 function lt(){if(!R.length)return null;return R.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)})[0]}
-function lk(){var s=R.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)});for(var i=0;i<s.length;i++)if(s[i].currentKm)return s[i].currentKm;return null}
-function dr(k,b){if(!b||!b.currentKm)return 0;var d=k-b.currentKm;return d>0?d:0}
-function ht(){var l=lt();document.getElementById('dH').textContent=l&&l.currentKm?'上次：'+l.currentKm+'km':'首次记录'}
-function toggleTheme(){var b=document.getElementById('themeBtn');if(document.documentElement.getAttribute('data-theme')==='dark'){document.documentElement.removeAttribute('data-theme');b.textContent='🌙';localStorage.setItem('theme','light')}else{document.documentElement.setAttribute('data-theme','dark');b.textContent='☀️';localStorage.setItem('theme','dark')}}
-
-function pv(){
-var a=parseFloat(document.getElementById('dA').value);
-var k=parseFloat(document.getElementById('dK').value);
-var e=document.getElementById('dP');
-if(!isNaN(a)&&a>0&&!isNaN(k)&&k>0){var d=dr(k,lt());if(d>0)e.textContent='行驶'+d+'km · ¥'+(a/d).toFixed(2)+'/km';else if(lt()&&lt().currentKm)e.textContent='里程需大于上次';else e.textContent='首次，无法计算'}else e.textContent=''}
+function lk(){var s=R.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)});for(var i=0;i<s.length公里 ¥'+((a/g)*CONSUME).toFixed(2));
+}
+if(!isNaN(a)&&a>0&&!isNaN(k)&&k>0){
+var d=dr(k,lt());
+if(d>0)parts.push('行驶'+d+'km');
+}
+e.textContent=parts.join(' · ');
+}
 
 function epv(){
 var a=parseFloat(document.getElementById('eA').value);
-var k=parseFloat(document.getElementById('eK').value);
+var g=parseFloat(document.getElementById('eG').value);
+var k=parseFloat(document.getElementById=parseFloat(document.getElementById('dA').value);
+var g;i++)if(s[i].currentKm)return s[i].currentKm;return null}
+function dr(k,b){if(!b||!b.currentKm)return 0;var d=k-b.currentKm;return d>0?d:0}
+function ht(){var l=lt();document.getElementById('dH').textContent=l&&l.currentKm?'上次里程：'+l.currentKm+'km':'首次记录'}
+function toggleTheme(){var b=document.getElementById('themeBtn');if(document.documentElement.getAttribute('data-theme')==='dark'){document.documentElement.removeAttribute('data-theme');b.textContent='🌙';localStorage.setItem('theme','light')}else{document.documentElement.setAttribute('data-theme','dark');b.textContent='☀️';localStorage.setItem('theme','dark')}}
+
+function pv(){
+var a=parseFloat(document.getElementById('dG').value);
+var k=parseFloat(document.getElementById('dK').value);
+var e=document.getElementById('dP');
+var parts=[];
+if(!isNaN(a)&&a>0&&!isNaN(g)&&g>0){
+parts.push('电价 ¥'+(a/g).toFixed(2)+'/度');
+parts.push('每('eK').value);
 var e=document.getElementById('eP');
-if(!isNaN(a)&&a>0&&!isNaN(k)&&k>0){var b=bf(eid);var d=dr(k,b);if(d>0)e.textContent='行驶'+d+'km · ¥'+(a/d).toFixed(2)+'/km';else if(b&&b.currentKm)e.textContent='里程需大于上一条';else e.textContent='首条，无法计算'}else e.textContent=''}
+var parts=[];
+if(!isNaN(a)&&a>0&&!isNaN(g)&&g>0){
+parts.push('电价 ¥'+(a/g).toFixed(2)+'/度');
+parts.push('每公里 ¥'+((a/g)*CONSUME).toFixed(2));
+}
+if(!isNaN(a)&&a>0&&!isNaN(k)&&k>0){
+var b=bf(eid);var d=dr(k,b);
+if(d>0)parts.push('行驶'+d+'km');
+}
+e.textContent=parts.join(' · ');
+}
 
 function add(){
 var date=document.getElementById('dD').value;
 var amt=parseFloat(document.getElementById('dA').value);
+var deg=parseFloat(document.getElementById('dG').value);
 var km=parseFloat(document.getElementById('dK').value);
 if(!date){toast('请选择日期');return}
 if(isNaN(amt)||amt<=0){toast('请输入金额');return}
 var l=lt();var dk=0;
 if(!isNaN(km)&&km>0)dk=dr(km,l);
-R.unshift({id:Date.now(),date:date,amount:amt,currentKm:(!isNaN(km)&&km>0)?km:null,drivenKm:dk>0?dk:null,note:'',time:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});
+R.unshift({id:Date.now(),date:date,amount:amt,degrees:(!isNaN(deg)&&deg>0)?deg:null,currentKm:(!isNaN(km)&&km>0)?km:null,drivenKm:dk>0?dk:null,note:'',time:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});
 sv();all();
 document.getElementById('dA').value='';
+document.getElementById('dG').value='';
 document.getElementById('dK').value='';
 document.getElementById('dD').valueAsDate=new Date();
 document.getElementById('dP').textContent='';
 ht();toast('已保存');
 if(navigator.vibrate)navigator.vibrate([10,50,10])}
 
-function del(id){
-if(!confirm('确定删除？'))return;
-R=R.filter(function(r){return r.id!==id});
-rc();sv();all();ht();
-if(curMonth!==null)oM(curMonth);
-toast('已删除')}
+function del(id){if(!confirm('确定删除？'))return;R=R.filter(function(r){return r.id!==id});rc();sv();all();ht();if(curMonth!==null)oM(curMonth);toast('已删除')}
 
 function bf(id){var s=R.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)});var idx=-1;for(var i=0;i<s.length;i++){if(s[i].id===id){idx=i;break}}if(idx<s.length-1)return s[idx+1];return null}
 
-function oE(id){
-var r=R.find(function(x){return x.id===id});
-if(!r)return;eid=id;
-document.getElementById('eD').value=r.date;
-document.getElementById('eA').value=r.amount;
-document.getElementById('eK').value=r.currentKm||'';
-var b=bf(id);
-document.getElementById('eH').textContent=b&&b.currentKm?'上一条：'+b.currentKm+'km':'最早记录';
-epv();
-document.getElementById('editOvl').classList.add('show')}
+function oE(id){var r.getElementById('eA').value);
+var deg=parseFloat(document.getElementById('eG').value);
+var km=parseFloat(document.getElementById('eK').value);
+if(!date){toast('请选择日期');return}
+if(isNaN(amt)||amt<=0){toast('请输入金额');return}
+for(var i=0;i<R.length;i++){if(R[i].id===eid){R[i].date=date;R[i].amount=amt;R[i].degrees=(!isNaN(deg)&&=R.find(function(x){return x.id===id});if(!r)return;eid=id;document.getElementById('eD').value=r.date;document.getElementById('eA').value=r.amount;document.getElementById('eG').value=r.degrees||'';document.getElementById('eK').value=r.currentKm||'';var b=bf(id);document.getElementById('eH').textContent=b&&b.currentKm?'上一条里程：'+b.currentKm+'km':'最早记录';epv();document.getElementById('editOvl').classList.add('show')}
 
 function cE(){document.getElementById('editOvl').classList.remove('show');eid=null}
 
 function sE(){
 if(!eid)return;
 var date=document.getElementById('eD').value;
-var amt=parseFloat(document.getElementById('eA').value);
-var km=parseFloat(document.getElementById('eK').value);
-if(!date){toast('请选择日期');return}
-if(isNaN(amt)||amt<=0){toast('请输入金额');return}
-for(var i=0;i<R.length;i++){if(R[i].id===eid){R[i].date=date;R[i].amount=amt;R[i].currentKm=(!isNaN(km)&&km>0)?km:null;break}}
-rc();sv();all();ht();
-if(curMonth!==null)oM(curMonth);
-toast('已修改');cE()}
+var amt=parseFloat(documentdeg>0)?deg:null;R[i].currentKm=(!isNaN(km)&&km>0)?km:null;break}}
+rc();sv();all();ht();if(curMonth!==null)oM(curMonth);toast('已修改');cE()}
 
 function rc(){var s=R.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)});for(var i=0;i<s.length;i++){var r=s[i];if(!r.currentKm){r.drivenKm=null;continue}if(i<s.length-1){var p=s[i+1];if(p.currentKm){var d=r.currentKm-p.currentKm;r.drivenKm=d>0?d:null}else r.drivenKm=null}else r.drivenKm=null}}
 
 function sv(){localStorage.setItem('evChargeRecords',JSON.stringify(R))}
 function all(){stats();chart()}
-
 function chgYear(d){selYear+=d;all()}
 
 function stats(){
@@ -289,6 +281,7 @@ var now=new Date(),cm=now.getMonth(),cy=now.getFullYear();
 var mr=R.filter(function(r){var d=new Date(r.date);return d.getMonth()===cm&&d.getFullYear()===cy});
 var mt=mr.reduce(function(s,r){return s+r.amount},0);
 var ta=R.reduce(function(s,r){return s+r.amount},0);
+var td=R.reduce(function(s,r){return s+(r.degrees||0)},0);
 var lk2=lk();
 document.getElementById('mAmt').textContent='¥'+mt.toFixed(2);
 document.getElementById('mCnt').textContent=mr.length;
@@ -299,9 +292,12 @@ document.getElementById('mCpk').textContent=(mf!==null&&ml2!==null&&ml2>mf)?'¥'
 var pct=0;if(ta>0&&mt>0)pct=Math.min(100,Math.round(mt/ta*100));
 document.getElementById('pctRing').style.setProperty('--pct',pct+'%');
 document.getElementById('pctTxt').textContent=pct+'%';
-document.getElementById('tKm').textContent=(lk2&&lk2>0)?lk2+'km':'0';
-document.getElementById('tCost').textContent='¥'+ta.toFixed(0);
-document.getElementById('avg').textContent=(lk2&&lk2>0)?'¥'+(ta/lk2).toFixed(2):'¥0'}
+
+var avgPrice=(td>0)?(ta/td):0;
+document.getElementById('s1').textContent=(avgPrice>0)?'¥'+avgPrice.toFixed(2):'¥0';
+document.getElementById('s2').textContent=(avgPrice>0)?'¥'+(avgPrice*CONSUME).toFixed(2):'¥0';
+document.getElementById('s3').textContent=(lk2&&lk2>0)?lk2+'km':'0';
+document.getElementById('s4').textContent='¥'+ta.toFixed(0)}
 
 function chart(){
 document.getElementById('yearLabel').textContent=selYear;
@@ -317,7 +313,7 @@ if(mx===0)mx=1;
 var h='';
 for(var i=0;i<12;i++){
 var m=months[i];
-var pct=Math.max(m.total>0?8:2,m.total/mx*100);
+var pct=Math.max(m.total>0?18:2,m.total/mx*100);
 h+='<div class="chart-col" onclick="oM('+m.m+')">';
 h+='<div class="chart-val">'+(m.total>0?'¥'+Math.round(m.total):'')+'</div>';
 h+='<div class="chart-bar '+(m.isCur?'cur':'')+' '+(m.total>0?'has-data':'')+'" style="height:'+pct+'%"></div>';
@@ -342,15 +338,24 @@ var r=recs[i];
 var d=new Date(r.date);
 var w=['日','一','二','三','四','五','六'];
 var ds=(d.getMonth()+1)+'.'+d.getDate()+' 周'+w[d.getDay()];
-var cpk='',dk='',km='';
-if(r.drivenKm&&r.drivenKm>0){dk=r.drivenKm+'km';cpk='¥'+(r.amount/r.drivenKm).toFixed(2)+'/km'}
+var cpk='',dk='',km='',price='',cpk2='';
 if(r.currentKm)km=r.currentKm+'km';
+if(r.drivenKm&&r.drivenKm>0){dk=r.drivenKm+'km'}
+if(r.degrees&&r.degrees>0){
+var rp=r.amount/r.degrees;
+price='¥'+rp.toFixed(2)+'/度';
+cpk2='¥'+(rp*CONSUME).toFixed(2)+'/km';
+}else if(r.drivenKm&&r.drivenKm>0){
+cpk2='¥'+(r.amount/r.drivenKm).toFixed(2)+'/km';
+}
 h+='<div class="rec">';
 h+='<div class="rd"></div>';
 h+='<div class="ri"><div class="ri-d">'+ds+'</div><div class="ri-i">';
 if(km)h+='<span>'+km+'</span>';
 if(dk)h+='<span>'+dk+'</span>';
-if(cpk)h+='<span class="ri-c">'+cpk+'</span>';
+if(r.degrees)h+='<span>'+r.degrees+'度</span>';
+if(price)h+='<span class="ri-g">'+price+'</span>';
+if(cpk2)h+='<span class="ri-c">'+cpk2+'</span>';
 h+='</div></div>';
 h+='<div class="rp">¥'+r.amount.toFixed(2)+'</div>';
 h+='<div class="ra">';
@@ -364,13 +369,11 @@ function cP(){document.getElementById('monthPanel').classList.remove('show');cur
 
 function bk(){if(!R.length){toast('没有数据');return}var b=new Blob([JSON.stringify(R,null,2)],{type:'application/json'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='充电记录_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u);toast('备份成功')}
 
-function rs(e){var f=e.target.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(ev){try{var d=JSON.parse(ev.target.result);if(Array.isArray(d)){R=d.map(function(r){return{id:r.id||Date.now(),date:r.date,amount:r.amount,currentKm:r.currentKm||r.km||null,drivenKm:r.drivenKm||null,note:r.note||'',time:r.time||''}});rc();sv();all();ht();toast('恢复成功')}else toast('格式错误')}catch(x){toast('格式错误')}};rd.readAsText(f);e.target.value=''}
+function rs(e){var f=e.target.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(ev){try{var d=JSON.parse(ev.target.result);if(Array.isArray(d)){R=d.map(function(r){return{id:r.id||Date.now(),date:r.date,amount:r.amount,degrees:r.degrees||null,currentKm:r.currentKm||r.km||null,drivenKm:r.drivenKm||null,note:r.note||'',time:r.time||''}});rc();sv();all();ht();toast('恢复成功')}else toast('格式错误')}catch(x){toast('格式错误')}};rd.readAsText(f);e.target.value=''}
 
 function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
 
-document.addEventListener('DOMContentLoaded',function(){
-if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='☀️'}
-document.getElementById('dD').valueAsDate=new Date();all();ht()});
+document.addEventListener('DOMContentLoaded',function(){if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='☀️'}document.getElementById('dD').valueAsDate=new Date();all();ht()});
 </script>
 </body>
 </html>
